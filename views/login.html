@@ -1,4 +1,5 @@
 <div class="row py-5 my-5" ng-controller="LoginController">
+    <span class="text-danger offset-6 col-6" ng-show="loginError">{{ loginError }}</span>
     <form ng-submit="loginUser()" name="loginForm" class="w-25 py-5 my-5 offset-6 col-6" novalidate>
         <div class="form-group">
           <label for="username">Username</label>

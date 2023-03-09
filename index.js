@@ -26,6 +26,7 @@ taskMasterApp.run(function() {
 taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', function($scope, $http, $location) {
     
     $scope.user = {};
+    $scope.loginError;
 
     $scope.loginUser = () => {
         $http.post('https://todo-list-notes-api.onrender.com/users/login',
@@ -36,16 +37,19 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', fun
         {
             headers: {'Content-Type': 'application/json'}
         })
-        .then(function(response) {
-            
+        .then((response) => {
+            console.log(response.data.non_field_errors);
             if (response.data != null) {
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('isAdmin', response.data.is_superuser);
                 $location.path('/landing');
-            }
+            };
         },
-        function(error) {
-            console.log(error);
+        () => {
+            $scope.loginError = "Login failed, check your credentials";
+            $scope.user.username = '';
+            $scope.user.password = '';
+            $location.path('/');
         });
     };
 
