@@ -1,14 +1,29 @@
-const taskMasterApp = angular.module('taskMasterApp', []);
+const taskMasterApp = angular.module('taskMasterApp', ['ngRoute']);
 
-taskMasterApp.config(function() {
-    // 
-});
+taskMasterApp.config(['$routeProvider', function($routeProvider) {
+
+    $routeProvider
+        .when('/home', {
+            templateUrl: './views/home.html'
+        })
+        .when('/', {
+            templateUrl: './views/login.html',
+            controller: 'LoginController'
+        })
+        .when('/landing', {
+            templateUrl: './views/landing.html'
+        })
+        .otherwise({
+            redirectTo: '/home'
+        })
+
+}]);
 
 taskMasterApp.run(function() {
     // 
 });
 
-taskMasterApp.controller('LoginController', ['$scope', '$http', function($scope, $http) {
+taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', function($scope, $http, $location) {
     
     $scope.user = {};
 
@@ -22,7 +37,12 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', function($scope,
             headers: {'Content-Type': 'application/json'}
         })
         .then(function(response) {
-            console.log(response.data)
+            
+            if (response.data != null) {
+                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('isAdmin', response.data.is_superuser);
+                $location.path('/landing');
+            }
         },
         function(error) {
             console.log(error);
