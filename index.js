@@ -24,6 +24,9 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
 }]);
 
 taskMasterApp.run(['$rootScope', function($rootScope) {
+
+    $rootScope.authenticated = false;
+    $rootScope.isAdmin;
     
     $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
         if (previous && previous.originalPath) {
@@ -33,7 +36,7 @@ taskMasterApp.run(['$rootScope', function($rootScope) {
 
 }]);
 
-taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', function($scope, $http, $location) {
+taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$rootScope', function($scope, $http, $location, $rootScope) {
     
     $scope.user = {};
     $scope.loginError;
@@ -52,6 +55,8 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', fun
             if (response.data != null) {
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('isAdmin', response.data.is_superuser);
+                $rootScope.authenticated = true;
+                $rootScope.isAdmin = response.data.is_superuser;
                 $location.path('/task');
             };
         },
@@ -76,6 +81,7 @@ taskMasterApp.controller('LogoutController', ['$rootScope', '$scope', '$location
         if ($scope.confirmLogout) {
             if (token != null && isAdmin != null) {
                 localStorage.clear();
+                $rootScope.authenticated = false;
                 $location.path('/');
             }
         }

@@ -1,7 +1,7 @@
 <ul class="top-navbar">
     <li class="mr-auto"><h2>TaskMaster</h2></li>
-    <li><a href="#!/logout" data-toggle="modal" data-target="#logoutModal">Logout</a></li>
-    <li><a href="#">Users</a></li>
-    <li><a href="#">Task</a></li>
-    <li><a href="#">Notes</a></li>
+    <li ng-show="authenticated"><a href="#!/logout" data-toggle="modal" data-target="#logoutModal">Logout</a></li>
+    <li ng-show="authenticated && isAdmin"><a href="#">Users</a></li>
+    <li ng-show="authenticated"><a href="#">Task</a></li>
+    <li ng-show="authenticated"><a href="#">Notes</a></li>
 </ul>
