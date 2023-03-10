@@ -10,8 +10,12 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: './views/login.html',
             controller: 'LoginController'
         })
-        .when('/landing', {
-            templateUrl: './views/landing.html'
+        .when('/logout', {
+            templateUrl: './views/logout.html',
+            controller: 'LogoutController'
+        })
+        .when('/task', {
+            templateUrl: './views/task.html'
         })
         .otherwise({
             redirectTo: '/home'
@@ -19,9 +23,15 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-taskMasterApp.run(function() {
-    // 
-});
+taskMasterApp.run(['$rootScope', function($rootScope) {
+    
+    $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
+        if (previous && previous.originalPath) {
+            $rootScope.previousRoute = previous.originalPath;
+        }
+    });
+
+}]);
 
 taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', function($scope, $http, $location) {
     
@@ -42,7 +52,7 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', fun
             if (response.data != null) {
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('isAdmin', response.data.is_superuser);
-                $location.path('/landing');
+                $location.path('/task');
             };
         },
         () => {
@@ -53,4 +63,30 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', fun
         });
     };
 
+}]);
+
+
+taskMasterApp.controller('LogoutController', ['$rootScope', '$scope', '$location', function($rootScope, $scope, $location) {
+
+    $scope.confirmLogout = false;
+    let token = localStorage.getItem('token');
+    let isAdmin = localStorage.getItem('isAdmin');
+
+    $scope.logout = function() {
+        if ($scope.confirmLogout) {
+            if (token != null && isAdmin != null) {
+                localStorage.clear();
+                $location.path('/');
+            }
+        }
+    };
+
+    $scope.cancel = function() {
+        if ($rootScope.previousRoute) {
+            $location.path($rootScope.previousRoute);
+        } else {
+            $location.path('/');
+        }
+    };
+    
 }]);
