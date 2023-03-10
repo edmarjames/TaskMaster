@@ -15,7 +15,8 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
             controller: 'LogoutController'
         })
         .when('/task', {
-            templateUrl: './views/task.html'
+            templateUrl: './views/task.html',
+            controller: 'TaskController'
         })
         .otherwise({
             redirectTo: '/home'
@@ -95,4 +96,24 @@ taskMasterApp.controller('LogoutController', ['$rootScope', '$scope', '$location
         }
     };
     
+}]);
+
+taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
+
+    $scope.tasks = [];
+
+    $scope.getTask = function () {
+        $http.get('https://todo-list-notes-api.onrender.com/task/', {
+        headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        })
+        .then((response) => {
+            console.log(response.data.data);
+            $scope.tasks = response.data.data.map(task => task);
+        })
+    };
+    
+    $scope.getTask();
 }]);

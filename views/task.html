@@ -1,1 +1,11 @@
-<h1>Welcome to TaskMaster</h1>
+<div class="row">
+    <div class="col-3" ng-repeat="task in tasks">
+        <h5>{{ task.attributes.title }}</h5>
+        <p>{{ task.attributes.description }}</p>
+        <p>{{ task.attributes.status }}</p>
+        <date>{{ task.attributes.deadline }}</date>
+        <date>{{ task.attributes.created }}</date>
+        <date>{{ task.attributes.modified }}</date>
+        <p>Active: {{ task.attributes.is_active }}</p>
+    </div>
+</div>
