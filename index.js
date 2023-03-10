@@ -18,6 +18,10 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: './views/task.html',
             controller: 'TaskController'
         })
+        .when('/note', {
+            templateUrl: './views/note.html',
+            controller: 'NoteController'
+        })
         .otherwise({
             redirectTo: '/home'
         })
@@ -56,8 +60,11 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$r
             if (response.data != null) {
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('isAdmin', response.data.is_superuser);
+                // localStorage.setItem('authenticated', true);
+
                 $rootScope.authenticated = true;
                 $rootScope.isAdmin = response.data.is_superuser;
+
                 $location.path('/task');
             };
         },
@@ -68,6 +75,13 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$r
             $location.path('/');
         });
     };
+
+    // if (localStorage.getItem('authenticated') === 'true') {
+    //     console.log('true');
+    //     $rootScope.authenticated = true;
+    // } else {
+    //     $rootScope.authenticated = false;
+    // }
 
 }]);
 
@@ -102,7 +116,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', fun
 
     $scope.tasks = [];
 
-    $scope.getTask = function () {
+    $scope.getTasks = function () {
         $http.get('https://todo-list-notes-api.onrender.com/task/', {
         headers: {
                 'Content-Type': 'application/json',
@@ -110,10 +124,29 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', fun
             }
         })
         .then((response) => {
-            console.log(response.data.data);
+            // console.log(response.data.data);
             $scope.tasks = response.data.data.map(task => task);
         })
     };
     
-    $scope.getTask();
+    $scope.getTasks();
+}]);
+
+taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
+
+    $scope.notes = [];
+
+    $scope.getNotes = function () {
+        $http.get('https://todo-list-notes-api.onrender.com/note/', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        })
+        .then((response) => {
+            $scope.notes = response.data.data.map(note => note);
+        });
+    };
+
+    $scope.getNotes();
 }]);

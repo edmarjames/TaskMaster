@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="col-3 mx-2 px-4" ng-repeat="note in notes">
+        <h5>{{ note.attributes.title }}</h5>
+        <p>{{ note.attributes.content }}</p>
+        <p>Created: <time>{{ note.attributes.created }}</time></p>
+        <p>Last modified: <time>{{ note.attributes.modified }}</time></p>
+    </div>
+</div>
