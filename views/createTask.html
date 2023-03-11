@@ -1,0 +1,22 @@
+<div class="d-flex flex-column justify-content-center align-items-center p-5 m-5 border">
+    <h2>Create new task</h2>
+    <span class="text-danger" ng-show="errorMessage">{{ errorMessage }}</span>
+    <form ng-submit="createTask()" class="w-50">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input ng-model="newTask.title" type="text" class="form-control" id="title" placeholder="Enter title">
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea ng-model="newTask.description" class="form-control" id="description" placeholder="Enter description"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="deadline">Deadline</label>
+            <input ng-model="newTask.deadline" type="date" class="form-control" id="deadline"></input>
+          </div>
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary ml-1">Save</button>
+            <a href="#!/task" type="submit" class="btn btn-danger ml-1">Cancel</a>
+        </div>
+      </form>
+</div>

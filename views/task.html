@@ -1,3 +1,4 @@
+<span class="text-success" ng-show="successMessage">{{ successMessage }}</span>
 <div class="row">
     <div class="col-3 mx-2 px-4" ng-repeat="task in tasks">
         <h5>{{ task.attributes.title }}</h5>
@@ -10,5 +11,5 @@
     </div>
 </div>
 <div class="d-flex justify-content-end">
-    <a href="#">+</a>
+    <a href="#!/create-task"><i class='bx bx-plus-circle bx-flip-vertical' ></i></a>
 </div>

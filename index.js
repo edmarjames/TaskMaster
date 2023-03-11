@@ -22,6 +22,10 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: './views/task.html',
             controller: 'TaskController'
         })
+        .when('/create-task', {
+            templateUrl: './views/createTask.html',
+            controller: 'TaskController'
+        })
         .when('/note', {
             templateUrl: './views/note.html',
             controller: 'NoteController'
@@ -166,9 +170,11 @@ taskMasterApp.controller('RegisterController', ['$rootScope', '$scope', '$http',
 
 }]);
 
-taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
+taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$location', function($rootScope, $scope, $http, $location) {
 
     $scope.tasks = [];
+    $scope.newTask = {};
+    $scope.errorMessage;
 
     $scope.getTasks = function () {
         $http.get('https://todo-list-notes-api.onrender.com/task/', {
@@ -184,6 +190,54 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', fun
     };
     
     $scope.getTasks();
+
+    function clearFields() {
+        $scope.newTask.title = '';
+        $scope.newTask.description = '';
+        $scope.newTask.deadline = '';
+    }
+
+    $scope.createTask = function() {
+
+        let deadline = new Date($scope.newTask.deadline);
+        let formattedDeadline = deadline.getFullYear() + '-' + ('0' + (deadline.getMonth()+1)).slice(-2) + '-' + ('0' + deadline.getDate()).slice(-2);
+        // console.log(formattedDeadline);
+        console.log($scope.newTask.deadline.toISOString().slice(0, 10));
+        $http.post('https://todo-list-notes-api.onrender.com/task/', 
+        {
+            title: $scope.newTask.title,
+            description: $scope.newTask.description,
+            deadline: formattedDeadline
+        },
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        })
+        .then((response) => {
+            // console.log(response.data);
+            if (response.data != null) {
+                $rootScope.successMessage = response.data.data.message;
+            };
+            $location.path('/task');
+            clearFields();
+        },
+        (response) => {
+            console.log(response.data);
+
+            if (response.data.errors[0].detail) {
+                $scope.errorMessage = response.data.errors[0].detail;
+                // console.log($scope.errorMessage);
+            }
+            clearFields();
+        });
+
+        // console.log(title);
+        // console.log(description);
+        // console.log(deadline.toISOString().slice(0, 10));
+    };
+    
 }]);
 
 taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
