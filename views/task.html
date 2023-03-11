@@ -1,4 +1,8 @@
-<span class="text-success" ng-show="successMessage">{{ successMessage }}</span>
+<div ng-show="successMessage" class="alert alert-success alert-dismissible fade show w-75" role="alert" id="success-alert">
+    {{ successMessage }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<!-- <span class="text-success" ng-show="successMessage">{{ successMessage }}</span> -->
 <div class="row">
     <div class="col-3 mx-2 px-4" ng-repeat="task in tasks">
         <h5>{{ task.attributes.title }}</h5>
@@ -8,6 +12,7 @@
         <p>Created: <time>{{ task.attributes.created }}</time></p>
         <p>Last modified: <time>{{ task.attributes.modified }}</time></p>
         <p>Active: {{ task.attributes.is_active }}</p>
+        <a href="#!/task/{{ task.id }}" class="btn btn-primary">More details</a>
     </div>
 </div>
 <div class="d-flex justify-content-end">

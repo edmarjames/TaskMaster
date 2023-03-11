@@ -1,0 +1,35 @@
+<div class="d-flex flex-column justify-content-center align-items-center p-5 m-5 border">
+    <div ng-show="errorMessage" class="alert alert-danger alert-dismissible fade show w-75" role="alert" id="alert-error">
+      {{ errorMessage }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <!-- <span class="text-danger" ng-show="errorMessage">{{ errorMessage }}</span> -->
+    <form class="w-50">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input ng-model="specificTask.title" type="text" class="form-control" id="title"  ng-readonly="readOnly">
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea ng-model="specificTask.description" class="form-control" id="description" placeholder="Enter description" ng-readonly="readOnly"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="deadline">Deadline</label>
+            <input type="date" class="form-control" id="deadline" ng-model="specificTask.deadline" ng-value="specificTask.formattedDeadline" ng-readonly="readOnly">
+        </div>
+        <div class="form-group">
+            <label for="status">status</label>
+            <input ng-model="specificTask.status" type="text" class="form-control" id="status" ng-readonly="readOnly">
+        </div>
+        <div class="d-flex justify-content-between my-3">
+            <small>Date created: {{ specificTask.created.slice(0, 10) }}</small>
+            <small>Date modified: {{ specificTask.modified.slice(0, 10) }}</small>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button ng-click="toggleReadOnly()" class="btn btn-success ml-1">Edit</button>
+            <button ng-click="updateTask(specificTask.id)"type="submit" class="btn btn-primary ml-1">Save</button>
+            <button ng-click="cancel()" class="btn btn-danger ml-1">Cancel</button>
+        </div>
+      </form>
+</div>
+
