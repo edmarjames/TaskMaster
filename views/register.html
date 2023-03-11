@@ -1,0 +1,42 @@
+<div class="d-flex flex-column justify-content-center align-items-center">
+    <span class="align-self-end mr-5 pr-5"><a href="#!/">Back</a></span>
+
+    <h2>Register here</h2>
+    <span class="text-danger" ng-show="errorMessage">{{ errorMessage }}</span>
+    <form ng-submit="registerUser()" name="registerForm" class="w-75" novalidate>
+        <div class="row">
+            <div class="form-group col">
+                <label for="firstname">Firstname</label>
+                <input ng-model="register.firstName" type="text" class="form-control" name="firstname" id="firstname" placeholder="Enter first name">
+            </div>
+            <div class="form-group col">
+                <label for="lastname">Lastname</label>
+                <input ng-model="register.lastName" type="text" class="form-control" name="lastname" id="lastname" placeholder="Enter last name">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col">
+                <label for="email">email</label>
+                <input ng-model="register.email" type="email" class="form-control" name="email" id="email" placeholder="Enter valid email">
+            </div>
+            <div class="form-group col">
+                <label for="username">Username</label>
+                <input ng-model="register.username" type="text" class="form-control" name="username" id="username" placeholder="Enter username">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input ng-model="register.password" type="password" class="form-control" name="password" id="password" placeholder="Enter password">
+        </div>
+
+        <div class="form-group">
+            <label for="confirm-password">Confirm password</label>
+            <input ng-model="register.confirmPassword" type="password" class="form-control" name="confirm-password" id="confirm-password" placeholder="Confirm password">
+        </div>
+        
+        <input type="submit" class="btn btn-primary w-100" value="Create account" ng-disabled="registerForm.$pristine && registerForm.$valid">
+
+    </form>
+</div>

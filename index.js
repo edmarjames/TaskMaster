@@ -7,12 +7,16 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: './views/home.html'
         })
         .when('/', {
-            templateUrl: './views/login.html',
+            templateUrl: './views/landing.html',
             controller: 'LoginController'
         })
         .when('/logout', {
             templateUrl: './views/logout.html',
             controller: 'LogoutController'
+        })
+        .when('/register', {
+            templateUrl: './views/register.html',
+            controller: 'RegisterController'
         })
         .when('/task', {
             templateUrl: './views/task.html',
@@ -32,6 +36,7 @@ taskMasterApp.run(['$rootScope', function($rootScope) {
 
     $rootScope.authenticated = false;
     $rootScope.isAdmin;
+    $rootScope.successMessage;
     
     $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
         if (previous && previous.originalPath) {
@@ -88,6 +93,7 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$r
 
 taskMasterApp.controller('LogoutController', ['$rootScope', '$scope', '$location', function($rootScope, $scope, $location) {
 
+    $rootScope.successMessage = '';
     $scope.confirmLogout = false;
     let token = localStorage.getItem('token');
     let isAdmin = localStorage.getItem('isAdmin');
@@ -110,6 +116,54 @@ taskMasterApp.controller('LogoutController', ['$rootScope', '$scope', '$location
         }
     };
     
+}]);
+
+taskMasterApp.controller('RegisterController', ['$rootScope', '$scope', '$http', '$location', function($rootScope, $scope, $http, $location) {
+
+    $scope.register = {};
+    $scope.errorMessage;
+
+    function clearFields() {
+        $scope.register.username = '';
+        $scope.register.firstName = '';
+        $scope.register.lastName = '';
+        $scope.register.email = '';
+        $scope.register.password = '';
+        $scope.register.confirmPassword = '';
+    };
+
+    $scope.registerUser = function() {
+        $http.post('https://todo-list-notes-api.onrender.com/users/register', 
+        {
+            username: $scope.register.username,
+            first_name: $scope.register.firstName,
+            last_name: $scope.register.lastName,
+            email: $scope.register.email,
+            password: $scope.register.password,
+            password2: $scope.register.confirmPassword
+        },
+        {
+            headers: {'Content-Type': 'application/json'}
+        })
+        .then((response) => {
+            if (response.data != null) {
+                $rootScope.successMessage = response.data.data.message;
+                $location.path('/');
+            };
+            // console.log(response.data.data);
+        },
+        (response) => {
+            // console.log(response.data.errors);
+            if (response.data.errors.message) {
+                $scope.errorMessage = response.data.errors.message;
+            } else if (response.data.errors[0].detail) {
+                $scope.errorMessage = response.data.errors[0].detail;
+            }
+            clearFields();
+            // console.log($scope.errorMessage);
+        });
+    };
+
 }]);
 
 taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
