@@ -202,7 +202,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         let deadline = new Date($scope.newTask.deadline);
         let formattedDeadline = deadline.getFullYear() + '-' + ('0' + (deadline.getMonth()+1)).slice(-2) + '-' + ('0' + deadline.getDate()).slice(-2);
         // console.log(formattedDeadline);
-        console.log($scope.newTask.deadline.toISOString().slice(0, 10));
+        // console.log($scope.newTask.deadline.toISOString().slice(0, 10));
         $http.post('https://todo-list-notes-api.onrender.com/task/', 
         {
             title: $scope.newTask.title,
@@ -232,10 +232,15 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             }
             clearFields();
         });
-
+        
         // console.log(title);
         // console.log(description);
         // console.log(deadline.toISOString().slice(0, 10));
+    };
+
+    $scope.cancel = function () {
+        $location.path('/task');
+        clearFields();
     };
     
 }]);
