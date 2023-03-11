@@ -189,6 +189,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         modified: null
     };
     $scope.errorMessage;
+    $scope.taskDoesNotExistError;
     $scope.readOnly = true;
 
     $scope.getTasks = function () {
@@ -275,7 +276,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         },
         (response) => {
             if (response.data.errors[0].detail) {
-                $scope.errorMessage = 'Task Id is not existing';
+                $scope.taskDoesNotExistError = 'Task Id is not existing';
             }
             // console.log(response.data);
         });
