@@ -1,5 +1,9 @@
-<div ng-show="successMessage" class="alert alert-success alert-dismissible fade show w-75" role="alert" id="success-alert">
+<div ng-if="successMessage" class="alert alert-success alert-dismissible fade show w-75" role="alert" id="success-alert">
     {{ successMessage }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<div ng-if="errorMessage" class="alert alert-danger alert-dismissible fade show w-75" role="alert" id="alert-error">
+    {{ errorMessage }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 <!-- <span class="text-success" ng-show="successMessage">{{ successMessage }}</span> -->
@@ -14,8 +18,10 @@
         <p>Active: {{ task.attributes.is_active }}</p>
         <a href="#!/task/{{ task.id }}" class="btn btn-primary" title="More details"><i class='bx bx-dots-horizontal-rounded'></i></a>
         <a href="#!/task/delete/{{ task.id }}" class="btn btn-danger" title="Delete" data-toggle="modal" data-target="#deleteModal"><i class='bx bx-trash'></i></a>
+        <button ng-click="archiveTask(task.id)" ng-show="task.attributes.is_active" class="btn btn-warning" title="Archive"><i class='bx bx-archive-in'></i></button>
     </div>
 </div>
+
 <div class="d-flex justify-content-end">
     <a href="#!/create-task"><i class='bx bx-plus-circle bx-flip-vertical' ></i></a>
 </div>

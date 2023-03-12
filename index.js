@@ -49,6 +49,7 @@ taskMasterApp.run(['$rootScope', function($rootScope) {
     $rootScope.authenticated = false;
     $rootScope.isAdmin;
     $rootScope.successMessage;
+    $rootScope.errorMessage;
     
     $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
         if (previous && previous.originalPath) {
@@ -342,9 +343,34 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         };
     };
 
+    $scope.archiveTask = function(taskId) {
+        $http.patch(`https://todo-list-notes-api.onrender.com/tasks/archive/${taskId}`, null, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        })
+        .then((response) => {
+            if (response.data != null) {
+                $rootScope.successMessage = response.data.data.message;
+            };
+            console.log(response.data.data.message);
+            $scope.getTasks();
+            // $location.path('/task');
+        },
+        (response) => {
+            console.log(response.data.errors.error);
+            if (response.data != null) {
+                $rootScope.errorMessage = response.data.errors.error;
+                $scope.getTasks();
+                // $location.path('/task');
+            }
+        });
+    };
+
     $timeout(function() {
         $('#success-alert').alert('close');
-    }, 5000);
+    }, 3000);
 
     $timeout(function() {
         $('#alert-error').alert('close');
