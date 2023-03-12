@@ -275,6 +275,10 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         clearFields();
     };
 
+    $scope.goBackToPreviousRoute = function() {
+        $location.path($rootScope.previousRoute);
+    };
+
     $scope.getSpecificTask = function() {
         let taskId = $routeParams.id;
         $http.get(`https://todo-list-notes-api.onrender.com/task/${taskId}`, {
@@ -350,7 +354,9 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 }
             },
             (response) => {
-                console.log(response.data);
+                if (response.data.errors[0].detail) {
+                    $rootScope.errorMessage = response.data.errors[0].detail;
+                };
             });
         };
     };

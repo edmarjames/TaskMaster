@@ -34,8 +34,8 @@
           <p>Are you sure you want to delete this task?</p>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="confirmDelete=true; deleteTask()">Yes</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button ng-click="confirmDelete=true; deleteTask()" type="button" class="btn btn-primary" data-dismiss="modal" >Yes</button>
+            <button ng-click="goBackToPreviousRoute()" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         </div>
       </div>
     </div>
