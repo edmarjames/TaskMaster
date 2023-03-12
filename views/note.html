@@ -31,15 +31,17 @@
 </div>
 
 <div class="row px-2 mx-2">
-    <div class="col-lg-3 col-md-4 col-sm-6 col-12 my-4" ng-repeat="note in notes">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12 my-4 p-1" ng-repeat="note in notes">
         <h5>{{ note.attributes.title }}</h5>
         <p>{{ note.attributes.content }}</p>
-        <p>Created: <time>{{ note.attributes.created }}</time></p>
-        <p>Last modified: <time>{{ note.attributes.modified }}</time></p>
+        <p>Created: {{ dateCreated }} <time>{{ note.attributes.created }}</time></p>
+        <p>Modified: {{ dateModified }} <time>{{ note.attributes.modified }}</time></p>
 
-        <a href="#!/note/{{ note.id }}" class="btn btn-primary" title="More details"><i class='bx bx-dots-horizontal-rounded'></i></a>
+        <div class="d-flex justify-content-center w-100">
+            <a href="#!/note/{{ note.id }}" class="btn btn-primary mx-1" title="More details"><i class='bx bx-dots-horizontal-rounded'></i></a>
 
-        <a href="#!/note/delete/{{ note.id }}" class="btn btn-danger" title="Delete" data-toggle="modal" data-target="#deleteModal"><i class='bx bx-trash'></i></a>
+            <a href="#!/note/delete/{{ note.id }}" class="btn btn-danger mx-1" title="Delete" data-toggle="modal" data-target="#deleteModal"><i class='bx bx-trash'></i></a>
+        </div>
     </div>
 </div>
 

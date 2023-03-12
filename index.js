@@ -445,6 +445,8 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
     $scope.noteDoesNotExistError;
     $scope.readOnly = true;
     $scope.confirmDelete = false;
+    $scope.dateCreated;
+    $scope.dateModified;
 
     $scope.getNotes = function () {
         $http.get('https://todo-list-notes-api.onrender.com/note/', {
@@ -454,7 +456,26 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
             }
         })
         .then((response) => {
-            $scope.notes = response.data.data.map(note => note);
+            $scope.notes = response.data.data.map(note => {
+
+                const dateCreated = new Date(note.attributes.created.slice(0, 10));
+                const dateStringCreated = dateCreated.toLocaleDateString();
+                $scope.dateCreated = dateStringCreated;
+
+                const timeCreated = new Date(note.attributes.created);
+                const timeStringCreated = timeCreated.toLocaleTimeString();
+                note.attributes.created = timeStringCreated;
+
+                const dateModified = new Date(note.attributes.modified.slice(0, 10));
+                const dateStringModified = dateModified.toLocaleDateString();
+                $scope.dateModified = dateStringModified;
+
+                const timeModified = new Date(note.attributes.modified);
+                const timeStringModified = timeModified.toLocaleTimeString();
+                note.attributes.modified = timeStringModified;
+
+                return note;
+            });
         });
     };
     $scope.getNotes();
@@ -556,15 +577,6 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         })
     }
 
-    $scope.goBackToPreviousRoute = function() {
-        $rootScope.successMessage = '';
-        if ($rootScope.previousRoute) {
-            $location.path($rootScope.previousRoute);
-        } else {
-            $location.path('/note');
-        }
-    };
-
     $scope.deleteNote = function() {
         let noteId = $routeParams.id;
         $http.delete(`https://todo-list-notes-api.onrender.com/note/${noteId}/`, {
@@ -586,6 +598,15 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
             }
         });
     }
+
+    $scope.goBackToPreviousRoute = function() {
+        $rootScope.successMessage = '';
+        if ($rootScope.previousRoute) {
+            $location.path($rootScope.previousRoute);
+        } else {
+            $location.path('/note');
+        }
+    };
 
     $scope.toggleReadOnly = function() {
         $scope.readOnly = !$scope.readOnly;
