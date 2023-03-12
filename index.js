@@ -46,8 +46,8 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
 
 taskMasterApp.run(['$rootScope', function($rootScope) {
 
-    $rootScope.authenticated = false;
-    $rootScope.isAdmin;
+    $rootScope.authenticated = localStorage.getItem('authenticated');
+    $rootScope.isAdmin = localStorage.getItem('isAdmin');
     $rootScope.successMessage;
     $rootScope.errorMessage;
     
@@ -78,7 +78,7 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$r
             if (response.data != null) {
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('isAdmin', response.data.is_superuser);
-                // localStorage.setItem('authenticated', true);
+                localStorage.setItem('authenticated', true);
 
                 $rootScope.authenticated = true;
                 $rootScope.isAdmin = response.data.is_superuser;
@@ -115,6 +115,7 @@ taskMasterApp.controller('LogoutController', ['$rootScope', '$scope', '$location
             if (token != null && isAdmin != null) {
                 localStorage.clear();
                 $rootScope.authenticated = false;
+                $rootScope.isAdmin = false;
                 $location.path('/');
             }
         }
@@ -226,7 +227,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
 
                 return task;
             });
-        })
+        });
     };
     
     $scope.getTasks();
