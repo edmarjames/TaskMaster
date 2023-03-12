@@ -26,6 +26,10 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: './views/taskView.html',
             controller: 'TaskController'
         })
+        .when('/task/delete/:id', {
+            templateUrl: './views/deleteTask.html',
+            controller: 'TaskController'
+        })
         .when('/create-task', {
             templateUrl: './views/createTask.html',
             controller: 'TaskController'
@@ -97,7 +101,6 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$r
     // }
 
 }]);
-
 
 taskMasterApp.controller('LogoutController', ['$rootScope', '$scope', '$location', function($rootScope, $scope, $location) {
 
@@ -191,6 +194,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
     $scope.errorMessage;
     $scope.taskDoesNotExistError;
     $scope.readOnly = true;
+    $scope.confirmDelete = false;
 
     $scope.getTasks = function () {
         $http.get('https://todo-list-notes-api.onrender.com/task/', {
@@ -314,6 +318,28 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 $scope.errorMessage = response.data.errors[0].detail;
             };
         });
+    };
+
+    $scope.deleteTask = function() {
+        let taskId = $routeParams.id;
+        if ($scope.confirmDelete) {
+            $http.delete(`https://todo-list-notes-api.onrender.com/task/${taskId}/`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                }
+            })
+            .then((response) => {
+                if (response.data != null) {
+                    $rootScope.successMessage = response.data.data.message;
+                    $location.path('/task');
+                }
+                console.log(response.data);
+            },
+            (response) => {
+                console.log(response.data);
+            });
+        };
     };
 
     $timeout(function() {
