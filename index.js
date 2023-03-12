@@ -313,6 +313,8 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         (response) => {
             if (response.data.errors[0].detail) {
                 $scope.taskDoesNotExistError = 'Task Id is not existing';
+                $rootScope.previousRoute = '/task';
+                
             }
         });
     }
@@ -515,12 +517,42 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         (response) => {
             if (response.data.errors[0].detail) {
                 $scope.noteDoesNotExistError = 'Note Id is not existing';
+                $rootScope.previousRoute = '/note';
             }
         });
     };
     $scope.getSpecificNote();
 
+    $scope.updateNote = function(noteId) {
+        $http.patch(`https://todo-list-notes-api.onrender.com/note/${noteId}/`, 
+        {
+            title: $scope.specificNote.title,
+            content: $scope.specificNote.content
+        },
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        })
+        .then((response) => {
+            if (response.data != null) {
+                $rootScope.successMessage =  response.data.data.message;
+                $location.path('/note');
+                console.log($rootScope.successMessage);
+            }
+        })
+        .catch((response) => {
+            if (response.data.errors[0].detail) {
+                $scope.noteErrorMessage = response.data.errors[0].detail;
+                console.log($scope.noteErrorMessage);
+            };
+            clearFields();
+        })
+    }
+
     $scope.goBackToPreviousRoute = function() {
+        $rootScope.successMessage = '';
         if ($rootScope.previousRoute) {
             $location.path($rootScope.previousRoute);
         } else {
