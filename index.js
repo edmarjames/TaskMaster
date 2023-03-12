@@ -256,6 +256,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
     };
 
     $scope.cancel = function () {
+        $rootScope.successMessage = '';
         $location.path('/task');
         clearFields();
     };
@@ -368,13 +369,38 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         });
     };
 
+    $scope.activateTask = function(taskId) {
+        $http.patch(`https://todo-list-notes-api.onrender.com/tasks/activate/${taskId}`, null, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        })
+        .then((response) => {
+            if (response.data != null) {
+                $rootScope.successMessage = response.data.data.message;
+            };
+            console.log(response.data.data.message);
+            $scope.getTasks();
+            // $location.path('/task');
+        },
+        (response) => {
+            console.log(response.data.errors.error);
+            if (response.data != null) {
+                $rootScope.errorMessage = response.data.errors.error;
+                $scope.getTasks();
+                // $location.path('/task');
+            }
+        });
+    };
+
     $timeout(function() {
         $('#success-alert').alert('close');
-    }, 3000);
+    }, 5000);
 
     $timeout(function() {
         $('#alert-error').alert('close');
-    }, 9000);
+    }, 7000);
 
 }]);
 

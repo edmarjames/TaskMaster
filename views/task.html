@@ -13,12 +13,13 @@
         <p>{{ task.attributes.description }}</p>
         <p>{{ task.attributes.status }}</p>
         <p>Deadline: <time>{{ task.attributes.deadline }}</time></p>
-        <p>Created: <time>{{ task.attributes.created }}</time></p>
+        <!-- <p>Created: <time>{{ task.attributes.created }}</time></p> -->
         <p>Last modified: <time>{{ task.attributes.modified }}</time></p>
         <p>Active: {{ task.attributes.is_active }}</p>
         <a href="#!/task/{{ task.id }}" class="btn btn-primary" title="More details"><i class='bx bx-dots-horizontal-rounded'></i></a>
         <a href="#!/task/delete/{{ task.id }}" class="btn btn-danger" title="Delete" data-toggle="modal" data-target="#deleteModal"><i class='bx bx-trash'></i></a>
-        <button ng-click="archiveTask(task.id)" ng-show="task.attributes.is_active" class="btn btn-warning" title="Archive"><i class='bx bx-archive-in'></i></button>
+        <button ng-click="archiveTask(task.id)" ng-show="{{ task.attributes.is_active == true }}" class="btn btn-warning" title="Archive"><i class='bx bx-archive-in'></i></button>
+        <button ng-click="activateTask(task.id)" ng-show="{{ task.attributes.is_active == false }}" class="btn btn-info" title="Activate"><i class='bx bx-archive-out'></i></button>
     </div>
 </div>
 
