@@ -180,7 +180,6 @@ taskMasterApp.controller('RegisterController', ['$rootScope', '$scope', '$http',
 
 taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$location', '$routeParams', '$filter', '$timeout', function($rootScope, $scope, $http, $location, $routeParams, $filter, $timeout) {
 
-    // $rootScope.successMessage = '';
     $scope.tasks = [];
     $scope.newTask = {};
     $scope.specificTask = {
@@ -205,7 +204,6 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             }
         })
         .then((response) => {
-            // console.log(response.data.data);
             $scope.tasks = response.data.data.map(task => task);
         })
     };
@@ -222,8 +220,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
 
         let deadline = new Date($scope.newTask.deadline);
         let formattedDeadline = deadline.getFullYear() + '-' + ('0' + (deadline.getMonth()+1)).slice(-2) + '-' + ('0' + deadline.getDate()).slice(-2);
-        // console.log(formattedDeadline);
-        // console.log($scope.newTask.deadline.toISOString().slice(0, 10));
+
         $http.post('https://todo-list-notes-api.onrender.com/task/', 
         {
             title: $scope.newTask.title,
@@ -237,7 +234,6 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             }
         })
         .then((response) => {
-            // console.log(response.data);
             if (response.data != null) {
                 $rootScope.successMessage = response.data.data.message;
             };
@@ -245,11 +241,8 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             clearFields();
         },
         (response) => {
-            console.log(response.data);
-
             if (response.data.errors[0].detail) {
                 $scope.errorMessage = response.data.errors[0].detail;
-                // console.log($scope.errorMessage);
             }
             clearFields();
         });
@@ -270,7 +263,6 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             }
         })
         .then((response) => {
-            console.log(response.data);
             $scope.specificTask.id = response.data.data.id;
             $scope.specificTask.title = response.data.data.attributes.title;
             $scope.specificTask.description = response.data.data.attributes.description;
@@ -284,7 +276,6 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             if (response.data.errors[0].detail) {
                 $scope.taskDoesNotExistError = 'Task Id is not existing';
             }
-            // console.log(response.data);
         });
     }
     $scope.getSpecificTask();
@@ -295,6 +286,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
 
     $scope.updateTask = function(taskId) {
         let deadline = $filter('date')($scope.specificTask.deadline, 'yyyy-MM-dd')
+
         $http.patch(`https://todo-list-notes-api.onrender.com/task/${taskId}/`, 
         {
             title: $scope.specificTask.title,
@@ -313,7 +305,6 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 $rootScope.successMessage = response.data.data.message;
             }
             $location.path('/task');
-            // console.log(response.data.data.message);
         },
         (response) => {
             if (response.data.errors[0].detail) {
@@ -336,7 +327,6 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                     $rootScope.successMessage = response.data.data.message;
                     $location.path('/task');
                 }
-                console.log(response.data);
             },
             (response) => {
                 console.log(response.data);
@@ -355,17 +345,14 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             if (response.data != null) {
                 $rootScope.successMessage = response.data.data.message;
             };
-            console.log(response.data.data.message);
             $scope.getTasks();
-            // $location.path('/task');
         },
         (response) => {
             console.log(response.data.errors.error);
             if (response.data != null) {
                 $rootScope.errorMessage = response.data.errors.error;
-                $scope.getTasks();
-                // $location.path('/task');
             }
+            $scope.getTasks();
         });
     };
 
@@ -380,16 +367,13 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             if (response.data != null) {
                 $rootScope.successMessage = response.data.data.message;
             };
-            console.log(response.data.data.message);
             $scope.getTasks();
-            // $location.path('/task');
         },
         (response) => {
             console.log(response.data.errors.error);
             if (response.data != null) {
                 $rootScope.errorMessage = response.data.errors.error;
                 $scope.getTasks();
-                // $location.path('/task');
             }
         });
     };

@@ -30,7 +30,7 @@
         </div>
         <div class="d-flex justify-content-end">
             <button ng-click="toggleReadOnly()" class="btn btn-success ml-1">Edit</button>
-            <button ng-click="updateTask(specificTask.id)"type="submit" class="btn btn-primary ml-1">Save</button>
+            <button ng-click="updateTask(specificTask.id)" ng-disabled="readOnly" type="submit" class="btn btn-primary ml-1">Save</button>
             <button ng-click="cancel()" class="btn btn-danger ml-1">Cancel</button>
         </div>
       </form>

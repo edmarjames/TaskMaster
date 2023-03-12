@@ -1,6 +1,13 @@
 <div class="d-flex flex-column justify-content-center align-items-center p-5 m-5 border">
     <h2>Create new task</h2>
-    <span class="text-danger" ng-show="errorMessage">{{ errorMessage }}</span>
+
+    <div ng-if="errorMessage" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="alert-error">
+      {{ errorMessage }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <!-- <span class="text-danger" ng-show="errorMessage">{{ errorMessage }}</span> -->
+
     <form ng-submit="createTask()" class="w-50">
         <div class="form-group">
           <label for="title">Title</label>
@@ -19,4 +26,5 @@
             <button ng-click="cancel()" class="btn btn-danger ml-1">Cancel</button>
         </div>
       </form>
+      
 </div>

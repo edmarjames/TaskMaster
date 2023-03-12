@@ -9,6 +9,10 @@ input[ng-disabled="true"] {
     cursor: not-allowed !important;
 }
 
+button[disabled="disabled"] {
+    cursor: not-allowed !important;
+}
+
 .top-navbar {
     display: flex;
     list-style-type: none;
