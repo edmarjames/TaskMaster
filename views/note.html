@@ -11,6 +11,8 @@
         <p>{{ note.attributes.content }}</p>
         <p>Created: <time>{{ note.attributes.created }}</time></p>
         <p>Last modified: <time>{{ note.attributes.modified }}</time></p>
+
+        <a href="#!/note/{{ note.id }}" class="btn btn-primary" title="More details"><i class='bx bx-dots-horizontal-rounded'></i></a>
     </div>
 </div>
 

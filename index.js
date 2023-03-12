@@ -42,6 +42,10 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: './views/createNote.html',
             controller: 'NoteController'
         })
+        .when('/note/:id', {
+            templateUrl: './views/noteView.html',
+            controller: 'NoteController'
+        })
         .otherwise({
             redirectTo: '/home'
         })
@@ -281,7 +285,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
     };
 
     $scope.goBackToPreviousRoute = function() {
-        $location.path($rootScope.previousRoute);
+        if ($rootScope.previousRoute) {
+            $location.path($rootScope.previousRoute);
+        } else {
+            $location.path('/task');
+        }
     };
 
     $scope.getSpecificTask = function() {
@@ -422,11 +430,14 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
 
 }]);
 
-taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$location', '$timeout', function($rootScope, $scope, $http, $location, $timeout) {
+taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$location', '$timeout', '$routeParams', function($rootScope, $scope, $http, $location, $timeout, $routeParams) {
 
     $scope.notes = [];
     $scope.newNote = {};
+    $scope.specificNote = {};
     $scope.noteErrorMessage;
+    $scope.noteDoesNotExistError;
+    $scope.readOnly = true;
 
     $scope.getNotes = function () {
         $http.get('https://todo-list-notes-api.onrender.com/note/', {
@@ -483,6 +494,43 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         clearFields();
         $location.path('/note');
     };
+
+    $scope.getSpecificNote = function() {
+        let noteId = $routeParams.id;
+        $http.get(`https://todo-list-notes-api.onrender.com/note/${noteId}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        })
+        .then((response) => {
+            $scope.specificNote = {
+                id: response.data.data.id,
+                title: response.data.data.attributes.title,
+                content: response.data.data.attributes.content,
+                created: response.data.data.attributes.created,
+                modified: response.data.data.attributes.modified
+            };
+        },
+        (response) => {
+            if (response.data.errors[0].detail) {
+                $scope.noteDoesNotExistError = 'Note Id is not existing';
+            }
+        });
+    };
+    $scope.getSpecificNote();
+
+    $scope.goBackToPreviousRoute = function() {
+        if ($rootScope.previousRoute) {
+            $location.path($rootScope.previousRoute);
+        } else {
+            $location.path('/note');
+        }
+    };
+
+    $scope.toggleReadOnly = function() {
+        $scope.readOnly = !$scope.readOnly;
+    }
 
     $timeout(function() {
         $('#success-alert').alert('close');
