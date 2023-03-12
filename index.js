@@ -27,7 +27,7 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
             controller: 'TaskController'
         })
         .when('/task/delete/:id', {
-            templateUrl: './views/deleteTask.html',
+            templateUrl: './views/task.html',
             controller: 'TaskController'
         })
         .when('/create-task', {
@@ -195,6 +195,8 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
     $scope.taskDoesNotExistError;
     $scope.readOnly = true;
     $scope.confirmDelete = false;
+    $scope.dateCreated;
+    $scope.dateModified;
 
     $scope.getTasks = function () {
         $http.get('https://todo-list-notes-api.onrender.com/task/', {
@@ -204,7 +206,26 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             }
         })
         .then((response) => {
-            $scope.tasks = response.data.data.map(task => task);
+            $scope.tasks = response.data.data.map(task => {
+
+                const dateCreated = new Date(task.attributes.created.slice(0, 10));
+                const dateStringCreated = dateCreated.toLocaleDateString();
+                $scope.dateCreated = dateStringCreated;
+
+                const timeCreated = new Date(task.attributes.created);
+                const timeStringCreated = timeCreated.toLocaleTimeString();
+                task.attributes.created = timeStringCreated;
+
+                const dateModified = new Date(task.attributes.modified.slice(0, 10));
+                const dateStringModified = dateModified.toLocaleDateString();
+                $scope.dateModified = dateStringModified;
+
+                const timeModified = new Date(task.attributes.modified);
+                const timeStringModified = timeModified.toLocaleTimeString();
+                task.attributes.modified = timeStringModified;
+
+                return task;
+            });
         })
     };
     
@@ -385,6 +406,8 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
     $timeout(function() {
         $('#alert-error').alert('close');
     }, 7000);
+
+    $('.toast').toast()
 
 }]);
 
