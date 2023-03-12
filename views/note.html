@@ -1,8 +1,19 @@
-<div class="row">
-    <div class="col-3 mx-2 px-4" ng-repeat="note in notes">
+<div ng-if="successMessage" class="alert alert-success alert-dismissible fade show w-75" role="alert" id="success-alert">
+    {{ successMessage }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<!-- <span class="text-success" ng-show="successMessage">{{ successMessage }}</span> -->
+
+<div class="row px-2 mx-2">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12 my-4" ng-repeat="note in notes">
         <h5>{{ note.attributes.title }}</h5>
         <p>{{ note.attributes.content }}</p>
         <p>Created: <time>{{ note.attributes.created }}</time></p>
         <p>Last modified: <time>{{ note.attributes.modified }}</time></p>
     </div>
+</div>
+
+<div class="d-flex justify-content-end">
+    <a href="#!/create-note"><i class='bx bx-plus-circle bx-flip-vertical'></i></a>
 </div>

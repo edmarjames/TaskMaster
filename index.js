@@ -22,6 +22,10 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: './views/task.html',
             controller: 'TaskController'
         })
+        .when('/create-task', {
+            templateUrl: './views/createTask.html',
+            controller: 'TaskController'
+        })
         .when('/task/:id', {
             templateUrl: './views/taskView.html',
             controller: 'TaskController'
@@ -30,12 +34,12 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: './views/task.html',
             controller: 'TaskController'
         })
-        .when('/create-task', {
-            templateUrl: './views/createTask.html',
-            controller: 'TaskController'
-        })
         .when('/note', {
             templateUrl: './views/note.html',
+            controller: 'NoteController'
+        })
+        .when('/create-note', {
+            templateUrl: './views/createNote.html',
             controller: 'NoteController'
         })
         .otherwise({
@@ -418,9 +422,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
 
 }]);
 
-taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
+taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$location', '$timeout', function($rootScope, $scope, $http, $location, $timeout) {
 
     $scope.notes = [];
+    $scope.newNote = {};
+    $scope.noteErrorMessage;
 
     $scope.getNotes = function () {
         $http.get('https://todo-list-notes-api.onrender.com/note/', {
@@ -433,6 +439,56 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', fun
             $scope.notes = response.data.data.map(note => note);
         });
     };
-
     $scope.getNotes();
+
+    function clearFields() {
+        $scope.newNote.title = '';
+        $scope.newNote.content = '';
+    };
+
+    $scope.createNote = function() {
+        $http.post('https://todo-list-notes-api.onrender.com/note/', 
+        {
+            title: $scope.newNote.title,
+            content: $scope.newNote.content
+        },
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        })
+        .then((response) => {
+            if (response.data != null) {
+                $rootScope.successMessage = response.data.data.message;
+            }
+            $location.path('/note');
+            console.log(response.data);
+            // console.log(response.data.data.message);
+            // console.log($scope.message);
+        },
+        (response) => {
+            if (response.data.errors[0].detail == "This field is required.") {
+                $scope.noteErrorMessage = 'All fields are required';
+            } 
+            else if (response.data.errors[0].detail == "Operation failed, there is an existing note with the same title.") {
+                $scope.noteErrorMessage = response.data.errors[0].detail;
+            };
+            clearFields();
+            console.log($scope.noteErrorMessage);
+        });
+    }
+
+    $scope.cancel = function() {
+        clearFields();
+        $location.path('/note');
+    };
+
+    $timeout(function() {
+        $('#success-alert').alert('close');
+    }, 5000);
+
+    $timeout(function() {
+        $('#alert-error').alert('close');
+    }, 5000);
 }]);
