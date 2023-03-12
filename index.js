@@ -46,6 +46,10 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: './views/noteView.html',
             controller: 'NoteController'
         })
+        .when('/note/delete/:id', {
+            templateUrl: './views/note.html',
+            controller: 'NoteController'
+        })
         .otherwise({
             redirectTo: '/home'
         })
@@ -440,6 +444,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
     $scope.noteErrorMessage;
     $scope.noteDoesNotExistError;
     $scope.readOnly = true;
+    $scope.confirmDelete = false;
 
     $scope.getNotes = function () {
         $http.get('https://todo-list-notes-api.onrender.com/note/', {
@@ -559,6 +564,28 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
             $location.path('/note');
         }
     };
+
+    $scope.deleteNote = function() {
+        let noteId = $routeParams.id;
+        $http.delete(`https://todo-list-notes-api.onrender.com/note/${noteId}/`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        })
+        .then((response) => {
+            if (response.data != null) {
+                $rootScope.successMessage = response.data.data.message;
+                $location.path('/note');
+                console.log($rootScope.successMessage);
+            }
+        })
+        .catch((response) => {
+            if (response.data.errors[0].detail) {
+                $rootScope.errorMessage = 'Note Id is not existing';
+            }
+        });
+    }
 
     $scope.toggleReadOnly = function() {
         $scope.readOnly = !$scope.readOnly;
