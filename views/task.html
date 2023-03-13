@@ -56,9 +56,9 @@
 
           <a ng-hide="isAdmin == 'true' || isAdmin == true" href="#!/task/delete/{{ task.id }}" class="btn btn-danger mx-1" title="Delete" data-toggle="modal" data-target="#deleteModal"><i class='bx bx-trash'></i></a>
 
-          <button ng-click="archiveTask(task.id)" ng-show="{{ task.attributes.is_active == true }}" class="btn btn-warning mx-1" title="Archive"><i class='bx bx-archive-in'></i></button>
+          <button ng-click="archiveTask(task.id)" ng-show="{{ task.attributes.is_active == true && (isAdmin == 'false' || isAdmin == false) }}" class="btn btn-warning mx-1" title="Archive"><i class='bx bx-archive-in'></i></button>
 
-          <button ng-click="activateTask(task.id)" ng-show="{{ task.attributes.is_active == false }}" class="btn btn-info mx-1" title="Activate"><i class='bx bx-archive-out'></i></button>
+          <button ng-click="activateTask(task.id)" ng-show="{{ task.attributes.is_active == false && (isAdmin == 'false' || isAdmin == false) }}" class="btn btn-info mx-1" title="Activate"><i class='bx bx-archive-out'></i></button>
         </div>
         
     </div>
