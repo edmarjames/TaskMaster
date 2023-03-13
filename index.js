@@ -220,34 +220,66 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
     $scope.dateModified;
 
     $scope.getTasks = function () {
-        $http.get('https://todo-list-notes-api.onrender.com/task/', {
-        headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${localStorage.getItem('token')}`
-            }
-        })
-        .then((response) => {
-            $scope.tasks = response.data.data.map(task => {
 
-                const dateCreated = new Date(task.attributes.created.slice(0, 10));
-                const dateStringCreated = dateCreated.toLocaleDateString();
-                $scope.dateCreated = dateStringCreated;
+        if (localStorage.getItem('isAdmin') == 'true') {
+            $http.get('https://todo-list-notes-api.onrender.com/all_tasks', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                }
+            })
+            .then((response) => {
+                $scope.tasks = response.data.data.map(task => {
 
-                const timeCreated = new Date(task.attributes.created);
-                const timeStringCreated = timeCreated.toLocaleTimeString();
-                task.attributes.created = timeStringCreated;
+                    const dateCreated = new Date(task.attributes.created.slice(0, 10));
+                    const dateStringCreated = dateCreated.toLocaleDateString();
+                    $scope.dateCreated = dateStringCreated;
 
-                const dateModified = new Date(task.attributes.modified.slice(0, 10));
-                const dateStringModified = dateModified.toLocaleDateString();
-                $scope.dateModified = dateStringModified;
+                    const timeCreated = new Date(task.attributes.created);
+                    const timeStringCreated = timeCreated.toLocaleTimeString();
+                    task.attributes.created = timeStringCreated;
 
-                const timeModified = new Date(task.attributes.modified);
-                const timeStringModified = timeModified.toLocaleTimeString();
-                task.attributes.modified = timeStringModified;
+                    const dateModified = new Date(task.attributes.modified.slice(0, 10));
+                    const dateStringModified = dateModified.toLocaleDateString();
+                    $scope.dateModified = dateStringModified;
 
-                return task;
+                    const timeModified = new Date(task.attributes.modified);
+                    const timeStringModified = timeModified.toLocaleTimeString();
+                    task.attributes.modified = timeStringModified;
+
+                    return task;
+                });
             });
-        });
+        } else {
+            $http.get('https://todo-list-notes-api.onrender.com/task/', {
+            headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                }
+            })
+            .then((response) => {
+                $scope.tasks = response.data.data.map(task => {
+
+                    const dateCreated = new Date(task.attributes.created.slice(0, 10));
+                    const dateStringCreated = dateCreated.toLocaleDateString();
+                    $scope.dateCreated = dateStringCreated;
+
+                    const timeCreated = new Date(task.attributes.created);
+                    const timeStringCreated = timeCreated.toLocaleTimeString();
+                    task.attributes.created = timeStringCreated;
+
+                    const dateModified = new Date(task.attributes.modified.slice(0, 10));
+                    const dateStringModified = dateModified.toLocaleDateString();
+                    $scope.dateModified = dateStringModified;
+
+                    const timeModified = new Date(task.attributes.modified);
+                    const timeStringModified = timeModified.toLocaleTimeString();
+                    task.attributes.modified = timeStringModified;
+
+                    return task;
+                });
+            });
+        };
     };
     
     $scope.getTasks();
@@ -643,7 +675,7 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
         .then((response) => {
             // console.log(response.data);
             $scope.users = response.data.data.map(users => users);
-            console.log($scope.users)
+            // console.log($scope.users)
         })
         .catch((response) => {
             console.log(response.data);

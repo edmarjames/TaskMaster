@@ -48,12 +48,13 @@
         <p>Deadline: <time>{{ task.attributes.deadline }}</time></p>
         <p>Created: {{ dateCreated }} <time>{{ task.attributes.created }}</time></p>
         <p>Modified: {{ dateModified }} <time>{{ task.attributes.modified }}</time></p>
+        <p ng-show="isAdmin == 'true' || isAdmin == true">User: {{ task.attributes.user }}</p>
         <p>Active: {{ task.attributes.is_active }}</p>
 
         <div class="d-flex justify-content-center">
-          <a href="#!/task/{{ task.id }}" class="btn btn-primary mx-1" title="More details"><i class='bx bx-dots-horizontal-rounded'></i></a>
+          <a ng-hide="isAdmin == 'true' || isAdmin == true" href="#!/task/{{ task.id }}" class="btn btn-primary mx-1" title="More details"><i class='bx bx-dots-horizontal-rounded'></i></a>
 
-          <a href="#!/task/delete/{{ task.id }}" class="btn btn-danger mx-1" title="Delete" data-toggle="modal" data-target="#deleteModal"><i class='bx bx-trash'></i></a>
+          <a ng-hide="isAdmin == 'true' || isAdmin == true" href="#!/task/delete/{{ task.id }}" class="btn btn-danger mx-1" title="Delete" data-toggle="modal" data-target="#deleteModal"><i class='bx bx-trash'></i></a>
 
           <button ng-click="archiveTask(task.id)" ng-show="{{ task.attributes.is_active == true }}" class="btn btn-warning mx-1" title="Archive"><i class='bx bx-archive-in'></i></button>
 
