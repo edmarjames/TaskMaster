@@ -489,34 +489,66 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
     $scope.dateModified;
 
     $scope.getNotes = function () {
-        $http.get('https://todo-list-notes-api.onrender.com/note/', {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${localStorage.getItem('token')}`
-            }
-        })
-        .then((response) => {
-            $scope.notes = response.data.data.map(note => {
 
-                const dateCreated = new Date(note.attributes.created.slice(0, 10));
-                const dateStringCreated = dateCreated.toLocaleDateString();
-                $scope.dateCreated = dateStringCreated;
-
-                const timeCreated = new Date(note.attributes.created);
-                const timeStringCreated = timeCreated.toLocaleTimeString();
-                note.attributes.created = timeStringCreated;
-
-                const dateModified = new Date(note.attributes.modified.slice(0, 10));
-                const dateStringModified = dateModified.toLocaleDateString();
-                $scope.dateModified = dateStringModified;
-
-                const timeModified = new Date(note.attributes.modified);
-                const timeStringModified = timeModified.toLocaleTimeString();
-                note.attributes.modified = timeStringModified;
-
-                return note;
+        if (localStorage.getItem('isAdmin') == 'true') {
+            $http.get('https://todo-list-notes-api.onrender.com/all_notes', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                }
+            })
+            .then((response) => {
+                $scope.notes = response.data.data.map(note => {
+    
+                    const dateCreated = new Date(note.attributes.created.slice(0, 10));
+                    const dateStringCreated = dateCreated.toLocaleDateString();
+                    $scope.dateCreated = dateStringCreated;
+    
+                    const timeCreated = new Date(note.attributes.created);
+                    const timeStringCreated = timeCreated.toLocaleTimeString();
+                    note.attributes.created = timeStringCreated;
+    
+                    const dateModified = new Date(note.attributes.modified.slice(0, 10));
+                    const dateStringModified = dateModified.toLocaleDateString();
+                    $scope.dateModified = dateStringModified;
+    
+                    const timeModified = new Date(note.attributes.modified);
+                    const timeStringModified = timeModified.toLocaleTimeString();
+                    note.attributes.modified = timeStringModified;
+    
+                    return note;
+                });
             });
-        });
+        } else {
+            $http.get('https://todo-list-notes-api.onrender.com/note/', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                }
+            })
+            .then((response) => {
+                $scope.notes = response.data.data.map(note => {
+
+                    const dateCreated = new Date(note.attributes.created.slice(0, 10));
+                    const dateStringCreated = dateCreated.toLocaleDateString();
+                    $scope.dateCreated = dateStringCreated;
+
+                    const timeCreated = new Date(note.attributes.created);
+                    const timeStringCreated = timeCreated.toLocaleTimeString();
+                    note.attributes.created = timeStringCreated;
+
+                    const dateModified = new Date(note.attributes.modified.slice(0, 10));
+                    const dateStringModified = dateModified.toLocaleDateString();
+                    $scope.dateModified = dateStringModified;
+
+                    const timeModified = new Date(note.attributes.modified);
+                    const timeStringModified = timeModified.toLocaleTimeString();
+                    note.attributes.modified = timeStringModified;
+
+                    return note;
+                });
+            });
+        };
     };
     $scope.getNotes();
 

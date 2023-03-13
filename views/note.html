@@ -36,15 +36,16 @@
         <p>{{ note.attributes.content }}</p>
         <p>Created: {{ dateCreated }} <time>{{ note.attributes.created }}</time></p>
         <p>Modified: {{ dateModified }} <time>{{ note.attributes.modified }}</time></p>
+        <p ng-show="isAdmin == 'true' || isAdmin == true">User: {{ note.attributes.user }}</p>
 
         <div class="d-flex justify-content-center w-100">
-            <a href="#!/note/{{ note.id }}" class="btn btn-primary mx-1" title="More details"><i class='bx bx-dots-horizontal-rounded'></i></a>
+            <a ng-hide="isAdmin == 'true' || isAdmin == true" href="#!/note/{{ note.id }}" class="btn btn-primary mx-1" title="More details"><i class='bx bx-dots-horizontal-rounded'></i></a>
 
-            <a href="#!/note/delete/{{ note.id }}" class="btn btn-danger mx-1" title="Delete" data-toggle="modal" data-target="#deleteModal"><i class='bx bx-trash'></i></a>
+            <a ng-hide="isAdmin == 'true' || isAdmin == true" href="#!/note/delete/{{ note.id }}" class="btn btn-danger mx-1" title="Delete" data-toggle="modal" data-target="#deleteModal"><i class='bx bx-trash'></i></a>
         </div>
     </div>
 </div>
 
 <div class="d-flex justify-content-end">
-    <a href="#!/create-note"><i class='bx bx-plus-circle bx-flip-vertical'></i></a>
+    <a ng-show="isAdmin == 'false' || isAdmin == false" href="#!/create-note"><i class='bx bx-plus-circle bx-flip-vertical'></i></a>
 </div>
