@@ -50,6 +50,10 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: './views/note.html',
             controller: 'NoteController'
         })
+        .when('/all-users', {
+            templateUrl: './views/users.html',
+            controller: 'UserController'
+        })
         .otherwise({
             redirectTo: '/home'
         })
@@ -95,7 +99,11 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$r
                 $rootScope.authenticated = true;
                 $rootScope.isAdmin = response.data.is_superuser;
 
-                $location.path('/task');
+                if (response.data.is_superuser == false) {
+                    $location.path('/task');
+                } else {
+                    $location.path('/all-users');
+                }
             };
         },
         () => {
@@ -619,4 +627,28 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
     $timeout(function() {
         $('#alert-error').alert('close');
     }, 5000);
+}]);
+
+taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$location', function($rootScope, $scope, $http, $location) {
+
+    $scope.users = [];
+
+    $scope.getAllUsers = function() {
+        $http.get('https://todo-list-notes-api.onrender.com/all_users', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        })
+        .then((response) => {
+            // console.log(response.data);
+            $scope.users = response.data.data.map(users => users);
+            console.log($scope.users)
+        })
+        .catch((response) => {
+            console.log(response.data);
+        });
+    };
+    $scope.getAllUsers();
+
 }]);

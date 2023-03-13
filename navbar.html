@@ -1,7 +1,7 @@
 <ul class="top-navbar">
     <li><h2>TaskMaster</h2></li>
     <li ng-show="authenticated" class="mr-auto"><a href="#!/logout" data-toggle="modal" data-target="#logoutModal">Logout</a></li>
-    <li ng-show="(authenticated == 'true' && isAdmin == 'true') || (authenticated == true && isAdmin == true)"><a href="#">Users</a></li>
+    <li ng-show="(authenticated == 'true' && isAdmin == 'true') || (authenticated == true && isAdmin == true)"><a href="#!/all-users">Users</a></li>
     <li ng-show="authenticated"><a href="#!/task">Task</a></li>
     <li ng-show="authenticated"><a href="#!/note">Notes</a></li>
 </ul>
