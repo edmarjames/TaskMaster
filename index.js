@@ -655,12 +655,16 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                 created: response.data.data.attributes.created,
                 modified: response.data.data.attributes.modified
             };
-        },
-        (response) => {
+        })
+        .catch((response) => {
             if (response.data.errors[0].detail) {
-                $scope.noteDoesNotExistError = 'Note Id is not existing';
+                $scope.noteDoesNotExistError = 'Note is not existing';
                 $rootScope.previousRoute = '/note';
             }
+            $timeout(function() {
+                $scope.noteDoesNotExistError = null;
+                $('#note-does-not-exists-error').alert('close');
+            }, 5000);
         });
     };
     $scope.getSpecificNote();
