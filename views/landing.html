@@ -1,5 +1,10 @@
 <div class="row py-5 my-5" ng-controller="LoginController">
-    <span class="text-danger offset-6 col-6" ng-show="loginError">{{ loginError }}</span>
+
+    <div ng-if="loginError" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="login-error">
+      {{ loginError }}
+    </div>
+
+    <!-- <span class="text-danger offset-6 col-6" ng-show="loginError">{{ loginError }}</span> -->
 
     <div ng-if="successMessage" class="alert alert-success alert-dismissible fade show w-50" role="alert" id="register-success">
       {{ successMessage }}

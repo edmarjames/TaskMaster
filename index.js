@@ -75,10 +75,15 @@ taskMasterApp.run(['$rootScope', function($rootScope) {
 
 }]);
 
-taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$rootScope', function($scope, $http, $location, $rootScope) {
+taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$rootScope', '$timeout', function($scope, $http, $location, $rootScope, $timeout) {
     
     $scope.user = {};
     $scope.loginError;
+
+    function clearFields() {
+        $scope.user.username = '';
+        $scope.user.password = '';
+    };
 
     $scope.loginUser = () => {
         $http.post('https://todo-list-notes-api.onrender.com/users/login',
@@ -90,7 +95,7 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$r
             headers: {'Content-Type': 'application/json'}
         })
         .then((response) => {
-            console.log(response.data.non_field_errors);
+            // console.log(response.data.non_field_errors);
             if (response.data != null) {
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('isAdmin', response.data.is_superuser);
@@ -105,22 +110,16 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$r
                     $location.path('/all-users');
                 }
             };
-        },
-        () => {
+        })
+        .catch((response) => {
             $scope.loginError = "Login failed, check your credentials";
-            $scope.user.username = '';
-            $scope.user.password = '';
-            $location.path('/');
+            clearFields();
+            $timeout(function() {
+                $scope.loginError = null;
+                $('#login-error').alert('close');
+            }, 5000);
         });
     };
-
-    // if (localStorage.getItem('authenticated') === 'true') {
-    //     console.log('true');
-    //     $rootScope.authenticated = true;
-    // } else {
-    //     $rootScope.authenticated = false;
-    // }
-
 }]);
 
 taskMasterApp.controller('LogoutController', ['$rootScope', '$scope', '$location', function($rootScope, $scope, $location) {
