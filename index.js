@@ -326,7 +326,9 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             }, 5000);
         })
         .catch((response) => {
-            if (response.data.errors[0].detail) {
+            if (response.data.errors[0].detail == "This field is required.") {
+                $scope.errorMessage = 'All fields are required';
+            } else {
                 $scope.errorMessage = response.data.errors[0].detail;
             }
             clearFields();
@@ -623,7 +625,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
             if (response.data.errors[0].detail == "This field is required.") {
                 $scope.noteErrorMessage = 'All fields are required';
             } 
-            else if (response.data.errors[0].detail == "Operation failed, there is an existing note with the same title.") {
+            else {
                 $scope.noteErrorMessage = response.data.errors[0].detail;
             };
             clearFields();
