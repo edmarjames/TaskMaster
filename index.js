@@ -614,11 +614,12 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                 $rootScope.successMessage = response.data.data.message;
             }
             $location.path('/note');
-            console.log(response.data);
-            // console.log(response.data.data.message);
-            // console.log($scope.message);
-        },
-        (response) => {
+            $timeout(function() {
+                $rootScope.successMessage = null;
+                $('#success-alert').alert('close');
+            }, 5000);
+        })
+        .catch((response) => {
             if (response.data.errors[0].detail == "This field is required.") {
                 $scope.noteErrorMessage = 'All fields are required';
             } 
@@ -626,7 +627,10 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                 $scope.noteErrorMessage = response.data.errors[0].detail;
             };
             clearFields();
-            console.log($scope.noteErrorMessage);
+            $timeout(function() {
+                $scope.noteErrorMessage = null;
+                $('#note-error').alert('close');
+            }, 5000);
         });
     }
 
@@ -724,9 +728,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         $scope.readOnly = !$scope.readOnly;
     }
 
-    $timeout(function() {
-        $('#success-alert').alert('close');
-    }, 5000);
+    
 
     $timeout(function() {
         $('#alert-error').alert('close');
