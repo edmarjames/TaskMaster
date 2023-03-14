@@ -780,7 +780,6 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
             }
         })
         .then((response) => {
-            console.log(response.data);
             if (response.data != null) {
                 $rootScope.successMessage = response.data.data.message;
             };
@@ -791,7 +790,34 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
             }, 5000);
         })
         .catch((response) => {
-            console.log(response.data);
+            if (response.data != null) {
+                $scope.errorMessage = response.data.errors.error;
+            }
+            $timeout(function() {
+                $scope.errorMessage = null;
+                $('#error-alert').alert('close');
+            }, 5000);
+        });
+    };
+
+    $scope.setAsNormalUser = function(userId) {
+        $http.patch(`https://todo-list-notes-api.onrender.com/set_as_normal_user/${userId}`, null, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        })
+        .then((response) => {
+            if (response.data != null) {
+                $rootScope.successMessage = response.data.data.message;
+            };
+            $scope.getAllUsers();
+            $timeout(function() {
+                $rootScope.successMessage = null;
+                $('#success-alert').alert('close');
+            }, 5000);
+        })
+        .catch((response) => {
             if (response.data != null) {
                 $scope.errorMessage = response.data.errors.error;
             }
