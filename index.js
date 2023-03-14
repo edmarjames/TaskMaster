@@ -437,11 +437,19 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                     $rootScope.successMessage = response.data.data.message;
                     $location.path('/task');
                 }
-            },
-            (response) => {
+                $timeout(function() {
+                    $rootScope.successMessage = null;
+                    $('#success-alert').alert('close');
+                }, 5000);
+            })
+            .catch((response) => {
                 if (response.data.errors[0].detail) {
-                    $rootScope.errorMessage = response.data.errors[0].detail;
+                    $scope.errorMessage = response.data.errors[0].detail;
                 };
+                $timeout(function() {
+                    $scope.errorMessage = null;
+                    $('#error-alert').alert('close');
+                }, 5000);
             });
         };
     };
