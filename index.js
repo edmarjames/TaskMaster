@@ -684,16 +684,22 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         .then((response) => {
             if (response.data != null) {
                 $rootScope.successMessage =  response.data.data.message;
-                $location.path('/note');
-                console.log($rootScope.successMessage);
             }
+            $location.path('/note');
+            $timeout(function() {
+                $rootScope.successMessage = null;
+                $('#success-alert').alert('close');
+            }, 5000);
         })
         .catch((response) => {
             if (response.data.errors[0].detail) {
                 $scope.noteErrorMessage = response.data.errors[0].detail;
-                console.log($scope.noteErrorMessage);
             };
             clearFields();
+            $timeout(function() {
+                $scope.noteErrorMessage = null;
+                $('#note-error').alert('close');
+            }, 5000);
         })
     }
 
