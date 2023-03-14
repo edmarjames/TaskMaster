@@ -13,12 +13,9 @@
     {{ successMessage }}
 </div>
 
-<div ng-if="errorMessage" class="alert alert-danger alert-dismissible fade show w-75" role="alert" id="alert-error">
+<div ng-if="errorMessage" class="alert alert-danger alert-dismissible fade show w-75" role="alert" id="error-alert">
     {{ errorMessage }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
-
-<!-- <span class="text-success" ng-show="successMessage">{{ successMessage }}</span> -->
 
 <div class="modal" tabindex="-1" id="deleteModal">
     <div class="modal-dialog">
