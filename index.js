@@ -700,8 +700,8 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                 $scope.noteErrorMessage = null;
                 $('#note-error').alert('close');
             }, 5000);
-        })
-    }
+        });
+    };
 
     $scope.deleteNote = function() {
         let noteId = $routeParams.id;
@@ -713,15 +713,22 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         })
         .then((response) => {
             if (response.data != null) {
-                $rootScope.successMessage = response.data.data.message;
-                $location.path('/note');
-                console.log($rootScope.successMessage);
-            }
+                $rootScope.successMessage = response.data.data.message;  
+            };
+            $location.path('/note');
+            $timeout(function() {
+                $rootScope.successMessage = null;
+                $('#success-alert').alert('close');
+            }, 5000);
         })
         .catch((response) => {
             if (response.data.errors[0].detail) {
-                $rootScope.errorMessage = 'Note Id is not existing';
+                $scope.errorMessage = 'Note Id is not existing';
             }
+            $timeout(function() {
+                $scope.errorMessage = null;
+                $('#error-alert').alert('close');
+            }, 5000);
         });
     }
 
@@ -738,11 +745,6 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         $scope.readOnly = !$scope.readOnly;
     }
 
-    
-
-    $timeout(function() {
-        $('#alert-error').alert('close');
-    }, 5000);
 }]);
 
 taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$location', function($rootScope, $scope, $http, $location) {
