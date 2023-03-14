@@ -289,8 +289,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 });
             });
         };
-    };
-    
+    }; 
     $scope.getTasks();
 
     function clearFields() {
@@ -322,12 +321,20 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             };
             $location.path('/task');
             clearFields();
-        },
-        (response) => {
+            $timeout(function() {
+                $rootScope.successMessage = null;
+                $('#success-alert').alert('close');
+            }, 5000);
+        })
+        .catch((response) => {
             if (response.data.errors[0].detail) {
                 $scope.errorMessage = response.data.errors[0].detail;
             }
             clearFields();
+            $timeout(function() {
+                $scope.errorMessage = null;
+                $('#task-error').alert('close');
+            }, 5000);
         });
     };
 
@@ -472,14 +479,6 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             }
         });
     };
-
-    $timeout(function() {
-        $('#success-alert').alert('close');
-    }, 5000);
-
-    $timeout(function() {
-        $('#alert-error').alert('close');
-    }, 7000);
 
     $('.toast').toast()
 

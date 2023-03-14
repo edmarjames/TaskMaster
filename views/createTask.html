@@ -1,12 +1,9 @@
 <div class="d-flex flex-column justify-content-center align-items-center p-5 m-5 border">
     <h2>Create new task</h2>
 
-    <div ng-if="errorMessage" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="alert-error">
+    <div ng-if="errorMessage" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="task-error">
       {{ errorMessage }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-
-    <!-- <span class="text-danger" ng-show="errorMessage">{{ errorMessage }}</span> -->
 
     <form ng-submit="createTask()" class="w-50">
         <div class="form-group">
