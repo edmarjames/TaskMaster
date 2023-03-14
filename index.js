@@ -97,12 +97,19 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$r
         .then((response) => {
             // console.log(response.data.non_field_errors);
             if (response.data != null) {
+                $rootScope.successMessage = 'Successfully logged in';
+
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('isAdmin', response.data.is_superuser);
                 localStorage.setItem('authenticated', true);
 
                 $rootScope.authenticated = true;
                 $rootScope.isAdmin = response.data.is_superuser;
+
+                $timeout(function() {
+                    $rootScope.successMessage = null;
+                    $('#success-alert').alert('close');
+                }, 5000);
 
                 if (response.data.is_superuser == false) {
                     $location.path('/task');
