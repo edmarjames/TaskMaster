@@ -466,13 +466,20 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 $rootScope.successMessage = response.data.data.message;
             };
             $scope.getTasks();
-        },
-        (response) => {
-            console.log(response.data.errors.error);
+            $timeout(function() {
+                $rootScope.successMessage = null;
+                $('#success-alert').alert('close');
+            }, 5000);
+        })
+        .catch((response) => {
             if (response.data != null) {
-                $rootScope.errorMessage = response.data.errors.error;
+                $scope.errorMessage = response.data.errors.error;
             }
             $scope.getTasks();
+            $timeout(function() {
+                $scope.errorMessage = null;
+                $('#error-alert').alert('close');
+            }, 5000);
         });
     };
 
