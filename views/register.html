@@ -2,7 +2,11 @@
     <span class="align-self-end mr-5 pr-5"><a href="#!/"><i class='bx bx-arrow-back'></i></a></span>
 
     <h2>Register here</h2>
-    <span class="text-danger" ng-show="errorMessage">{{ errorMessage }}</span>
+
+    <div ng-if="errorMessage" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="register-error">
+        {{ errorMessage }}
+    </div>
+
     <form ng-submit="registerUser()" name="registerForm" class="w-75" novalidate>
         <div class="row">
             <div class="form-group col">

@@ -151,7 +151,7 @@ taskMasterApp.controller('LogoutController', ['$rootScope', '$scope', '$location
     
 }]);
 
-taskMasterApp.controller('RegisterController', ['$rootScope', '$scope', '$http', '$location', function($rootScope, $scope, $http, $location) {
+taskMasterApp.controller('RegisterController', ['$rootScope', '$scope', '$http', '$location', '$timeout', function($rootScope, $scope, $http, $location, $timeout) {
 
     $scope.register = {};
     $scope.errorMessage;
@@ -183,20 +183,23 @@ taskMasterApp.controller('RegisterController', ['$rootScope', '$scope', '$http',
                 $rootScope.successMessage = response.data.data.message;
                 $location.path('/');
             };
-            // console.log(response.data.data);
-        },
-        (response) => {
-            // console.log(response.data.errors);
+            $timeout(function() {
+                $('#register-success').alert('close');
+            }, 5000);
+        })
+        .catch((response) => {
             if (response.data.errors.message) {
                 $scope.errorMessage = response.data.errors.message;
             } else if (response.data.errors[0].detail) {
                 $scope.errorMessage = response.data.errors[0].detail;
             }
             clearFields();
-            // console.log($scope.errorMessage);
+            $timeout(function() {
+                $scope.errorMessage = null;
+                $('#register-error').alert('close');
+            }, 5000);
         });
     };
-
 }]);
 
 taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$location', '$routeParams', '$filter', '$timeout', function($rootScope, $scope, $http, $location, $routeParams, $filter, $timeout) {
