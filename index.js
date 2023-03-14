@@ -369,13 +369,16 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             $scope.specificTask.formattedDeadline = $filter('date')($scope.specificTask.deadline, 'yyyy-MM-dd'); // format deadline as string
             $scope.specificTask.created =  response.data.data.attributes.created;
             $scope.specificTask.modified =  response.data.data.attributes.modified;
-        },
-        (response) => {
+        })
+        .catch((response) => {
             if (response.data.errors[0].detail) {
-                $scope.taskDoesNotExistError = 'Task Id is not existing';
+                $scope.taskDoesNotExistError = 'Task is not existing';
                 $rootScope.previousRoute = '/task';
-                
             }
+            $timeout(function() {
+                $scope.taskDoesNotExistError = null;
+                $('#task-does-not-exist-error').alert('close');
+            }, 5000);
         });
     }
     $scope.getSpecificTask();
