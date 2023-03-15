@@ -1,6 +1,26 @@
+<div ng-controller="LogoutController" class="modal" tabindex="-1" id="logoutModal" data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirm</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to logout?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="confirmLogout=true; logout()">Yes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="cancel()">No</button>
+        </div>
+      </div>
+    </div>
+</div>
+
 <ul class="top-navbar">
     <li><h2>TaskMaster</h2></li>
-    <li ng-show="authenticated" class="mr-auto"><a href="#!/logout" data-toggle="modal" data-target="#logoutModal">Logout</a></li>
+    <li ng-show="authenticated" class="mr-auto"><button type="button" class="btn" data-toggle="modal" data-target="#logoutModal" title="Logout"><i class='bx bx-log-out-circle'></i></button></li>
     <li ng-show="(authenticated == 'true' && isAdmin == 'true') || (authenticated == true && isAdmin == true)"><a href="#!/all-users">Users</a></li>
     <li ng-show="authenticated"><a href="#!/task">Task</a></li>
     <li ng-show="authenticated"><a href="#!/note">Notes</a></li>

@@ -3,16 +3,9 @@ const taskMasterApp = angular.module('taskMasterApp', ['ngRoute']);
 taskMasterApp.config(['$routeProvider', function($routeProvider) {
 
     $routeProvider
-        .when('/home', {
-            templateUrl: './views/home.html'
-        })
         .when('/', {
             templateUrl: './views/landing.html',
             controller: 'LoginController'
-        })
-        .when('/logout', {
-            templateUrl: './views/logout.html',
-            controller: 'LogoutController'
         })
         .when('/register', {
             templateUrl: './views/register.html',
