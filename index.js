@@ -241,6 +241,7 @@ taskMasterApp.controller('RegisterController', ['$rootScope', '$scope', '$http',
 
 taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$location', '$routeParams', '$filter', '$timeout', function($rootScope, $scope, $http, $location, $routeParams, $filter, $timeout) {
 
+    // declare scope objects
     $scope.tasks = [];
     $scope.newTask = {};
     $scope.specificTask = {
@@ -259,8 +260,12 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
     $scope.dateCreated;
     $scope.dateModified;
 
-    $scope.getTasks = function () {
 
+    /* ---------------------------- MAIN FUNCTIONS ---------------------------- */
+
+    // function for getting all task or specific task for authenticated user
+    $scope.getTasks = function () {
+        // if authenticated user is an admin, proceed with this GET api call
         if (localStorage.getItem('isAdmin') == 'true') {
             $http.get('https://todo-list-notes-api.onrender.com/all_tasks', {
                 headers: {
@@ -269,20 +274,25 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 }
             })
             .then((response) => {
+                // map the data response to the tasks scope array
                 $scope.tasks = response.data.data.map(task => {
 
+                    // format the date created to 'm-d-yyyy' format
                     const dateCreated = new Date(task.attributes.created.slice(0, 10));
                     const dateStringCreated = dateCreated.toLocaleDateString();
                     $scope.dateCreated = dateStringCreated;
 
+                    // format the time created to local time string
                     const timeCreated = new Date(task.attributes.created);
                     const timeStringCreated = timeCreated.toLocaleTimeString();
                     task.attributes.created = timeStringCreated;
 
+                    // format the date modified to 'm-d-yyyy' format
                     const dateModified = new Date(task.attributes.modified.slice(0, 10));
                     const dateStringModified = dateModified.toLocaleDateString();
                     $scope.dateModified = dateStringModified;
 
+                    // format the time modified to local time string
                     const timeModified = new Date(task.attributes.modified);
                     const timeStringModified = timeModified.toLocaleTimeString();
                     task.attributes.modified = timeStringModified;
@@ -290,6 +300,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                     return task;
                 });
             });
+        // if user is not an admin, proceed with this GET api call
         } else {
             $http.get('https://todo-list-notes-api.onrender.com/task/', {
             headers: {
@@ -298,20 +309,25 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 }
             })
             .then((response) => {
+                // map the data response to the tasks scope array
                 $scope.tasks = response.data.data.map(task => {
 
+                    // format the date created to 'm-d-yyyy' format
                     const dateCreated = new Date(task.attributes.created.slice(0, 10));
                     const dateStringCreated = dateCreated.toLocaleDateString();
                     $scope.dateCreated = dateStringCreated;
 
+                    // format the time created to local time string
                     const timeCreated = new Date(task.attributes.created);
                     const timeStringCreated = timeCreated.toLocaleTimeString();
                     task.attributes.created = timeStringCreated;
 
+                    // format the date modified to 'm-d-yyyy' format
                     const dateModified = new Date(task.attributes.modified.slice(0, 10));
                     const dateStringModified = dateModified.toLocaleDateString();
                     $scope.dateModified = dateStringModified;
 
+                    // format the time modified to local time string
                     const timeModified = new Date(task.attributes.modified);
                     const timeStringModified = timeModified.toLocaleTimeString();
                     task.attributes.modified = timeStringModified;
@@ -320,18 +336,15 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 });
             });
         };
-    }; 
+    };
+    // invoke the getTasks function so that it will run on page load
     $scope.getTasks();
 
-    function clearFields() {
-        $scope.newTask.title = '';
-        $scope.newTask.description = '';
-        $scope.newTask.deadline = '';
-    }
-
+    // function for creating a new task
     $scope.createTask = function() {
-
+        // get the deadline property from the newTask object
         let deadline = new Date($scope.newTask.deadline);
+        // format it to 'yyyy-MM-dd'
         let formattedDeadline = deadline.getFullYear() + '-' + ('0' + (deadline.getMonth()+1)).slice(-2) + '-' + ('0' + deadline.getDate()).slice(-2);
 
         $http.post('https://todo-list-notes-api.onrender.com/task/', 
@@ -348,22 +361,31 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         })
         .then((response) => {
             if (response.data != null) {
+                // set the rootScope successMessage
                 $rootScope.successMessage = response.data.data.message;
             };
-            $location.path('/task');
+            // reset the input fields
             clearFields();
+            // go back to task route
+            $location.path('/task');
+            // set the rootScope successMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $rootScope.successMessage = null;
                 $('#success-alert').alert('close');
             }, 5000);
         })
         .catch((response) => {
+            // if error message is 'This field is required.'
             if (response.data.errors[0].detail == "This field is required.") {
+                // set the errorMessage to 'All fields are required'
                 $scope.errorMessage = 'All fields are required';
             } else {
+                // set the errorMessage to 'Operation failed, there is an existing task with the same title.' or 'Deadline cannot be in the past'
                 $scope.errorMessage = response.data.errors[0].detail;
             }
+            // reset the input fields
             clearFields();
+            // set the scope errorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.errorMessage = null;
                 $('#task-error').alert('close');
@@ -371,56 +393,54 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         });
     };
 
-    $scope.cancel = function () {
-        $rootScope.successMessage = '';
-        $location.path('/task');
-        clearFields();
-    };
-
-    $scope.goBackToPreviousRoute = function() {
-        if ($rootScope.previousRoute) {
-            $location.path($rootScope.previousRoute);
-        } else {
-            $location.path('/task');
-        }
-    };
-
+    // function for getting specific task
     $scope.getSpecificTask = function() {
+        // get the taskId from the route parameter
         let taskId = $routeParams.id;
-        $http.get(`https://todo-list-notes-api.onrender.com/task/${taskId}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${localStorage.getItem('token')}`
-            }
-        })
-        .then((response) => {
-            $scope.specificTask.id = response.data.data.id;
-            $scope.specificTask.title = response.data.data.attributes.title;
-            $scope.specificTask.description = response.data.data.attributes.description;
-            $scope.specificTask.status =  response.data.data.attributes.status;
-            $scope.specificTask.deadline = new Date(response.data.data.attributes.deadline); // set deadline as Date object
-            $scope.specificTask.formattedDeadline = $filter('date')($scope.specificTask.deadline, 'yyyy-MM-dd'); // format deadline as string
-            $scope.specificTask.created =  response.data.data.attributes.created;
-            $scope.specificTask.modified =  response.data.data.attributes.modified;
-        })
-        .catch((response) => {
-            if (response.data.errors[0].detail) {
-                $scope.taskDoesNotExistError = 'Task is not existing';
-                $rootScope.previousRoute = '/task';
-            }
-            $timeout(function() {
-                $scope.taskDoesNotExistError = null;
-                $('#task-does-not-exist-error').alert('close');
-            }, 5000);
-        });
-    }
+        // the get API call will only run if the taskId is not null
+        if (taskId) {
+            $http.get(`https://todo-list-notes-api.onrender.com/task/${taskId}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                }
+            })
+            .then((response) => {
+                // set the properties of specificTask object
+                $scope.specificTask.id = response.data.data.id;
+                $scope.specificTask.title = response.data.data.attributes.title;
+                $scope.specificTask.description = response.data.data.attributes.description;
+                $scope.specificTask.status =  response.data.data.attributes.status;
+
+                // set deadline as Date object
+                $scope.specificTask.deadline = new Date(response.data.data.attributes.deadline); 
+                // format deadline as string
+                $scope.specificTask.formattedDeadline = $filter('date')($scope.specificTask.deadline, 'yyyy-MM-dd'); 
+
+                $scope.specificTask.created =  response.data.data.attributes.created;
+                $scope.specificTask.modified =  response.data.data.attributes.modified;
+            })
+            .catch((response) => {
+                if (response.data.errors[0].detail) {
+                    // set the taskDoesNotExistError error message
+                    $scope.taskDoesNotExistError = 'Task is not existing';
+                    // set the previousRoute to '/task'
+                    $rootScope.previousRoute = '/task';
+                }
+                // set the taskDoesNotExistError to null and close the alert after 5 seconds
+                $timeout(function() {
+                    $scope.taskDoesNotExistError = null;
+                    $('#task-does-not-exist-error').alert('close');
+                }, 5000);
+            });
+        };
+    };
+    // invoke the getSpecificTask function
     $scope.getSpecificTask();
 
-    $scope.toggleReadOnly = function() {
-        $scope.readOnly = !$scope.readOnly;
-    }
-
+    // function for updating a task
     $scope.updateTask = function(taskId) {
+        // format the deadline to 'yyyy-MM-dd'
         let deadline = $filter('date')($scope.specificTask.deadline, 'yyyy-MM-dd')
 
         $http.patch(`https://todo-list-notes-api.onrender.com/task/${taskId}/`, 
@@ -438,9 +458,12 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         })
         .then((response) => {
             if (response.data != null) {
+                // set the rootScope successMessage
                 $rootScope.successMessage = response.data.data.message;
             }
+            // go back to task route
             $location.path('/task');
+            // set the rootScope successMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $rootScope.successMessage = null;
                 $('#success-alert').alert('close');
@@ -448,8 +471,10 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         })
         .catch((response) => {
             if (response.data.errors[0].detail) {
+                // set the scope errorMessage to 'Deadline cannot be in the past' or 'Operation failed, there is an existing task with the same title.'
                 $scope.errorMessage = response.data.errors[0].detail;
             };
+            // set the scope errorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.errorMessage = null;
                 $('#error-alert').alert('close');
@@ -457,8 +482,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         });
     };
 
+    // function for deleting a task
     $scope.deleteTask = function() {
+        // get the taskId from the route parameter
         let taskId = $routeParams.id;
+        // if $scope.confirmDelete is true, proceed with delete
         if ($scope.confirmDelete) {
             $http.delete(`https://todo-list-notes-api.onrender.com/task/${taskId}/`, {
                 headers: {
@@ -468,9 +496,12 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             })
             .then((response) => {
                 if (response.data != null) {
+                    // set the rootScope successMessage
                     $rootScope.successMessage = response.data.data.message;
+                    // go back to task route
                     $location.path('/task');
-                }
+                };
+                // set the rootScope successMessage to null and close the alert after 5 seconds
                 $timeout(function() {
                     $rootScope.successMessage = null;
                     $('#success-alert').alert('close');
@@ -478,8 +509,10 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             })
             .catch((response) => {
                 if (response.data.errors[0].detail) {
+                    // set the scope errorMessage to 'Not found'
                     $scope.errorMessage = response.data.errors[0].detail;
                 };
+                // set the scope errorMessage to null and close the alert after 5 seconds
                 $timeout(function() {
                     $scope.errorMessage = null;
                     $('#error-alert').alert('close');
@@ -488,6 +521,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         };
     };
 
+    // function for archiving a task
     $scope.archiveTask = function(taskId) {
         $http.patch(`https://todo-list-notes-api.onrender.com/tasks/archive/${taskId}`, null, {
             headers: {
@@ -497,9 +531,12 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         })
         .then((response) => {
             if (response.data != null) {
+                // set the rootScope successMessage
                 $rootScope.successMessage = response.data.data.message;
             };
+            // invoke $scope.getTasks function to fetch changes
             $scope.getTasks();
+            // set the rootScope successMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $rootScope.successMessage = null;
                 $('#success-alert').alert('close');
@@ -507,9 +544,12 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         })
         .catch((response) => {
             if (response.data != null) {
+                // set the scope errorMessage to 'Task is already archived'
                 $scope.errorMessage = response.data.errors.error;
-            }
+            };
+            // invoke $scope.getTasks function to fetch changes
             $scope.getTasks();
+            // set the scope errorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.errorMessage = null;
                 $('#error-alert').alert('close');
@@ -517,6 +557,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         });
     };
 
+    // function for activating a task
     $scope.activateTask = function(taskId) {
         $http.patch(`https://todo-list-notes-api.onrender.com/tasks/activate/${taskId}`, null, {
             headers: {
@@ -526,9 +567,12 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         })
         .then((response) => {
             if (response.data != null) {
+                // set the rootScope successMessage
                 $rootScope.successMessage = response.data.data.message;
             };
+            // invoke $scope.getTasks function to fetch changes
             $scope.getTasks();
+            // set the rootScope successMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $rootScope.successMessage = null;
                 $('#success-alert').alert('close');
@@ -536,9 +580,12 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         })
         .catch((response) => {
             if (response.data != null) {
+                // set the scope errorMessage to 'Task is already activated'
                 $scope.errorMessage = response.data.errors.error;
-            }
+            };
+            // invoke $scope.getTasks function to fetch changes
             $scope.getTasks();
+            // set the scope errorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.errorMessage = null;
                 $('#error-alert').alert('close');
@@ -546,7 +593,38 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         });
     };
 
-    // $('.toast').toast()
+    /* ---------------------------- HELPER FUNCTIONS ---------------------------- */
+
+    // reset the value of newTask object properties
+    function clearFields() {
+        $scope.newTask.title = '';
+        $scope.newTask.description = '';
+        $scope.newTask.deadline = '';
+    };
+
+    // go back to task route and invoke clearFields function
+    $scope.cancel = function () {
+        $rootScope.successMessage = null;
+        $location.path('/task');
+        clearFields();
+    };
+
+    // go back to previous route
+    $scope.goBackToPreviousRoute = function() {
+        // if there is a previousRoute visited
+        if ($rootScope.previousRoute) {
+            // go to previous route
+            $location.path($rootScope.previousRoute);
+        } else {
+            // else go back to task
+            $location.path('/task');
+        }
+    };
+
+    // toggles the readOnly to 'true' or 'false'
+    $scope.toggleReadOnly = function() {
+        $scope.readOnly = !$scope.readOnly;
+    };
 
 }]);
 
