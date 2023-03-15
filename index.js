@@ -630,6 +630,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
 
 taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$location', '$timeout', '$routeParams', function($rootScope, $scope, $http, $location, $timeout, $routeParams) {
 
+    // declare scope objects
     $scope.notes = [];
     $scope.newNote = {};
     $scope.specificNote = {};
@@ -640,8 +641,11 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
     $scope.dateCreated;
     $scope.dateModified;
 
-    $scope.getNotes = function () {
+    /* ---------------------------- MAIN FUNCTIONS ---------------------------- */
 
+    // function for getting all notes or specific notes for authenticated user
+    $scope.getNotes = function () {
+        // if the authenticated user is an admin, proceed with this GET api call
         if (localStorage.getItem('isAdmin') == 'true') {
             $http.get('https://todo-list-notes-api.onrender.com/all_notes', {
                 headers: {
@@ -650,20 +654,25 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                 }
             })
             .then((response) => {
+                // map the data response to notes scope array
                 $scope.notes = response.data.data.map(note => {
     
+                    // format the date created to 'm-d-yyyy' format
                     const dateCreated = new Date(note.attributes.created.slice(0, 10));
                     const dateStringCreated = dateCreated.toLocaleDateString();
                     $scope.dateCreated = dateStringCreated;
     
+                    // format the time created to local time string
                     const timeCreated = new Date(note.attributes.created);
                     const timeStringCreated = timeCreated.toLocaleTimeString();
                     note.attributes.created = timeStringCreated;
     
+                    // format the date modified to 'm-d-yyyy' format
                     const dateModified = new Date(note.attributes.modified.slice(0, 10));
                     const dateStringModified = dateModified.toLocaleDateString();
                     $scope.dateModified = dateStringModified;
     
+                    // format the time modified to local time string
                     const timeModified = new Date(note.attributes.modified);
                     const timeStringModified = timeModified.toLocaleTimeString();
                     note.attributes.modified = timeStringModified;
@@ -671,6 +680,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                     return note;
                 });
             });
+        // if user is not an admin, proceed with this GET api call
         } else {
             $http.get('https://todo-list-notes-api.onrender.com/note/', {
                 headers: {
@@ -679,20 +689,25 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                 }
             })
             .then((response) => {
+                // map the data response to notes scope array
                 $scope.notes = response.data.data.map(note => {
 
+                    // format the date created to 'm-d-yyyy' format
                     const dateCreated = new Date(note.attributes.created.slice(0, 10));
                     const dateStringCreated = dateCreated.toLocaleDateString();
                     $scope.dateCreated = dateStringCreated;
 
+                    // format the time created to local time string
                     const timeCreated = new Date(note.attributes.created);
                     const timeStringCreated = timeCreated.toLocaleTimeString();
                     note.attributes.created = timeStringCreated;
 
+                    // format the date modified to 'm-d-yyyy' format
                     const dateModified = new Date(note.attributes.modified.slice(0, 10));
                     const dateStringModified = dateModified.toLocaleDateString();
                     $scope.dateModified = dateStringModified;
 
+                    // format the time modified to local time string
                     const timeModified = new Date(note.attributes.modified);
                     const timeStringModified = timeModified.toLocaleTimeString();
                     note.attributes.modified = timeStringModified;
@@ -702,13 +717,46 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
             });
         };
     };
+    // invoke the getNotes function so that it will run on page load
     $scope.getNotes();
 
-    function clearFields() {
-        $scope.newNote.title = '';
-        $scope.newNote.content = '';
+    // function for getting specific note
+    $scope.getSpecificNote = function() {
+        let noteId = $routeParams.id;
+        $http.get(`https://todo-list-notes-api.onrender.com/note/${noteId}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        })
+        .then((response) => {
+            // set the specificNote properties
+            $scope.specificNote = {
+                id: response.data.data.id,
+                title: response.data.data.attributes.title,
+                content: response.data.data.attributes.content,
+                created: response.data.data.attributes.created,
+                modified: response.data.data.attributes.modified
+            };
+        })
+        .catch((response) => {
+            if (response.data.errors[0].detail) {
+                // set the scope noteDoesNotExistError message
+                $scope.noteDoesNotExistError = 'Note is not existing';
+                // set the previousRoute to '/route'
+                $rootScope.previousRoute = '/note';
+            }
+            // set the scope noteDoesNotExistError to null and close the alert after 5 seconds
+            $timeout(function() {
+                $scope.noteDoesNotExistError = null;
+                $('#note-does-not-exists-error').alert('close');
+            }, 5000);
+        });
     };
+    // invoke the getSpecificNote function
+    $scope.getSpecificNote();
 
+    // function for creating a note
     $scope.createNote = function() {
         $http.post('https://todo-list-notes-api.onrender.com/note/', 
         {
@@ -723,64 +771,37 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         })
         .then((response) => {
             if (response.data != null) {
+                // set the rootScope successMessage
                 $rootScope.successMessage = response.data.data.message;
-            }
+            };
+            // go back to note route
             $location.path('/note');
+            // set the rootScope successMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $rootScope.successMessage = null;
                 $('#success-alert').alert('close');
             }, 5000);
         })
         .catch((response) => {
+            // if error message is 'This field is required.'
             if (response.data.errors[0].detail == "This field is required.") {
+                // set the scope noteErrorMessage to 'All fields are required'
                 $scope.noteErrorMessage = 'All fields are required';
-            } 
-            else {
+            } else {
+                // set the scope noteErrorMessage to 'Operation failed, there is an existing note with the same title.'
                 $scope.noteErrorMessage = response.data.errors[0].detail;
             };
+            // reset the input fields
             clearFields();
+            // set the scope noteErrorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.noteErrorMessage = null;
                 $('#note-error').alert('close');
             }, 5000);
         });
-    }
-
-    $scope.cancel = function() {
-        clearFields();
-        $location.path('/note');
     };
 
-    $scope.getSpecificNote = function() {
-        let noteId = $routeParams.id;
-        $http.get(`https://todo-list-notes-api.onrender.com/note/${noteId}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${localStorage.getItem('token')}`
-            }
-        })
-        .then((response) => {
-            $scope.specificNote = {
-                id: response.data.data.id,
-                title: response.data.data.attributes.title,
-                content: response.data.data.attributes.content,
-                created: response.data.data.attributes.created,
-                modified: response.data.data.attributes.modified
-            };
-        })
-        .catch((response) => {
-            if (response.data.errors[0].detail) {
-                $scope.noteDoesNotExistError = 'Note is not existing';
-                $rootScope.previousRoute = '/note';
-            }
-            $timeout(function() {
-                $scope.noteDoesNotExistError = null;
-                $('#note-does-not-exists-error').alert('close');
-            }, 5000);
-        });
-    };
-    $scope.getSpecificNote();
-
+    // function for updating a note
     $scope.updateNote = function(noteId) {
         $http.patch(`https://todo-list-notes-api.onrender.com/note/${noteId}/`, 
         {
@@ -795,9 +816,12 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         })
         .then((response) => {
             if (response.data != null) {
+                // set the rootScope successMessage
                 $rootScope.successMessage =  response.data.data.message;
             }
+            // go back to note route
             $location.path('/note');
+            // set the rootScope successMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $rootScope.successMessage = null;
                 $('#success-alert').alert('close');
@@ -805,9 +829,12 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         })
         .catch((response) => {
             if (response.data.errors[0].detail) {
-                $scope.noteErrorMessage = response.data.errors[0].detail;
+                // set the noteErrorMessage to 'Operation failed, there is an existing note with the same title'
+                $scope.noteErrorMessage = response.data.errors[0].detail.replace(/[{}']/g, '').trim().slice(0, 63);
             };
+            // reset the input fields
             clearFields();
+            // set the scope noteErrorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.noteErrorMessage = null;
                 $('#note-error').alert('close');
@@ -815,6 +842,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         });
     };
 
+    // function for deleting a note
     $scope.deleteNote = function() {
         let noteId = $routeParams.id;
         $http.delete(`https://todo-list-notes-api.onrender.com/note/${noteId}/`, {
@@ -825,9 +853,12 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         })
         .then((response) => {
             if (response.data != null) {
+                // set the rootScope successMessage
                 $rootScope.successMessage = response.data.data.message;  
             };
+            // go back to note route
             $location.path('/note');
+            // set the rootScope successMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $rootScope.successMessage = null;
                 $('#success-alert').alert('close');
@@ -835,27 +866,47 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         })
         .catch((response) => {
             if (response.data.errors[0].detail) {
-                $scope.errorMessage = 'Note Id is not existing';
+                // set the scope errorMessage to 'Note is not existing'
+                $scope.errorMessage = 'Note is not existing';
             }
+            // set the scope errorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.errorMessage = null;
                 $('#error-alert').alert('close');
             }, 5000);
         });
-    }
+    };
 
+    /* ---------------------------- HELPER FUNCTIONS ---------------------------- */
+
+    // reset the value of newNote object properties
+    function clearFields() {
+        $scope.newNote.title = '';
+        $scope.newNote.content = '';
+    };
+
+    // go back to note route and invoke clearFields function
+    $scope.cancel = function() {
+        clearFields();
+        $location.path('/note');
+    };
+
+    // go back to previous route
     $scope.goBackToPreviousRoute = function() {
-        $rootScope.successMessage = '';
+        // if there is a previousRoute visited
         if ($rootScope.previousRoute) {
+            // go to previous route
             $location.path($rootScope.previousRoute);
         } else {
+            // else go back to note
             $location.path('/note');
         }
     };
 
+    // toggles the readOnly to 'true' or 'false'
     $scope.toggleReadOnly = function() {
         $scope.readOnly = !$scope.readOnly;
-    }
+    };
 
 }]);
 
@@ -872,9 +923,7 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
             }
         })
         .then((response) => {
-            // console.log(response.data);
             $scope.users = response.data.data.map(users => users);
-            // console.log($scope.users)
         })
         .catch((response) => {
             console.log(response.data);
