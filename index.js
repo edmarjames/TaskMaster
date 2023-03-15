@@ -2,6 +2,7 @@ const taskMasterApp = angular.module('taskMasterApp', ['ngRoute']);
 
 taskMasterApp.config(['$routeProvider', function($routeProvider) {
 
+    // declare routing
     $routeProvider
         .when('/', {
             templateUrl: './views/landing.html',
@@ -48,18 +49,22 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
             controller: 'UserController'
         })
         .otherwise({
-            redirectTo: '/home'
+            redirectTo: '/'
         })
 
 }]);
 
 taskMasterApp.run(['$rootScope', function($rootScope) {
 
+    // get the value of authenticated and isAdmin from the localStorage if page reloads
     $rootScope.authenticated = localStorage.getItem('authenticated');
     $rootScope.isAdmin = localStorage.getItem('isAdmin');
+
+    // declare rootScope success and error message
     $rootScope.successMessage;
     $rootScope.errorMessage;
     
+    // stores the previous visited route on rootScope.previousRoute
     $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
         if (previous && previous.originalPath) {
             $rootScope.previousRoute = previous.originalPath;
@@ -70,14 +75,11 @@ taskMasterApp.run(['$rootScope', function($rootScope) {
 
 taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$rootScope', '$timeout', function($scope, $http, $location, $rootScope, $timeout) {
     
+    // declare scope objects
     $scope.user = {};
     $scope.loginError;
 
-    function clearFields() {
-        $scope.user.username = '';
-        $scope.user.password = '';
-    };
-
+    // function for login
     $scope.loginUser = () => {
         $http.post('https://todo-list-notes-api.onrender.com/users/login',
         {
@@ -88,22 +90,26 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$r
             headers: {'Content-Type': 'application/json'}
         })
         .then((response) => {
-            // console.log(response.data.non_field_errors);
             if (response.data != null) {
+                // set the rootScope successMessage
                 $rootScope.successMessage = 'Successfully logged in';
 
+                // set the token, isAdmin and authenticated as items in the localStorage
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('isAdmin', response.data.is_superuser);
                 localStorage.setItem('authenticated', true);
 
+                // set the initial value of rootScope authenticated and isAdmin
                 $rootScope.authenticated = true;
                 $rootScope.isAdmin = response.data.is_superuser;
 
+                // reset the rootScope successMessage and close the alert after 5 seconds
                 $timeout(function() {
                     $rootScope.successMessage = null;
                     $('#success-alert').alert('close');
                 }, 5000);
 
+                // conditional routing if the authenticated user is an admin or not
                 if (response.data.is_superuser == false) {
                     $location.path('/task');
                 } else {
@@ -112,57 +118,72 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$r
             };
         })
         .catch((response) => {
+            // set the scope loginError message
             $scope.loginError = "Login failed, check your credentials";
+            // reset the input fields
             clearFields();
+            // reset the scope loginError message and close the alert after 5 seconds
             $timeout(function() {
                 $scope.loginError = null;
                 $('#login-error').alert('close');
             }, 5000);
         });
     };
+
+    // helper function for resetting the value of username and password scope object
+    function clearFields() {
+        $scope.user.username = '';
+        $scope.user.password = '';
+    };
+
 }]);
 
 taskMasterApp.controller('LogoutController', ['$rootScope', '$scope', '$location', function($rootScope, $scope, $location) {
 
+    // declare initial value of confirmLogout
     $scope.confirmLogout = false;
+    // get the values of token and isAdmin from localStorage
     let token = localStorage.getItem('token');
     let isAdmin = localStorage.getItem('isAdmin');
 
+    // function for logout
     $scope.logout = function() {
+        // if confirmLogout is true
         if ($scope.confirmLogout) {
+            // and if token and isAdmin is not null
             if (token != null && isAdmin != null) {
+                // clear all items on localStorage
                 localStorage.clear();
+                // set the authenticated and isAdmin rootScope to false
                 $rootScope.authenticated = false;
                 $rootScope.isAdmin = false;
+                // go back to root route
                 $location.path('/');
-            }
-        }
+            };
+        };
     };
 
+    // function for cancel button
     $scope.cancel = function() {
+        // if there is a previous visited route
         if ($rootScope.previousRoute) {
+            // go back to previousRoute
             $location.path($rootScope.previousRoute);
         } else {
-            $location.path('/');
-        }
+            // else go back to task route
+            $location.path('/task');
+        };
     };
     
 }]);
 
 taskMasterApp.controller('RegisterController', ['$rootScope', '$scope', '$http', '$location', '$timeout', function($rootScope, $scope, $http, $location, $timeout) {
 
+    // declare scope objects
     $scope.register = {};
     $scope.errorMessage;
 
-    function clearFields() {
-        $scope.register.username = '';
-        $scope.register.firstName = '';
-        $scope.register.lastName = '';
-        $scope.register.email = '';
-        $scope.register.password = '';
-        $scope.register.confirmPassword = '';
-    };
-
+    // function for registering a user
     $scope.registerUser = function() {
         $http.post('https://todo-list-notes-api.onrender.com/users/register', 
         {
@@ -178,26 +199,44 @@ taskMasterApp.controller('RegisterController', ['$rootScope', '$scope', '$http',
         })
         .then((response) => {
             if (response.data != null) {
+                // set the rootScope successMessage
                 $rootScope.successMessage = response.data.data.message;
+                // go back to root route
                 $location.path('/');
             };
+            // close the alert after 5 seconds
             $timeout(function() {
                 $('#register-success').alert('close');
             }, 5000);
         })
         .catch((response) => {
             if (response.data.errors.message) {
+                // set the errorMessage to 'Username already exists'
                 $scope.errorMessage = response.data.errors.message;
             } else if (response.data.errors[0].detail) {
+                // set the errorMessage to 'Sorry, the password did not match' or 'Enter a valid email address'
                 $scope.errorMessage = response.data.errors[0].detail;
-            }
+            };
+            // reset the input fields
             clearFields();
+            // set errorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.errorMessage = null;
                 $('#register-error').alert('close');
             }, 5000);
         });
     };
+
+    // helper function to clear values of the properties of register object
+    function clearFields() {
+        $scope.register.username = '';
+        $scope.register.firstName = '';
+        $scope.register.lastName = '';
+        $scope.register.email = '';
+        $scope.register.password = '';
+        $scope.register.confirmPassword = '';
+    };
+
 }]);
 
 taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$location', '$routeParams', '$filter', '$timeout', function($rootScope, $scope, $http, $location, $routeParams, $filter, $timeout) {
