@@ -723,35 +723,38 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
     // function for getting specific note
     $scope.getSpecificNote = function() {
         let noteId = $routeParams.id;
-        $http.get(`https://todo-list-notes-api.onrender.com/note/${noteId}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${localStorage.getItem('token')}`
-            }
-        })
-        .then((response) => {
-            // set the specificNote properties
-            $scope.specificNote = {
-                id: response.data.data.id,
-                title: response.data.data.attributes.title,
-                content: response.data.data.attributes.content,
-                created: response.data.data.attributes.created,
-                modified: response.data.data.attributes.modified
-            };
-        })
-        .catch((response) => {
-            if (response.data.errors[0].detail) {
-                // set the scope noteDoesNotExistError message
-                $scope.noteDoesNotExistError = 'Note is not existing';
-                // set the previousRoute to '/route'
-                $rootScope.previousRoute = '/note';
-            }
-            // set the scope noteDoesNotExistError to null and close the alert after 5 seconds
-            $timeout(function() {
-                $scope.noteDoesNotExistError = null;
-                $('#note-does-not-exists-error').alert('close');
-            }, 5000);
-        });
+        // the get API call will only run if the noteId is not null
+        if (noteId) {
+            $http.get(`https://todo-list-notes-api.onrender.com/note/${noteId}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                }
+            })
+            .then((response) => {
+                // set the specificNote properties
+                $scope.specificNote = {
+                    id: response.data.data.id,
+                    title: response.data.data.attributes.title,
+                    content: response.data.data.attributes.content,
+                    created: response.data.data.attributes.created,
+                    modified: response.data.data.attributes.modified
+                };
+            })
+            .catch((response) => {
+                if (response.data.errors[0].detail) {
+                    // set the scope noteDoesNotExistError message
+                    $scope.noteDoesNotExistError = 'Note is not existing';
+                    // set the previousRoute to '/route'
+                    $rootScope.previousRoute = '/note';
+                }
+                // set the scope noteDoesNotExistError to null and close the alert after 5 seconds
+                $timeout(function() {
+                    $scope.noteDoesNotExistError = null;
+                    $('#note-does-not-exists-error').alert('close');
+                }, 5000);
+            });
+        };
     };
     // invoke the getSpecificNote function
     $scope.getSpecificNote();
@@ -912,9 +915,11 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
 
 taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$location', '$timeout', function($rootScope, $scope, $http, $location, $timeout) {
 
+    // declare scope objects
     $scope.users = [];
     $scope.errorMessage;
 
+    // function for getting all users
     $scope.getAllUsers = function() {
         $http.get('https://todo-list-notes-api.onrender.com/all_users', {
             headers: {
@@ -923,14 +928,18 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
             }
         })
         .then((response) => {
+            // map the data response to users scope array
             $scope.users = response.data.data.map(users => users);
         })
         .catch((response) => {
+            // logs the error on the console
             console.log(response.data);
         });
     };
+    // invoke the getAllUsers function to run it on page load
     $scope.getAllUsers();
 
+    // function for setting a user as admin
     $scope.setAsAdmin = function(userId) {
         $http.patch(`https://todo-list-notes-api.onrender.com/set_as_admin/${userId}`, null, {
             headers: {
@@ -940,9 +949,12 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
         })
         .then((response) => {
             if (response.data != null) {
+                // set the rootScope successMessage
                 $rootScope.successMessage = response.data.data.message;
             };
+            // invoke the $scope.getAllUsers function to fetch changes
             $scope.getAllUsers();
+            // set the rootScope successMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $rootScope.successMessage = null;
                 $('#success-alert').alert('close');
@@ -950,8 +962,10 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
         })
         .catch((response) => {
             if (response.data != null) {
+                // set the scope errorMessage to 'User is already a superuser'
                 $scope.errorMessage = response.data.errors.error;
-            }
+            };
+            // set the scope errorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.errorMessage = null;
                 $('#error-alert').alert('close');
@@ -959,6 +973,7 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
         });
     };
 
+    // function for setting an admin to a normal user
     $scope.setAsNormalUser = function(userId) {
         $http.patch(`https://todo-list-notes-api.onrender.com/set_as_normal_user/${userId}`, null, {
             headers: {
@@ -968,9 +983,12 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
         })
         .then((response) => {
             if (response.data != null) {
+                // set the rootScope successMessage
                 $rootScope.successMessage = response.data.data.message;
             };
+            // invoke the $scope.getAllUsers function to fetch changes
             $scope.getAllUsers();
+            // set the rootScope successMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $rootScope.successMessage = null;
                 $('#success-alert').alert('close');
@@ -978,8 +996,10 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
         })
         .catch((response) => {
             if (response.data != null) {
+                // set the scope errorMessage to 'User is already a normal user'
                 $scope.errorMessage = response.data.errors.error;
-            }
+            };
+            // set the scope errorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.errorMessage = null;
                 $('#error-alert').alert('close');
