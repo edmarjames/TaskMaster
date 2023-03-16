@@ -19,8 +19,8 @@
 </div>
 
 <ul class="top-navbar">
-    <li><h2>TaskMaster</h2></li>
-    <li ng-show="authenticated" class="mr-auto"><button type="button" class="btn" data-toggle="modal" data-target="#logoutModal" title="Logout"><i class='bx bx-log-out-circle'></i></button></li>
+    <li><h2 id="title-header">TaskMaster</h2></li>
+    <li ng-show="authenticated" class="mr-auto" id="logout-button"><button type="button" class="btn" data-toggle="modal" data-target="#logoutModal" title="Logout"><i class='bx bx-log-out-circle'></i></button></li>
     <li ng-show="(authenticated == 'true' && isAdmin == 'true') || (authenticated == true && isAdmin == true)"><a href="#!/all-users">Users</a></li>
     <li ng-show="authenticated"><a href="#!/task">Task</a></li>
     <li ng-show="authenticated"><a href="#!/note">Notes</a></li>

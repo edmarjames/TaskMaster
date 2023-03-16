@@ -15,19 +15,45 @@ button[disabled="disabled"] {
 
 .top-navbar {
     display: flex;
+    width: 100%;
     list-style-type: none;
-    margin: 5px 10px;
-    padding: 3px 10px;
+    margin-bottom: 0;
+    padding-left: 30px;
+    border-bottom: 4px solid black;
 }
 
 .top-navbar li {
     display: inline-block;
-    margin: 15px 10px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+    letter-spacing: 0.05em;
+    margin: 30px 0 0;
 }
 
 .top-navbar li a{
     text-decoration: none;
     color: black;
-    font-weight: 500;
-    letter-spacing: 1px;
+    border-left: 4px solid black;
+    padding: 27px 70px;
 }
+
+.top-navbar li a:hover {
+    background-color: #FF90E8;
+}
+
+#title-header {
+    font-weight: 500;
+    line-height: 40px;
+    letter-spacing: 0.1em;
+    transform: translateY(-10px);
+}
+
+#logout-button {
+    transform: translateY(-5px);
+}
+
+.bx-log-out-circle {
+    font-size: 1.5rem;
+}
+
