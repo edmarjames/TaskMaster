@@ -1,26 +1,34 @@
-<div class="row py-5 my-5" ng-controller="LoginController">
+<div class="row mx-0 vh-100" ng-controller="LoginController">
+    <div class="col-6 border">
 
-    <div ng-if="loginError" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="login-error">
-      {{ loginError }}
     </div>
 
-    <div ng-if="successMessage" class="alert alert-success alert-dismissible fade show w-50" role="alert" id="register-success">
-      {{ successMessage }}
-    </div>
+    <div class="p-5 col-6 login-form-border">
 
-    <form ng-submit="loginUser()" name="loginForm" class="w-25 py-5 my-5 offset-6 col-6" novalidate>
+      <div ng-if="loginError" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="login-error">
+        {{ loginError }}
+      </div>
+
+      <div ng-if="successMessage" class="alert alert-success alert-dismissible fade show w-50" role="alert" id="register-success">
+        {{ successMessage }}
+      </div>
+
+      <form ng-submit="loginUser()" name="loginForm" class="p-5 login-form" novalidate>
+        <h1 id="login-title">Login here</h1>
         <div class="form-group">
-          <label for="username">Username</label>
+          <label for="username" class="username-password-label">Username</label>
           <input ng-model="user.username" type="text" class="form-control" id="username" aria-describedby="emailHelp">
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
+          <label for="password" class="username-password-label">Password</label>
           <input ng-model="user.password" type="password" class="form-control" id="password">
         </div>
         <input type="submit" class="btn btn-primary" value="login">
-    </form>
+      </form>
+    </div>
+    
 </div>
-<div class="row py-5 my-5 vh-100">
+<div class="row mx-0 vh-100">
   <div class="d-flex flex-column justify-content-center align-items-center w-100">
     <h2>Sign up here</h2>
     <a href="#!/register">Register</a>
