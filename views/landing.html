@@ -1,9 +1,58 @@
-<div class="row mx-0 vh-100" ng-controller="LoginController">
-    <div class="col-6 border">
+<div class="row mx-0 min-vh-100 first-row" ng-controller="LoginController">
 
+    <div class="col-6 border landing-page-intro">
+      <div class="text-container">
+        <h1 class="text-layout">Create your daily task</h1>
+        <h1 class="text-layout">and take notes</h1>
+      </div>
+
+      <div class="image-layout first-note">
+        <p id="image-title">Note</p>
+        <p id="content">Single or double quotation marks can be used on Python and JavaScript</p>
+      </div>
+
+      <div class="image-layout second-note">
+        <p id="image-title">Note</p>
+        <p id="content">Create react app is now deprecated on React</p>
+      </div>
+
+      <div class="image-layout third-note">
+        <p id="image-title">Note</p>
+        <p id="content">An arrow function in JavaScript does not have access to 'this' property</p>
+      </div>
+
+      <div class="image-layout fourth-note">
+        <p id="image-title">Note</p>
+        <p id="content">Run python manage.py to migrate database changes django</p>
+      </div>
+
+      <div class="image-layout first-task">
+        <p id="image-title">Task</p>
+        <p id="content">Create a unit test for the new feature</p>
+      </div>
+
+      <div class="image-layout second-task">
+        <p id="image-title">Task</p>
+        <p id="content">Provide comments on your codebase</p>
+      </div>
+
+      <div class="image-layout third-task">
+        <p id="image-title">Task</p>
+        <p id="content">Test the API endpoints</p>
+      </div>
+
+      <div class="image-layout fourth-task">
+        <p id="image-title">Task</p>
+        <p id="content">Create an ERD for the database</p>
+      </div>
+
+      <div class="image-layout fifth-task">
+        <p id="image-title">Task</p>
+        <p id="content">Drink 8 glasses of water</p>
+      </div>
     </div>
 
-    <div class="p-5 col-6 login-form-border">
+    <div class="p-5 col-6 login-form-layout">
 
       <div ng-if="loginError" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="login-error">
         {{ loginError }}
