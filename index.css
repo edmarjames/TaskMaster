@@ -112,10 +112,15 @@ input[type="submit"]:hover {
     position: relative;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    flex-wrap: wrap;
+    height: 100vh;
 }
 
 .text-container {
     margin: 50px auto;
+    width: 100%;
+    border-bottom: 4px solid black;
 }
 
 .text-layout {
@@ -127,74 +132,114 @@ input[type="submit"]:hover {
 }
 
 .first-note {
-    width: 203px;
+    width: 226px;
     height: 200px;
-    left: 558px;
-    top: 370px;
+    left: 495px;
+    top: 300px;
     background: #FF90E8;
 }
 
 .second-note {
-    width: 199px;
-    height: 106px;
-    left: 284px;
-    top: 771px;
-    background: #23A094;
+    width: 226px;
+    height: 213px;
+    left: 245px;
+    top: 524px;
+    background: #E2442F;
 }
 
 .third-note {
+    left: 675px;
+    top: 544px;
     width: 226px;
     height: 213px;
-    left: 25px;
-    top: 664px;
-    background: #E2442F;
+    background: #f1f333;
 }
 
 .fourth-note {
-    width: 193px;
-    height: 205px;
-    left: -29px;
-    top: 292px;
+    left: 645px;
+    top: 774px;
+    width: 266px;
+    height: 213px;
     background: #FF90E8;
+}
+
+.fifth-note {
+    width: 226px;
+    height: 213px;
+    left: 255px;
+    top: 754px;
+    background: #f1f333;
 }
 
 .first-task {
-    width: 228px;
-    height: 236px;
-    left: 522px;
-    top: 605px;
-    background: #E2442F;
-}
-
-.second-task {
-    width: 169px;
-    height: 157px;
-    left: 307px;
-    top: 570px;
-    background: #FF90E8;
-}
-
-.third-task {
-    width: 108px;
-    height: 101px;
-    left: 429px;
-    top: 320px;
-    background: #FFC900;
-}
-
-.fourth-task {
-    width: 209px;
-    height: 195px;
-    left: 188px;
-    top: 338px;
+    width: 190px;
+    height: 155px;
+    left: 265px;
+    top: 330px;
     background: #23A094;
 }
 
-.fifth-task {
-    width: 108px;
-    height: 129px;
-    left: 25px;
+.second-task {
+    width: 128px;
+    height: 121px;
+    left: 499px;
     top: 530px;
+    background: #FFC900;
+}
+
+.third-task {
+    width: 128px;
+    height: 141px;
+    left: 499px;
+    top: 670px;
+    background: #23A094;
+}
+
+.fourth-task {
+    width: 128px;
+    height: 151px;
+    left: 499px;
+    top: 830px;
+    background: #E2442F;
+}
+
+.fifth-task {
+    width: 220px;
+    height: 175px;
+    left: 15px;
+    top: 340px;
+    background: #FFC900;
+}
+
+.sixth-task {
+    width: 220px;
+    height: 175px;
+    left: 15px;
+    top: 540px;
+    background: #FF90E8;
+}
+
+.seventh-task {
+    width: 250px;
+    height: 195px;
+    left: -10px;
+    top: 740px;
+    background: #23A094;
+}
+
+.eight-task {
+    width: 128px;
+    height: 161px;
+    left: 730px;
+    top: 360px;
+    background: #E2442F;
+}
+
+.ninth-task {
+    width: 128px;
+    height: 161px;
+    left: 870px;
+    top: 300px;
     background: #FFC900;
 }
 
@@ -208,6 +253,10 @@ input[type="submit"]:hover {
     border: 3px solid black;
 }
 
+.image-layout:hover {
+    box-shadow: 5px 5px 0px #000000;
+}
+
 .image-layout #image-title {
     font-weight: 500;
 }
@@ -216,3 +265,18 @@ input[type="submit"]:hover {
     text-align: center;
 }
 
+@media(max-width: 768px) {
+    .landing-page-intro {
+        height: 15vh;
+    }
+    .login-form {
+        transform: translateY(-10%);
+    }
+    .text-container {
+        margin: 5px auto;
+    }
+    .login-form-layout {
+        border: 4px solid black;
+        border-bottom: 0;
+    }
+}
