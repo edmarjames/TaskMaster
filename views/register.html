@@ -1,7 +1,7 @@
-<div class="d-flex flex-column justify-content-center align-items-center">
-    <span class="align-self-end mr-5 pr-5"><a href="#!/"><i class='bx bx-arrow-back'></i></a></span>
+<div class="d-flex flex-column justify-content-center align-items-center register-page-layout">
+    <span class="align-self-end back-button" title="Back"><a href="#!/"><i class='bx bx-arrow-back'></i></a></span>
 
-    <h2>Register here</h2>
+    <h2 id="register-title">Register here</h2>
 
     <div ng-if="errorMessage" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="register-error">
         {{ errorMessage }}
@@ -40,7 +40,7 @@
             <input ng-model="register.confirmPassword" type="password" class="form-control" name="confirm-password" id="confirm-password" placeholder="Confirm password">
         </div>
         
-        <input type="submit" class="btn btn-primary w-100" value="Create account" ng-disabled="registerForm.$pristine && registerForm.$valid">
+        <input type="submit" class="btn btn-primary w-100" value="Create account">
 
     </form>
 </div>
