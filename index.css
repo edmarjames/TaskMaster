@@ -409,10 +409,9 @@ input[type="submit"]:hover{
 }
 
 .back-button {
-    position: absolute;
-    display: inline-block;
+    /* position: absolute;
     top: 180px;
-    right: 250px;
+    right: 250px; */
     color: black;
     border: 3px solid black;
     padding: 0.7em;
