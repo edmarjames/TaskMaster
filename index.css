@@ -74,6 +74,8 @@ button[disabled="disabled"] {
 .login-form-layout {
     border-left: 4px solid black;
     background-color: #FFC900;
+    height: 100vh;
+    width: 100%;
 }
 
 .first-row {
@@ -113,13 +115,28 @@ input[type="submit"]:hover{
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
+    height: 100vh;
+    width: 100%;
+}
+
+.landing-page-backdrop {
+    height: 100vh;
+    width: 100%;
+    background: radial-gradient(circle, transparent 25%, #ffffff  26%),linear-gradient(45deg, transparent 46%, #000000 47%, #000000 52%, transparent 53%), linear-gradient(135deg, transparent 46%, #000000 47%, #000000 52%, transparent 53%);
+        background-size: 5em 5em;
+        background-color: #ffffff;
+        opacity: 0.7;
+    z-index: -1;
 }
 
 .text-container {
+    position: absolute;
+    top: 350px;
+    left: calc(50% - 40%);
     margin: 50px auto;
-    width: 100%;
-    border-bottom: 4px solid black;
+    width: 75%;
+    background: #FFFFFF;
 }
 
 .text-layout {
@@ -131,22 +148,22 @@ input[type="submit"]:hover{
 }
 
 .first-note {
-    width: 226px;
-    height: 200px;
-    left: 495px;
-    top: 300px;
+    width: 223px;
+    height: 220px;
+    left: 740px;
+    top: 192px;
     background: #FF90E8;
 }
 
 .second-note {
-    width: 226px;
-    height: 213px;
-    left: 245px;
-    top: 524px;
-    background: #E2442F;
+    width: 246px;
+    height: 233px;
+    left: 70px;
+    top: -10px;
+    background: #FFC900;
 }
 
-.third-note {
+/* .third-note {
     left: 675px;
     top: 544px;
     width: 226px;
@@ -168,17 +185,17 @@ input[type="submit"]:hover{
     left: 255px;
     top: 754px;
     background: #f1f333;
-}
+} */
 
 .first-task {
-    width: 190px;
-    height: 155px;
-    left: 265px;
-    top: 330px;
+    width: 239px;
+    height: 235px;
+    left: -6px;
+    top: 609px;
     background: #23A094;
 }
 
-.second-task {
+/* .second-task {
     width: 128px;
     height: 121px;
     left: 499px;
@@ -192,17 +209,17 @@ input[type="submit"]:hover{
     left: 499px;
     top: 670px;
     background: #23A094;
-}
+} */
 
 .fourth-task {
-    width: 128px;
-    height: 151px;
-    left: 499px;
-    top: 830px;
+    width: 248px;
+    height: 256px;
+    left: 577px;
+    top: 751px;
     background: #E2442F;
 }
 
-.fifth-task {
+/* .fifth-task {
     width: 220px;
     height: 175px;
     left: 15px;
@@ -240,7 +257,7 @@ input[type="submit"]:hover{
     left: 870px;
     top: 300px;
     background: #FFC900;
-}
+} */
 
 .image-layout {
     position: absolute;
@@ -410,14 +427,14 @@ input[type="submit"]:hover{
     color: inherit;
 }
 
-.bx {
+.back-button a i {
     font-size: 1.5rem !important;
 }
 
 @media(max-width: 768px) {
-    .landing-page-intro {
+    /* .landing-page-intro {
         height: 15vh;
-    }
+    } */
     .login-form {
         transform: translateY(-10%);
     }

@@ -1,5 +1,7 @@
 <div class="row mx-0 min-vh-100 first-row" ng-controller="LoginController">
-    <div class="col-md-12 col-lg-6 landing-page-intro px-0">
+
+    <div class="order-xs-1 col-xs-12 col-lg-6 landing-page-intro px-0">
+      <div class="landing-page-backdrop"></div>
       <div class="text-container pt-3 pb-4">
         <h1 class="text-layout">Create your daily task</h1>
         <h1 class="text-layout">and take notes</h1>
@@ -13,58 +15,18 @@
           <p id="image-title">Note 2</p>
           <p id="content">An arrow function in JavaScript does not have access to 'this' property</p>
         </div>
-        <div class="image-layout third-note">
-          <p id="image-title">Note 3</p>
-          <p id="content">Run python manage.py to migrate database changes in django</p>
-        </div>
-        <div class="image-layout fourth-note">
-          <p id="image-title">Note 4</p>
-          <p id="content">Use the "git pull" command to update your local repository with changes from the remote repository.</p>
-        </div>
-        <div class="image-layout fifth-note">
-          <p id="image-title">Note 5</p>
-          <p id="content">In Python, you can use the "zip" function to iterate over multiple lists in parallel.</p>
-        </div>
         <div class="image-layout first-task">
           <p id="image-title">Task 1</p>
-          <p id="content">Create an ERD for the database</p>
-        </div>
-        <div class="image-layout second-task">
-          <p id="image-title">Task 2</p>
-          <p id="content">Test the API endpoints</p>
-        </div>
-        <div class="image-layout third-task">
-          <p id="image-title">Task 3</p>
-          <p id="content">Provide comments on your codebase</p>
+          <p id="content">Create an ERD <br>for the database</p>
         </div>
         <div class="image-layout fourth-task">
           <p id="image-title">Task 4</p>
           <p id="content">Create a unit test for the new feature</p>
         </div>
-        <div class="image-layout fifth-task">
-          <p id="image-title">Task 5</p>
-          <p id="content">Refactor the existing codebase to implement the DRY (Don't Repeat Yourself) principle</p>
-        </div>
-        <div class="image-layout sixth-task">
-          <p id="image-title">Task 6</p>
-          <p id="content">Write a script to scrape data from a website and save it to a CSV file</p>
-        </div>
-        <div class="image-layout seventh-task">
-          <p id="image-title">Task 7</p>
-          <p id="content">Add authentication and authorization functionality to the web application using a framework like Django or Flask</p>
-        </div>
-        <div class="image-layout eight-task">
-          <p id="image-title">Task 8</p>
-          <p id="content">Optimize database queries to reduce latency</p>
-        </div>
-        <div class="image-layout ninth-task">
-          <p id="image-title">Task 8</p>
-          <p id="content">Refactor a function to improve performance</p>
-        </div>
       </div>
     </div>
 
-    <div class="col-md-12 col-lg-6 login-form-layout p-5">
+    <div class="order-xs-1 col-xs-12 col-lg-6 login-form-layout p-5">
 
       <div ng-if="loginError" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="login-error">
         {{ loginError }}
