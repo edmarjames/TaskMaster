@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Mabry pro", sans-serif;
+    /* outline: 2px solid red; */
 }
 
 input[ng-disabled="true"] {
@@ -350,6 +351,56 @@ input[type="submit"]:hover{
     font-size: 1.5rem !important;
 }
 
+.card-layout {
+    position: relative;
+    border: 3px solid black;
+    box-shadow: 5px 5px 0px #000000;
+    background: #ffffff;
+    width: auto;
+    max-height: 350px;
+    min-height: 350px;
+}
+
+.action-buttons-layout {
+    border-radius: 0 !important;
+    border: 2px solid black !important;
+    box-shadow: 5px 5px 0px #000000;
+}
+
+.task-container, .note-container {
+    position: relative;
+    width: 100%;
+    background: #D9D9D9;
+    min-height: 100vh;
+}
+
+.add-button {
+    position: fixed;
+    bottom: 20px;
+    right: 45px;
+}
+
+.add-button i {
+    text-decoration: none;
+    font-size: 4rem;
+    font-weight: 100 !important;
+    background-color: white;
+    border-radius: 50%;
+    color: black;
+}
+
+.add-button i:hover {
+    color: black;
+}
+
+.button-container {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
 @media(max-width: 1200px) {
     .text-container {
         left: 70px;
@@ -368,6 +419,10 @@ input[type="submit"]:hover{
     }
     .sign-up-here-first-note {
         left: 1015px;
+    }
+    .card-layout {
+        max-height: 600px;
+        height: 490px;
     }
 }
 
@@ -399,6 +454,10 @@ input[type="submit"]:hover{
     }
     .first-task {
         left: -30px;
+    }
+    .card-layout {
+        max-height: 600px;
+        height: 480px;
     }
 }
 
@@ -438,6 +497,10 @@ input[type="submit"]:hover{
     .second-task {
         left: 520px;
     }
+    .card-layout {
+        max-height: 600px;
+        height: 400px;
+    }
 }
 
 @media(max-width: 576px) {
@@ -465,5 +528,9 @@ input[type="submit"]:hover{
     }
     .second-task {
         left: 330px;
+    }
+    .card-layout {
+        max-height: 600px;
+        height: 380px;
     }
 }
