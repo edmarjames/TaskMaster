@@ -149,7 +149,7 @@ taskMasterApp.controller('LogoutController', ['$rootScope', '$scope', '$location
     // function for logout
     $scope.logout = function() {
         // if confirmLogout is true
-        if ($scope.confirmLogout) {
+        if ($scope.confirmLogout === true) {
             // and if token and isAdmin is not null
             if (token != null && isAdmin != null) {
                 // clear all items on localStorage
@@ -165,13 +165,14 @@ taskMasterApp.controller('LogoutController', ['$rootScope', '$scope', '$location
 
     // function for cancel button
     $scope.cancel = function() {
-        // if there is a previous visited route
-        if ($rootScope.previousRoute) {
+        // if there is no previous route and the previous route is "/"
+        if ($rootScope.previousRoute === undefined || $rootScope.previousRoute == "/") {
+            // go back to task route
+            $location.path('/task');
+        // else if there is a previous visited route
+        } else if ($rootScope.previousRoute) {
             // go back to previousRoute
             $location.path($rootScope.previousRoute);
-        } else {
-            // else go back to task route
-            $location.path('/task');
         };
     };
     
