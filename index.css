@@ -551,13 +551,70 @@ input[type="submit"]:hover{
     }
     .top-navbar li a{
         display: block;
-        border: 4px solid black;
-        padding: 27px 170px;
+        border-top: 4px solid black;
+        border-left: 0;
+        padding: 27px 261px;
     }
     .top-navbar .nav-links {
         margin: 0;
     }
     .top-navbar li .burger-menu {
         display: block;
+    }
+}
+
+/* surface duo */
+@media(max-width: 540px) {
+    .top-navbar li a{
+        padding: 27px 243px;
+    }
+}
+
+/* iphone xr */
+@media(max-width: 414px) {
+    .top-navbar li a{
+        padding: 27px 180px;
+    }
+}
+
+/* s20 ultra */
+@media(max-width: 412px) {
+    .top-navbar li a{
+        padding: 27px 178px;
+    }
+}
+
+/* pixel 5 */
+@media(max-width: 393px) {
+    .top-navbar li a{
+        padding: 27px 169px;
+    }
+}
+
+/* iphone 12 pro */
+@media(max-width: 390px) {
+    .top-navbar li a{
+        padding: 27px 167px;
+    }
+}
+
+/* iphone se */
+@media(max-width: 375px) {
+    .top-navbar li a{
+        padding: 27px 160px;
+    }
+}
+
+/* galaxy s8+ */
+@media(max-width: 360px) {
+    .top-navbar li a{
+        padding: 27px 152px;
+    }
+}
+
+/* galaxy fold */
+@media(max-width: 280px) {
+    .top-navbar li a{
+        padding: 27px 113px;
     }
 }
