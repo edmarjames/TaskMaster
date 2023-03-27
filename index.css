@@ -19,8 +19,9 @@ button[disabled="disabled"] {
     width: 100%;
     list-style-type: none;
     margin-bottom: 0;
-    padding-left: 30px;
+    /* padding-left: 30px; */
     border-bottom: 4px solid black;
+    flex-wrap: wrap;
 }
 
 .top-navbar li {
@@ -37,10 +38,21 @@ button[disabled="disabled"] {
     color: black;
     border-left: 4px solid black;
     padding: 27px 70px;
+    transition: display 0.5s ease-in-out;
 }
 
 .top-navbar li a:hover {
     background-color: #FF90E8;
+}
+
+.top-navbar li .burger-menu {
+    display: none;
+    margin-right: 45px;
+    box-shadow: 2px 2px 0 black;
+}
+
+.top-navbar li button .bx-menu {
+    font-size: 1.5rem;
 }
 
 #title-header {
@@ -48,6 +60,7 @@ button[disabled="disabled"] {
     line-height: 40px;
     letter-spacing: 0.1em;
     transform: translateY(-10px);
+    padding-left: 30px;
 }
 
 #logout-button {
@@ -532,5 +545,19 @@ input[type="submit"]:hover{
     .card-layout {
         max-height: 600px;
         height: 380px;
+    }
+    .top-navbar {
+        padding-left: 0; 
+    }
+    .top-navbar li a{
+        display: block;
+        border: 4px solid black;
+        padding: 27px 170px;
+    }
+    .top-navbar .nav-links {
+        margin: 0;
+    }
+    .top-navbar li .burger-menu {
+        display: block;
     }
 }

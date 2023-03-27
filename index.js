@@ -54,7 +54,7 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-taskMasterApp.run(['$rootScope', function($rootScope) {
+taskMasterApp.run(['$rootScope', '$window', function($rootScope, $window) {
 
     // get the value of authenticated and isAdmin from the localStorage if page reloads
     $rootScope.authenticated = localStorage.getItem('authenticated');
@@ -64,12 +64,26 @@ taskMasterApp.run(['$rootScope', function($rootScope) {
     $rootScope.successMessage;
     $rootScope.errorMessage;
     
+    // set the display rootscope object to true if screen size is greater than 576px
+    $rootScope.display = $window.innerWidth > 576;
+
+    // checks whether the screen size changes
+    angular.element($window).bind('resize', function() {
+        $rootScope.$apply(function() {
+          $rootScope.display = $window.innerWidth > 576;
+        });
+    });
+
     // stores the previous visited route on rootScope.previousRoute
     $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
         if (previous && previous.originalPath) {
             $rootScope.previousRoute = previous.originalPath;
         }
     });
+
+    $rootScope.toggleDisplay = function() {
+        $rootScope.display = !$rootScope.display;
+    }
 
 }]);
 
