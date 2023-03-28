@@ -17,7 +17,7 @@
           <label for="description">Description</label>
           <textarea ng-model="specificNote.content" class="form-control" id="description" placeholder="Enter content" ng-readonly="readOnly"></textarea>
         </div>
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-sm-center justify-content-md-end">
             <button ng-click="toggleReadOnly()" class="btn btn-success ml-1">Edit</button>
             <button ng-click="updateNote(specificNote.id)" type="submit" class="btn btn-primary ml-1" ng-disabled="readOnly">Save</button>
             <button ng-click="goBackToPreviousRoute()" class="btn btn-danger ml-1">Cancel</button>
