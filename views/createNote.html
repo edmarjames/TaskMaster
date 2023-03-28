@@ -1,11 +1,11 @@
-<div class="d-flex flex-column justify-content-center align-items-center p-5 m-5 border">
-    <h2>Create new note</h2>
+<div class="create-note-container d-flex flex-column justify-content-center align-items-center p-5">
     
     <div ng-if="noteErrorMessage" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="note-error">
       {{ noteErrorMessage }}
     </div>
 
-    <form ng-submit="createNote()" class="w-50">
+    <form ng-submit="createNote()" class="create-note-form w-75 p-5">
+        <h2 class="text-center create-note-title">Create new note</h2>
         <div class="form-group">
           <label for="title">Title</label>
           <input ng-model="newNote.title" type="text" class="form-control" id="title" placeholder="Enter title">

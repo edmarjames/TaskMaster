@@ -386,7 +386,7 @@ input[type="submit"]:hover{
 
 .task-container, .note-container, 
 .task-view-container, .create-task-container,
-.note-view-container {
+.note-view-container, .create-note-container {
     position: relative;
     width: 100%;
     background: #D9D9D9;
@@ -423,20 +423,21 @@ input[type="submit"]:hover{
 input[id="title"], input[id="title"]:focus,
 textarea[id="description"], textarea[id="description"]:focus,
 input[id="deadline"], input[id="deadline"]:focus,
-input[id="status"], input[id="status"]:focus {
+input[id="status"], input[id="status"]:focus,
+textarea[id="content"], textarea[id="content"]:focus {
     border-radius: 10px;
     border: 3px solid black;
 }
 
 .task-view-form, .create-task-form,
-.note-view-form {
+.note-view-form, .create-note-form {
     background: #23A094;
     border: 3px solid black;
     box-shadow: 5px 5px 0 black;
 }
 
 .task-view-form label, .create-task-form label,
-.note-view-form label {
+.note-view-form label, .create-note-form label {
     font-weight: 400;
     font-size: 25px;
     line-height: 20px;
@@ -446,7 +447,8 @@ input[id="status"], input[id="status"]:focus {
 
 .task-view-form button, .task-view-form button:hover, .task-view-form button:disabled, 
 .create-task-form button, .create-task-form button:hover,
-.note-view-form button, .note-view-form button:hover, .note-view-form button:disabled {
+.note-view-form button, .note-view-form button:hover, .note-view-form button:disabled,
+.create-note-form button, .create-note-form button:hover {
     border: 2px solid black;
     box-shadow: 3px 3px 0 black;
     border-radius: 5px;
@@ -456,7 +458,7 @@ input[id="status"], input[id="status"]:focus {
     margin: 0 5px;
 }
 
-.create-task-title {
+.create-task-title, .create-note-title {
     letter-spacing: 0.05em;
     font-size: 2.5em;
 }
