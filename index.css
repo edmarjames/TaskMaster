@@ -347,6 +347,10 @@ input[type="submit"]:hover{
     background-color: #FF90E8;
 }
 
+.back-button-task-view {
+    transform: translateY(-100%);
+}
+
 .back-button:hover {
     background: #23A094;
 }
@@ -380,7 +384,7 @@ input[type="submit"]:hover{
     box-shadow: 5px 5px 0px #000000;
 }
 
-.task-container, .note-container {
+.task-container, .note-container, .task-view-container {
     position: relative;
     width: 100%;
     background: #D9D9D9;
@@ -412,6 +416,38 @@ input[type="submit"]:hover{
     left: 0;
     right: 0;
     margin: auto;
+}
+
+input[id="title"], input[id="title"]:focus,
+textarea[id="description"], textarea[id="description"]:focus,
+input[id="deadline"], input[id="deadline"]:focus,
+input[id="status"], input[id="status"]:focus {
+    border-radius: 10px;
+    border: 3px solid black;
+}
+
+.task-view-form {
+    background: #23A094;
+    border: 3px solid black;
+    box-shadow: 5px 5px 0 black;
+}
+
+.task-view-form label {
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 20px;
+    letter-spacing: 0.05em;
+    margin: 15px auto;
+}
+
+.task-view-form button, .task-view-form button:hover {
+    border: 2px solid black;
+    box-shadow: 3px 3px 0 black;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    margin: 0 5px;
 }
 
 @media(max-width: 1200px) {
