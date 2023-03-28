@@ -1,4 +1,4 @@
-<div class="d-flex flex-column justify-content-center align-items-center p-5 m-5 border">
+<div class="note-view-container d-flex flex-column justify-content-center align-items-center p-5">
 
     <div ng-if="noteErrorMessage" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="note-error">
       {{ noteErrorMessage }}
@@ -8,7 +8,7 @@
       {{ noteDoesNotExistError }}
     </div>
 
-    <form class="w-50">
+    <form class="note-view-form w-75 p-5">
         <div class="form-group">
           <label for="title">Title</label>
           <input ng-model="specificNote.title" type="text" class="form-control" id="title" ng-readonly="readOnly">

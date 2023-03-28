@@ -384,7 +384,9 @@ input[type="submit"]:hover{
     box-shadow: 5px 5px 0px #000000;
 }
 
-.task-container, .note-container, .task-view-container, .create-task-container {
+.task-container, .note-container, 
+.task-view-container, .create-task-container,
+.note-view-container {
     position: relative;
     width: 100%;
     background: #D9D9D9;
@@ -426,13 +428,15 @@ input[id="status"], input[id="status"]:focus {
     border: 3px solid black;
 }
 
-.task-view-form, .create-task-form {
+.task-view-form, .create-task-form,
+.note-view-form {
     background: #23A094;
     border: 3px solid black;
     box-shadow: 5px 5px 0 black;
 }
 
-.task-view-form label, .create-task-form label {
+.task-view-form label, .create-task-form label,
+.note-view-form label {
     font-weight: 400;
     font-size: 25px;
     line-height: 20px;
@@ -440,8 +444,9 @@ input[id="status"], input[id="status"]:focus {
     margin: 15px auto;
 }
 
-.task-view-form button, .task-view-form button:hover, .task-view-form button:disabled,
-.create-task-form button, .create-task-form button:hover {
+.task-view-form button, .task-view-form button:hover, .task-view-form button:disabled, 
+.create-task-form button, .create-task-form button:hover,
+.note-view-form button, .note-view-form button:hover, .note-view-form button:disabled {
     border: 2px solid black;
     box-shadow: 3px 3px 0 black;
     border-radius: 5px;
