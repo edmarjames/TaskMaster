@@ -1,11 +1,11 @@
-<div class="d-flex flex-column justify-content-center align-items-center p-5 m-5 border">
-    <h2>Create new task</h2>
-
+<div class="create-task-container d-flex flex-column justify-content-center align-items-center p-5 border">
+    
     <div ng-if="errorMessage" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="task-error">
       {{ errorMessage }}
     </div>
 
-    <form ng-submit="createTask()" class="w-50">
+    <form ng-submit="createTask()" class="w-75 p-5 create-task-form">
+        <h2 class="text-center create-task-title">Create new task</h2>
         <div class="form-group">
           <label for="title">Title</label>
           <input ng-model="newTask.title" type="text" class="form-control" id="title" placeholder="Enter title">
