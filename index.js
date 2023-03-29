@@ -65,12 +65,12 @@ taskMasterApp.run(['$rootScope', '$window', function($rootScope, $window) {
     $rootScope.errorMessage;
     
     // set the display rootscope object to true if screen size is greater than 576px
-    $rootScope.display = $window.innerWidth > 576;
+    $rootScope.display = $window.innerWidth > 768;
 
     // checks whether the screen size changes
     angular.element($window).bind('resize', function() {
         $rootScope.$apply(function() {
-          $rootScope.display = $window.innerWidth > 576;
+          $rootScope.display = $window.innerWidth > 768;
         });
     });
 

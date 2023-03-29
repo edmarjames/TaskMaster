@@ -564,6 +564,21 @@ textarea[id="content"], textarea[id="content"]:focus {
         max-height: 600px;
         height: 400px;
     }
+    .top-navbar {
+        padding-left: 0; 
+    }
+    .top-navbar li a{
+        display: block;
+        border-top: 4px solid black;
+        border-left: 0;
+        padding: 27px 356px;
+    }
+    .top-navbar .nav-links {
+        margin: 0;
+    }
+    .top-navbar li .burger-menu {
+        display: block;
+    }
 }
 
 @media(max-width: 576px) {
@@ -596,20 +611,8 @@ textarea[id="content"], textarea[id="content"]:focus {
         max-height: 600px;
         height: 380px;
     }
-    .top-navbar {
-        padding-left: 0; 
-    }
     .top-navbar li a{
-        display: block;
-        border-top: 4px solid black;
-        border-left: 0;
         padding: 27px 261px;
-    }
-    .top-navbar .nav-links {
-        margin: 0;
-    }
-    .top-navbar li .burger-menu {
-        display: block;
     }
 }
 
