@@ -386,7 +386,8 @@ input[type="submit"]:hover{
 
 .task-container, .note-container, 
 .task-view-container, .create-task-container,
-.note-view-container, .create-note-container {
+.note-view-container, .create-note-container,
+.users-container {
     position: relative;
     width: 100%;
     background: #D9D9D9;
