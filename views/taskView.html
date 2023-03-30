@@ -11,19 +11,30 @@
   <form class="task-view-form w-75 p-5">
     <div class="form-group">
         <label for="title">Title</label>
-        <input ng-model="specificTask.title" type="text" class="form-control" id="title" ng-readonly="readOnly">
+        <input ng-model="specificTask.title" ng-readonly="readOnly" type="text" class="form-control" id="title" >
     </div>
     <div class="form-group">
       <label for="description">Description</label>
-      <textarea ng-model="specificTask.description" class="form-control" id="description" placeholder="Enter description" ng-readonly="readOnly"></textarea>
+      <textarea ng-model="specificTask.description" ng-readonly="readOnly" class="form-control" id="description" placeholder="Enter description"></textarea>
     </div>
     <div class="form-group">
         <label for="deadline">Deadline</label>
-        <input type="date" class="form-control" id="deadline" ng-model="specificTask.deadline" ng-value="specificTask.formattedDeadline" ng-readonly="readOnly">
+        <input ng-model="specificTask.deadline" ng-readonly="readOnly" ng-value="specificTask.formattedDeadline" type="date" class="form-control" id="deadline">
     </div>
     <div class="form-group">
-        <label for="status">status</label>
-        <input ng-model="specificTask.status" type="text" class="form-control" id="status" ng-readonly="readOnly">
+        <label for="status">Status</label>
+        <input ng-model="specificTask.status" ng-readonly="readOnly" type="text" class="form-control" id="status">
+    </div>
+    <div class="form-group">
+      <label for="color">Color</label>
+      <select ng-model="specificTask.color" ng-init="specificTask.color = specificTask.color || ''" ng-disabled="readOnly" id="color" class="form-control">
+        <option value=""></option>
+        <option value="Green">Green</option>
+        <option value="Pink">Pink</option>
+        <option value="Red">Red</option>
+        <option value="White">White</option>
+        <option value="Yellow">Yellow</option>
+      </select>
     </div>
     <div class="d-flex justify-content-sm-center justify-content-md-end">
         <button ng-click="toggleReadOnly()" class="btn btn-success">Edit</button>

@@ -6,6 +6,26 @@
     /* outline: 2px solid red; */
 }
 
+.Green {
+    background: #23A094 !important;
+}
+
+.Pink {
+    background: #FF90E8 !important;
+}
+
+.Red {
+    background: #E2442F !important;
+}
+
+.White {
+    background: #FFFFFF !important;
+}
+
+.Yellow {
+    background: #FFC900 !important;
+}
+
 input[ng-disabled="true"] {
     cursor: not-allowed !important;
 }
@@ -425,6 +445,7 @@ input[id="title"], input[id="title"]:focus,
 textarea[id="description"], textarea[id="description"]:focus,
 input[id="deadline"], input[id="deadline"]:focus,
 input[id="status"], input[id="status"]:focus,
+select[id="color"], select[id="color"]:focus,
 textarea[id="content"], textarea[id="content"]:focus {
     border-radius: 10px;
     border: 3px solid black;

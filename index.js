@@ -266,7 +266,8 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         status: '',
         formattedDeadline: '',
         created: null,
-        modified: null
+        modified: null,
+        color: null
     };
     $scope.errorMessage;
     $scope.taskDoesNotExistError;
@@ -366,7 +367,8 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         {
             title: $scope.newTask.title,
             description: $scope.newTask.description,
-            deadline: formattedDeadline
+            deadline: formattedDeadline,
+            color: $scope.newTask.color
         },
         {
             headers: {
@@ -434,6 +436,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
 
                 $scope.specificTask.created =  response.data.data.attributes.created;
                 $scope.specificTask.modified =  response.data.data.attributes.modified;
+                $scope.specificTask.color =  response.data.data.attributes.color;
             })
             .catch((response) => {
                 if (response.data.errors[0].detail) {
@@ -463,7 +466,8 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             title: $scope.specificTask.title,
             description: $scope.specificTask.description,
             deadline: deadline,
-            status: $scope.specificTask.status
+            status: $scope.specificTask.status,
+            color: $scope.specificTask.color
         },
         {
             headers: {
