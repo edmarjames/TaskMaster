@@ -40,13 +40,13 @@
   <div class="row px-3 mx-3">
       <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12" ng-repeat="task in tasks">
         <div ng-class="task.attributes.color" class="card-layout my-4 mx-2 p-4">
-          <h5>{{ task.attributes.title }}</h5>
+          <h5 class="text-center">{{ task.attributes.title }}</h5>
           <p>{{ task.attributes.description }}</p>
           <p>Deadline: <time>{{ task.attributes.deadline }}</time></p>
+          <p>Active: {{ task.attributes.is_active }}</p>
           <p>Created: {{ dateCreated }} <time>{{ task.attributes.created }}</time></p>
           <p>Modified: {{ dateModified }} <time>{{ task.attributes.modified }}</time></p>
           <p ng-show="isAdmin == 'true' || isAdmin == true">User: {{ task.attributes.user }}</p>
-          <p>Active: {{ task.attributes.is_active }}</p>
 
           <div class="d-flex justify-content-center button-container">
             <a ng-hide="isAdmin == 'true' || isAdmin == true" href="#!/task/{{ task.id }}" class="btn btn-primary action-buttons-layout" title="More details"><i class='bx bx-dots-horizontal-rounded'></i></a>
