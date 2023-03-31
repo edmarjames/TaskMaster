@@ -14,6 +14,17 @@
           <label for="content">Content</label>
           <textarea ng-model="newNote.content" class="form-control" id="content" placeholder="Enter content"></textarea>
         </div>
+        <div class="form-group">
+          <label for="color">Color</label>
+          <select ng-model="newNote.color" id="color" class="form-control">
+            <option value=""></option>
+            <option value="Green">Green</option>
+            <option value="Pink">Pink</option>
+            <option value="Red">Red</option>
+            <option value="White">White</option>
+            <option value="Yellow">Yellow</option>
+          </select>
+        </div>
         <div class="d-flex justify-content-sm-center justify-content-md-end">
             <button type="submit" class="btn btn-primary ml-1">Save</button>
             <button ng-click="cancel()" class="btn btn-danger ml-1">Cancel</button>

@@ -29,7 +29,7 @@
 
   <div class="row px-3 mx-3">
       <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12" ng-repeat="note in notes">
-        <div class="card-layout my-4 mx-2 p-4">
+        <div ng-class="note.attributes.color" class="card-layout my-4 mx-2 p-4">
           <h5>{{ note.attributes.title }}</h5>
           <p>{{ note.attributes.content }}</p>
           <p>Created: {{ dateCreated }} <time>{{ note.attributes.created }}</time></p>

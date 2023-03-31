@@ -756,6 +756,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                     id: response.data.data.id,
                     title: response.data.data.attributes.title,
                     content: response.data.data.attributes.content,
+                    color: response.data.data.attributes.color,
                     created: response.data.data.attributes.created,
                     modified: response.data.data.attributes.modified
                 };
@@ -783,7 +784,8 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         $http.post('https://todo-list-notes-api.onrender.com/note/', 
         {
             title: $scope.newNote.title,
-            content: $scope.newNote.content
+            content: $scope.newNote.content,
+            color: $scope.newNote.color
         },
         {
             headers: {
@@ -828,7 +830,8 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         $http.patch(`https://todo-list-notes-api.onrender.com/note/${noteId}/`, 
         {
             title: $scope.specificNote.title,
-            content: $scope.specificNote.content
+            content: $scope.specificNote.content,
+            color: $scope.specificNote.color
         },
         {
             headers: {
