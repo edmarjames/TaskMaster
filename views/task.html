@@ -44,8 +44,8 @@
           <p>{{ task.attributes.description }}</p>
           <p>Deadline: <time>{{ task.attributes.deadline }}</time></p>
           <p>Active: {{ task.attributes.is_active }}</p>
-          <p>Created: {{ dateCreated }} <time>{{ task.attributes.created }}</time></p>
-          <p>Modified: {{ dateModified }} <time>{{ task.attributes.modified }}</time></p>
+          <p>Created: <time>{{ task.attributes.created }}</time></p>
+          <p>Modified: <time>{{ task.attributes.modified }}</time></p>
           <p ng-show="isAdmin == 'true' || isAdmin == true">User: {{ task.attributes.user }}</p>
 
           <div class="d-flex justify-content-center button-container">

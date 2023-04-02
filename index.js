@@ -273,9 +273,6 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
     $scope.taskDoesNotExistError;
     $scope.readOnly = true;
     $scope.confirmDelete = false;
-    $scope.dateCreated;
-    $scope.dateModified;
-
 
     /* ---------------------------- MAIN FUNCTIONS ---------------------------- */
 
@@ -296,22 +293,20 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                     // format the date created to 'm-d-yyyy' format
                     const dateCreated = new Date(task.attributes.created.slice(0, 10));
                     const dateStringCreated = dateCreated.toLocaleDateString();
-                    $scope.dateCreated = dateStringCreated;
 
                     // format the time created to local time string
                     const timeCreated = new Date(task.attributes.created);
                     const timeStringCreated = timeCreated.toLocaleTimeString();
-                    task.attributes.created = timeStringCreated;
+                    task.attributes.created = `${dateStringCreated} ${timeStringCreated}`;
 
                     // format the date modified to 'm-d-yyyy' format
                     const dateModified = new Date(task.attributes.modified.slice(0, 10));
                     const dateStringModified = dateModified.toLocaleDateString();
-                    $scope.dateModified = dateStringModified;
 
                     // format the time modified to local time string
                     const timeModified = new Date(task.attributes.modified);
                     const timeStringModified = timeModified.toLocaleTimeString();
-                    task.attributes.modified = timeStringModified;
+                    task.attributes.modified = `${dateStringModified} ${timeStringModified}`;
 
                     return task;
                 });
@@ -331,22 +326,20 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                     // format the date created to 'm-d-yyyy' format
                     const dateCreated = new Date(task.attributes.created.slice(0, 10));
                     const dateStringCreated = dateCreated.toLocaleDateString();
-                    $scope.dateCreated = dateStringCreated;
 
                     // format the time created to local time string
                     const timeCreated = new Date(task.attributes.created);
                     const timeStringCreated = timeCreated.toLocaleTimeString();
-                    task.attributes.created = timeStringCreated;
+                    task.attributes.created = `${dateStringCreated} ${timeStringCreated}`;
 
                     // format the date modified to 'm-d-yyyy' format
                     const dateModified = new Date(task.attributes.modified.slice(0, 10));
                     const dateStringModified = dateModified.toLocaleDateString();
-                    $scope.dateModified = dateStringModified;
 
                     // format the time modified to local time string
                     const timeModified = new Date(task.attributes.modified);
                     const timeStringModified = timeModified.toLocaleTimeString();
-                    task.attributes.modified = timeStringModified;
+                    task.attributes.modified = `${dateStringModified} ${timeStringModified}`;
 
                     return task;
                 });
