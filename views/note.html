@@ -32,8 +32,8 @@
         <div ng-class="note.attributes.color" class="card-layout my-4 mx-2 p-4">
           <h5>{{ note.attributes.title }}</h5>
           <p>{{ note.attributes.content }}</p>
-          <p>Created: {{ dateCreated }} <time>{{ note.attributes.created }}</time></p>
-          <p>Modified: {{ dateModified }} <time>{{ note.attributes.modified }}</time></p>
+          <p>Created: <time>{{ note.attributes.created }}</time></p>
+          <p>Modified: <time>{{ note.attributes.modified }}</time></p>
           <p ng-show="isAdmin == 'true' || isAdmin == true">User: {{ note.attributes.user }}</p>
 
           <div class="d-flex justify-content-center button-container">

@@ -650,8 +650,6 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
     $scope.noteDoesNotExistError;
     $scope.readOnly = true;
     $scope.confirmDelete = false;
-    $scope.dateCreated;
-    $scope.dateModified;
 
     /* ---------------------------- MAIN FUNCTIONS ---------------------------- */
 
@@ -677,17 +675,16 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                     // format the time created to local time string
                     const timeCreated = new Date(note.attributes.created);
                     const timeStringCreated = timeCreated.toLocaleTimeString();
-                    note.attributes.created = timeStringCreated;
+                    note.attributes.created = `${dateStringCreated} ${timeStringCreated}`;
     
                     // format the date modified to 'm-d-yyyy' format
                     const dateModified = new Date(note.attributes.modified.slice(0, 10));
                     const dateStringModified = dateModified.toLocaleDateString();
-                    $scope.dateModified = dateStringModified;
     
                     // format the time modified to local time string
                     const timeModified = new Date(note.attributes.modified);
                     const timeStringModified = timeModified.toLocaleTimeString();
-                    note.attributes.modified = timeStringModified;
+                    note.attributes.modified = `${dateStringModified} ${timeStringModified}`;
     
                     return note;
                 });
@@ -707,22 +704,20 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                     // format the date created to 'm-d-yyyy' format
                     const dateCreated = new Date(note.attributes.created.slice(0, 10));
                     const dateStringCreated = dateCreated.toLocaleDateString();
-                    $scope.dateCreated = dateStringCreated;
 
                     // format the time created to local time string
                     const timeCreated = new Date(note.attributes.created);
                     const timeStringCreated = timeCreated.toLocaleTimeString();
-                    note.attributes.created = timeStringCreated;
+                    note.attributes.created = `${dateStringCreated} ${timeStringCreated}`;
 
                     // format the date modified to 'm-d-yyyy' format
                     const dateModified = new Date(note.attributes.modified.slice(0, 10));
                     const dateStringModified = dateModified.toLocaleDateString();
-                    $scope.dateModified = dateStringModified;
 
                     // format the time modified to local time string
                     const timeModified = new Date(note.attributes.modified);
                     const timeStringModified = timeModified.toLocaleTimeString();
-                    note.attributes.modified = timeStringModified;
+                    note.attributes.modified = `${dateStringModified} ${timeStringModified}`;
 
                     return note;
                 });
