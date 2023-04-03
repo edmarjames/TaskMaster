@@ -117,11 +117,11 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$r
                 $rootScope.authenticated = true;
                 $rootScope.isAdmin = response.data.is_superuser;
 
+                // show the toast alert
                 $('.toast').toast('show');
-                // reset the rootScope successMessage and close the alert after 5 seconds
+                // reset the rootScope successMessage
                 $timeout(function() {
                     $rootScope.successMessage = null;
-                    // $('#success-alert').alert('close');
                 }, 5000);
 
                 // conditional routing if the authenticated user is an admin or not
@@ -137,11 +137,11 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$r
             $scope.loginError = "Login failed, check your credentials";
             // reset the input fields
             clearFields();
-            // reset the scope loginError message and close the alert after 5 seconds
+            // show the toast alert
             $('.toast').toast('show');
+            // reset the scope loginError message
             $timeout(function() {
                 $scope.loginError = null;
-                // $('#login-error').alert('close');
             }, 5000);
         });
     };
@@ -175,7 +175,9 @@ taskMasterApp.controller('LogoutController', ['$rootScope', '$scope', '$location
                 $rootScope.isAdmin = false;
                 // go back to root route
                 $location.path('/');
+                // set the rootScope successMessage
                 $rootScope.successMessage = 'Logged out successfully';
+                // reset the successMessage after 5 seconds
                 $timeout(function() {
                     $rootScope.successMessage = null;
                 }, 5000);
@@ -384,11 +386,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             clearFields();
             // go back to task route
             $location.path('/task');
-            // set the rootScope successMessage to null and close the alert after 5 seconds
+            // show the toast alert
             $('.toast').toast('show');
+            // set the rootScope successMessage to null
             $timeout(function() {
                 $rootScope.successMessage = null;
-                // $('#success-alert').alert('close');
             }, 5000);
         })
         .catch((response) => {
@@ -400,13 +402,13 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 // set the errorMessage to 'Operation failed, there is an existing task with the same title.' or 'Deadline cannot be in the past'
                 $scope.errorMessage = response.data.errors[0].detail;
             }
+            // show the toast alert
             $('.toast').toast('show');
             // reset the input fields
             clearFields();
-            // set the scope errorMessage to null and close the alert after 5 seconds
+            // set the scope errorMessage to null
             $timeout(function() {
                 $scope.errorMessage = null;
-                // $('#task-error').alert('close');
             }, 5000);
         });
     };
@@ -446,11 +448,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                     // set the previousRoute to '/task'
                     $rootScope.previousRoute = '/task';
                 }
+                // show the toast alert
                 $('.toast').toast('show');
-                // set the taskDoesNotExistError to null and close the alert after 5 seconds
+                // set the taskDoesNotExistError to null
                 $timeout(function() {
                     $scope.taskDoesNotExistError = null;
-                    // $('#task-does-not-exist-error').alert('close');
                 }, 5000);
             });
         };
@@ -484,11 +486,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             }
             // go back to task route
             $location.path('/task');
+            // show the toast alert
             $('.toast').toast('show');
-            // set the rootScope successMessage to null and close the alert after 5 seconds
+            // set the rootScope successMessage to null
             $timeout(function() {
                 $rootScope.successMessage = null;
-                // $('#success-alert').alert('close');
             }, 5000);
         })
         .catch((response) => {
@@ -496,11 +498,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 // set the scope errorMessage to 'Deadline cannot be in the past' or 'Operation failed, there is an existing task with the same title.'
                 $scope.errorMessage = response.data.errors[0].detail;
             };
+            // show the toast alert
             $('.toast').toast('show');
-            // set the scope errorMessage to null and close the alert after 5 seconds
+            // set the scope errorMessage to null
             $timeout(function() {
                 $scope.errorMessage = null;
-                // $('#error-alert').alert('close');
             }, 5000);
         });
     };
@@ -524,11 +526,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                     // go back to task route
                     $location.path('/task');
                 };
+                // show the toast alert
                 $('.toast').toast('show');
-                // set the rootScope successMessage to null and close the alert after 5 seconds
+                // set the rootScope successMessage to null
                 $timeout(function() {
                     $rootScope.successMessage = null;
-                    // $('#success-alert').alert('close');
                 }, 5000);
             })
             .catch((response) => {
@@ -536,11 +538,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                     // set the scope errorMessage to 'Not found'
                     $scope.errorMessage = response.data.errors[0].detail;
                 };
+                // show the toast alert
                 $('.toast').toast('show');
-                // set the scope errorMessage to null and close the alert after 5 seconds
+                // set the scope errorMessage to null
                 $timeout(function() {
                     $scope.errorMessage = null;
-                    // $('#error-alert').alert('close');
                 }, 5000);
             });
         };
@@ -561,11 +563,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             };
             // invoke $scope.getTasks function to fetch changes
             $scope.getTasks();
-            // set the rootScope successMessage to null and close the alert after 5 seconds
+            // show the toast alert
             $('.toast').toast('show');
+            // set the rootScope successMessage to null
             $timeout(function() {
                 $rootScope.successMessage = null;
-                // $('#success-alert').alert('close');
             }, 5000);
         })
         .catch((response) => {
@@ -575,11 +577,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             };
             // invoke $scope.getTasks function to fetch changes
             $scope.getTasks();
+            // show the toast alert
             $('.toast').toast('show');
-            // set the scope errorMessage to null and close the alert after 5 seconds
+            // set the scope errorMessage to null
             $timeout(function() {
                 $scope.errorMessage = null;
-                // $('#error-alert').alert('close');
             }, 5000);
         });
     };
@@ -599,11 +601,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             };
             // invoke $scope.getTasks function to fetch changes
             $scope.getTasks();
+            // show the toast alert
             $('.toast').toast('show');
-            // set the rootScope successMessage to null and close the alert after 5 seconds
+            // set the rootScope successMessage to null
             $timeout(function() {
                 $rootScope.successMessage = null;
-                // $('#success-alert').alert('close');
             }, 5000);
         })
         .catch((response) => {
@@ -613,11 +615,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             };
             // invoke $scope.getTasks function to fetch changes
             $scope.getTasks();
+            // show the toast alert
             $('.toast').toast('show');
-            // set the scope errorMessage to null and close the alert after 5 seconds
+            // set the scope errorMessage to null
             $timeout(function() {
                 $scope.errorMessage = null;
-                // $('#error-alert').alert('close');
             }, 5000);
         });
     };

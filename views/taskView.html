@@ -1,15 +1,6 @@
 <div class="task-view-container d-flex flex-column justify-content-center align-items-center p-5">
 
-  <!-- <div ng-if="errorMessage" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="error-alert">
-    {{ errorMessage }}
-  </div>
-
-  <div ng-if="taskDoesNotExistError" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="task-does-not-exist-error">
-    {{ taskDoesNotExistError }}
-  </div> -->
-
   <form class="task-view-form w-75 p-5">
-
     <div class="d-flex justify-content-center align-items-center" aria-live="polite" aria-atomic="true" style="position: relative;">
       <div ng-if="errorMessage" ng-class="{'toast show': true, 'hide': errorMessage == null}" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">

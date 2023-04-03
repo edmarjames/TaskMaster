@@ -1,9 +1,5 @@
 <div class="create-task-container d-flex flex-column justify-content-center align-items-center p-5 border">
     
-    <!-- <div ng-if="errorMessage" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="task-error">
-      {{ errorMessage }}
-    </div> -->
-
     <form ng-submit="createTask()" class="w-75 p-5 create-task-form">
         <div class="d-flex justify-content-center align-items-center" aria-live="polite" aria-atomic="true" style="position: relative;">
           <div ng-if="errorMessage" ng-class="{'toast show': true, 'hide': errorMessage == null}" role="alert" aria-live="assertive" aria-atomic="true">
