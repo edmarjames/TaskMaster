@@ -385,13 +385,13 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             // go back to task route
             $location.path('/task');
             // set the rootScope successMessage to null and close the alert after 5 seconds
+            $('.toast').toast('show');
             $timeout(function() {
                 $rootScope.successMessage = null;
-                $('#success-alert').alert('close');
+                // $('#success-alert').alert('close');
             }, 5000);
         })
         .catch((response) => {
-            $('.toast').toast('show');
             // if error message is 'This field is required.'
             if (response.data.errors[0].detail == "This field is required.") {
                 // set the errorMessage to 'All fields are required'
@@ -400,6 +400,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 // set the errorMessage to 'Operation failed, there is an existing task with the same title.' or 'Deadline cannot be in the past'
                 $scope.errorMessage = response.data.errors[0].detail;
             }
+            $('.toast').toast('show');
             // reset the input fields
             clearFields();
             // set the scope errorMessage to null and close the alert after 5 seconds
@@ -523,10 +524,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                     // go back to task route
                     $location.path('/task');
                 };
+                $('.toast').toast('show');
                 // set the rootScope successMessage to null and close the alert after 5 seconds
                 $timeout(function() {
                     $rootScope.successMessage = null;
-                    $('#success-alert').alert('close');
+                    // $('#success-alert').alert('close');
                 }, 5000);
             })
             .catch((response) => {
@@ -560,9 +562,10 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             // invoke $scope.getTasks function to fetch changes
             $scope.getTasks();
             // set the rootScope successMessage to null and close the alert after 5 seconds
+            $('.toast').toast('show');
             $timeout(function() {
                 $rootScope.successMessage = null;
-                $('#success-alert').alert('close');
+                // $('#success-alert').alert('close');
             }, 5000);
         })
         .catch((response) => {
@@ -570,9 +573,9 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 // set the scope errorMessage to 'Task is already archived'
                 $scope.errorMessage = response.data.errors.error;
             };
-            $('.toast').toast('show');
             // invoke $scope.getTasks function to fetch changes
             $scope.getTasks();
+            $('.toast').toast('show');
             // set the scope errorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.errorMessage = null;
@@ -596,10 +599,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             };
             // invoke $scope.getTasks function to fetch changes
             $scope.getTasks();
+            $('.toast').toast('show');
             // set the rootScope successMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $rootScope.successMessage = null;
-                $('#success-alert').alert('close');
+                // $('#success-alert').alert('close');
             }, 5000);
         })
         .catch((response) => {
@@ -607,9 +611,9 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 // set the scope errorMessage to 'Task is already activated'
                 $scope.errorMessage = response.data.errors.error;
             };
-            $('.toast').toast('show');
             // invoke $scope.getTasks function to fetch changes
             $scope.getTasks();
+            $('.toast').toast('show');
             // set the scope errorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.errorMessage = null;
