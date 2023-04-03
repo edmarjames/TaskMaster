@@ -154,7 +154,7 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$r
 
 }]);
 
-taskMasterApp.controller('LogoutController', ['$rootScope', '$scope', '$location', function($rootScope, $scope, $location) {
+taskMasterApp.controller('LogoutController', ['$rootScope', '$scope', '$location', '$timeout', function($rootScope, $scope, $location, $timeout) {
 
     // declare initial value of confirmLogout
     $scope.confirmLogout = false;
@@ -175,6 +175,10 @@ taskMasterApp.controller('LogoutController', ['$rootScope', '$scope', '$location
                 $rootScope.isAdmin = false;
                 // go back to root route
                 $location.path('/');
+                $rootScope.successMessage = 'Logged out successfully';
+                $timeout(function() {
+                    $rootScope.successMessage = null;
+                }, 5000);
             };
         };
     };
