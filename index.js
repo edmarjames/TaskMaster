@@ -117,10 +117,11 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$r
                 $rootScope.authenticated = true;
                 $rootScope.isAdmin = response.data.is_superuser;
 
+                $('.toast').toast('show');
                 // reset the rootScope successMessage and close the alert after 5 seconds
                 $timeout(function() {
                     $rootScope.successMessage = null;
-                    $('#success-alert').alert('close');
+                    // $('#success-alert').alert('close');
                 }, 5000);
 
                 // conditional routing if the authenticated user is an admin or not
@@ -137,9 +138,10 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$r
             // reset the input fields
             clearFields();
             // reset the scope loginError message and close the alert after 5 seconds
+            $('.toast').toast('show');
             $timeout(function() {
                 $scope.loginError = null;
-                $('#login-error').alert('close');
+                // $('#login-error').alert('close');
             }, 5000);
         });
     };

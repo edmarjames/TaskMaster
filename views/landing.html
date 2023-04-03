@@ -28,13 +28,39 @@
 
     <div class="order-xs-1 col-xs-12 col-lg-6 login-form-layout p-5">
 
-      <div ng-if="loginError" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="login-error">
-        {{ loginError }}
+      <div aria-live="polite" aria-atomic="true" style="position: relative;">
+        <div ng-if="loginError" ng-class="{'toast show': true, 'hide': loginError == null}" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; top: 0; right: 0;">
+          <div class="toast-header">
+            <strong class="mr-auto">Login error</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="toast-body">
+            {{ loginError }}
+          </div>
+        </div>
+
+        <div ng-if="successMessage" ng-class="{'toast show': true, 'hide': successMessage == null}" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; top: 0; right: 0;">
+          <div class="toast-header">
+            <strong class="mr-auto">Login success</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="toast-body">
+            {{ successMessage }}
+          </div>
+        </div>
       </div>
 
-      <div ng-if="successMessage" class="alert alert-success alert-dismissible fade show w-50" role="alert" id="register-success">
+      <!-- <div ng-if="loginError" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="login-error">
+        {{ loginError }}
+      </div> -->
+
+      <!-- <div ng-if="successMessage" class="alert alert-success alert-dismissible fade show w-50" role="alert" id="register-success">
         {{ successMessage }}
-      </div>
+      </div> -->
 
       <form ng-submit="loginUser()" name="loginForm" class="p-5 login-form" novalidate>
         <h1 id="login-title">Login here</h1>
@@ -51,6 +77,7 @@
     </div>
     
 </div>
+
 <div class="row mx-0 min-vh-100">
   <div class="d-flex flex-column justify-content-center align-items-center sign-up-here-layout">
     <h2>Sign up here</h2>
