@@ -391,6 +391,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             }, 5000);
         })
         .catch((response) => {
+            $('.toast').toast('show');
             // if error message is 'This field is required.'
             if (response.data.errors[0].detail == "This field is required.") {
                 // set the errorMessage to 'All fields are required'
@@ -404,7 +405,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             // set the scope errorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.errorMessage = null;
-                $('#task-error').alert('close');
+                // $('#task-error').alert('close');
             }, 5000);
         });
     };
@@ -444,10 +445,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                     // set the previousRoute to '/task'
                     $rootScope.previousRoute = '/task';
                 }
+                $('.toast').toast('show');
                 // set the taskDoesNotExistError to null and close the alert after 5 seconds
                 $timeout(function() {
                     $scope.taskDoesNotExistError = null;
-                    $('#task-does-not-exist-error').alert('close');
+                    // $('#task-does-not-exist-error').alert('close');
                 }, 5000);
             });
         };
@@ -481,10 +483,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             }
             // go back to task route
             $location.path('/task');
+            $('.toast').toast('show');
             // set the rootScope successMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $rootScope.successMessage = null;
-                $('#success-alert').alert('close');
+                // $('#success-alert').alert('close');
             }, 5000);
         })
         .catch((response) => {
@@ -492,10 +495,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 // set the scope errorMessage to 'Deadline cannot be in the past' or 'Operation failed, there is an existing task with the same title.'
                 $scope.errorMessage = response.data.errors[0].detail;
             };
+            $('.toast').toast('show');
             // set the scope errorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.errorMessage = null;
-                $('#error-alert').alert('close');
+                // $('#error-alert').alert('close');
             }, 5000);
         });
     };
@@ -530,10 +534,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                     // set the scope errorMessage to 'Not found'
                     $scope.errorMessage = response.data.errors[0].detail;
                 };
+                $('.toast').toast('show');
                 // set the scope errorMessage to null and close the alert after 5 seconds
                 $timeout(function() {
                     $scope.errorMessage = null;
-                    $('#error-alert').alert('close');
+                    // $('#error-alert').alert('close');
                 }, 5000);
             });
         };
@@ -565,12 +570,13 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 // set the scope errorMessage to 'Task is already archived'
                 $scope.errorMessage = response.data.errors.error;
             };
+            $('.toast').toast('show');
             // invoke $scope.getTasks function to fetch changes
             $scope.getTasks();
             // set the scope errorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.errorMessage = null;
-                $('#error-alert').alert('close');
+                // $('#error-alert').alert('close');
             }, 5000);
         });
     };
@@ -601,12 +607,13 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 // set the scope errorMessage to 'Task is already activated'
                 $scope.errorMessage = response.data.errors.error;
             };
+            $('.toast').toast('show');
             // invoke $scope.getTasks function to fetch changes
             $scope.getTasks();
             // set the scope errorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.errorMessage = null;
-                $('#error-alert').alert('close');
+                // $('#error-alert').alert('close');
             }, 5000);
         });
     };
@@ -888,10 +895,11 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                 // set the scope errorMessage to 'Note is not existing'
                 $scope.errorMessage = 'Note is not existing';
             }
+            $('.toast').toast('show');
             // set the scope errorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.errorMessage = null;
-                $('#error-alert').alert('close');
+                // $('#error-alert').alert('close');
             }, 5000);
         });
     };
@@ -981,10 +989,11 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
                 // set the scope errorMessage to 'User is already a superuser'
                 $scope.errorMessage = response.data.errors.error;
             };
+            $('.toast').toast('show');
             // set the scope errorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.errorMessage = null;
-                $('#error-alert').alert('close');
+                // $('#error-alert').alert('close');
             }, 5000);
         });
     };
@@ -1015,10 +1024,11 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
                 // set the scope errorMessage to 'User is already a normal user'
                 $scope.errorMessage = response.data.errors.error;
             };
+            $('.toast').toast('show');
             // set the scope errorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.errorMessage = null;
-                $('#error-alert').alert('close');
+                // $('#error-alert').alert('close');
             }, 5000);
         });
     };
