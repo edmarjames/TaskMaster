@@ -1010,6 +1010,7 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
 
     // function for getting all users
     $scope.getAllUsers = function() {
+        $scope.$emit('LOAD');
         $http.get('https://todo-list-notes-api.onrender.com/all_users', {
             headers: {
                 'Content-Type': 'application/json',
@@ -1019,10 +1020,12 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
         .then((response) => {
             // map the data response to users scope array
             $scope.users = response.data.data.map(users => users);
+            $scope.$emit('UNLOAD');
         })
         .catch((response) => {
             // logs the error on the console
             console.log(response.data);
+            $scope.$emit('UNLOAD');
         });
     };
     // invoke the getAllUsers function to run it on page load
@@ -1030,6 +1033,7 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
 
     // function for setting a user as admin
     $scope.setAsAdmin = function(userId) {
+        $scope.$emit('LOAD');
         $http.patch(`https://todo-list-notes-api.onrender.com/set_as_admin/${userId}`, null, {
             headers: {
                 'Content-Type': 'application/json',
@@ -1050,6 +1054,7 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
                 $rootScope.successMessage = null;
                 // $('#success-alert').alert('close');
             }, 5000);
+            $scope.$emit('UNLOAD');
         })
         .catch((response) => {
             if (response.data != null) {
@@ -1061,11 +1066,13 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
             $timeout(function() {
                 $scope.errorMessage = null;
             }, 5000);
+            $scope.$emit('UNLOAD');
         });
     };
 
     // function for setting an admin to a normal user
     $scope.setAsNormalUser = function(userId) {
+        $scope.$emit('LOAD');
         $http.patch(`https://todo-list-notes-api.onrender.com/set_as_normal_user/${userId}`, null, {
             headers: {
                 'Content-Type': 'application/json',
@@ -1085,6 +1092,7 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
             $timeout(function() {
                 $rootScope.successMessage = null;
             }, 5000);
+            $scope.$emit('UNLOAD');
         })
         .catch((response) => {
             if (response.data != null) {
@@ -1097,6 +1105,7 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
                 $scope.errorMessage = null;
                 // $('#error-alert').alert('close');
             }, 5000);
+            $scope.$emit('UNLOAD');
         });
     };
 
