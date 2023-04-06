@@ -993,10 +993,12 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
             };
             // invoke the $scope.getAllUsers function to fetch changes
             $scope.getAllUsers();
+            // show the toast alert
+            $('.toast').toast('show');
             // set the rootScope successMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $rootScope.successMessage = null;
-                $('#success-alert').alert('close');
+                // $('#success-alert').alert('close');
             }, 5000);
         })
         .catch((response) => {
@@ -1028,10 +1030,12 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
             };
             // invoke the $scope.getAllUsers function to fetch changes
             $scope.getAllUsers();
+            // show the toast alert
+            $('.toast').toast('show');
             // set the rootScope successMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $rootScope.successMessage = null;
-                $('#success-alert').alert('close');
+                // $('#success-alert').alert('close');
             }, 5000);
         })
         .catch((response) => {
