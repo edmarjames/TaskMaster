@@ -1,10 +1,25 @@
 <div class="create-note-container d-flex flex-column justify-content-center align-items-center p-5">
     
-    <div ng-if="noteErrorMessage" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="note-error">
+    <!-- <div ng-if="noteErrorMessage" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="note-error">
       {{ noteErrorMessage }}
-    </div>
+    </div> -->
 
     <form ng-submit="createNote()" class="create-note-form w-75 p-5">
+        
+        <div class="d-flex justify-content-center align-items-center" aria-live="polite" aria-atomic="true" style="position: relative;">
+            <div ng-if="noteErrorMessage" ng-class="{'toast show': true, 'hide': noteErrorMessage == null}" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="toast-header">
+                <strong class="mr-auto">Error</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="toast-body">
+                {{ noteErrorMessage }}
+              </div>
+            </div>
+        </div>
+
         <h2 class="text-center create-note-title">Create new note</h2>
         <div class="form-group">
           <label for="title">Title</label>

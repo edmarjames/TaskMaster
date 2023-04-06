@@ -1,38 +1,64 @@
 <div class="note-view-container d-flex flex-column justify-content-center align-items-center p-5">
 
-    <div ng-if="noteErrorMessage" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="note-error">
+    <!-- <div ng-if="noteErrorMessage" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="note-error">
       {{ noteErrorMessage }}
     </div>
 
     <div ng-if="noteDoesNotExistError" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="note-does-not-exists-error">
       {{ noteDoesNotExistError }}
-    </div>
+    </div> -->
 
     <form class="note-view-form w-75 p-5">
+        <div class="d-flex justify-content-center align-items-center" aria-live="polite" aria-atomic="true" style="position: relative;">
+            <div ng-if="noteErrorMessage" ng-class="{'toast show': true, 'hide': noteErrorMessage == null}" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="toast-header">
+                <strong class="mr-auto">Error</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="toast-body">
+                {{ noteErrorMessage }}
+              </div>
+            </div>
+        
+            <div ng-if="noteDoesNotExistError" ng-class="{'toast show': true, 'hide': noteDoesNotExistError == null}" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="toast-header">
+                <strong class="mr-auto">Error</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="toast-body">
+                {{ noteDoesNotExistError }}
+              </div>
+            </div>
+        </div>
+
         <div class="form-group">
-          <label for="title">Title</label>
-          <input ng-model="specificNote.title" type="text" class="form-control" id="title" ng-readonly="readOnly">
+            <label for="title">Title</label>
+            <input ng-model="specificNote.title" type="text" class="form-control" id="title" ng-readonly="readOnly">
         </div>
         <div class="form-group">
-          <label for="description">Description</label>
-          <textarea ng-model="specificNote.content" class="form-control" id="description" placeholder="Enter content" ng-readonly="readOnly"></textarea>
+            <label for="description">Description</label>
+            <textarea ng-model="specificNote.content" class="form-control" id="description" placeholder="Enter content" ng-readonly="readOnly"></textarea>
         </div>
         <div class="form-group">
-          <label for="color">Color</label>
-          <select ng-model="specificNote.color" ng-init="specificNote.color = specificNote.color || ''" ng-disabled="readOnly" id="color" class="form-control">
+            <label for="color">Color</label>
+            <select ng-model="specificNote.color" ng-init="specificNote.color = specificNote.color || ''" ng-disabled="readOnly" id="color" class="form-control">
             <option value=""></option>
             <option value="Green">Green</option>
             <option value="Pink">Pink</option>
             <option value="Red">Red</option>
             <option value="White">White</option>
             <option value="Yellow">Yellow</option>
-          </select>
+            </select>
         </div>
         <div class="d-flex justify-content-sm-center justify-content-md-end">
             <button ng-click="toggleReadOnly()" class="btn btn-success ml-1">Edit</button>
             <button ng-click="updateNote(specificNote.id)" type="submit" class="btn btn-primary ml-1" ng-disabled="readOnly">Save</button>
             <button ng-click="goBackToPreviousRoute()" class="btn btn-danger ml-1">Cancel</button>
         </div>
-      </form>
+    </form>
 </div>
 
