@@ -27,6 +27,13 @@
 <body>
     
     <div class="container-fluid px-0">
+        <div class="loader-container" ng-show="loading">
+            <div class="loader">
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+            </div>
+        </div>
         <header ng-include="'./navbar.html'"></header>
         <main ng-view></main>
     </div>

@@ -85,6 +85,13 @@ taskMasterApp.run(['$rootScope', '$window', function($rootScope, $window) {
         $rootScope.display = !$rootScope.display;
     }
 
+    $rootScope.$on('LOAD', function() {
+        $rootScope.loading = true;
+    });
+    $rootScope.$on('UNLOAD', function() {
+        $rootScope.loading = false;
+    });
+
 }]);
 
 taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$rootScope', '$timeout', function($scope, $http, $location, $rootScope, $timeout) {
@@ -95,6 +102,7 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$r
 
     // function for login
     $scope.loginUser = () => {
+        $scope.$emit('LOAD');
         $http.post('https://todo-list-notes-api.onrender.com/users/login',
         {
             username: $scope.user.username,
@@ -130,6 +138,7 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$r
                 } else {
                     $location.path('/all-users');
                 }
+                $scope.$emit('UNLOAD')
             };
         })
         .catch((response) => {
@@ -143,6 +152,7 @@ taskMasterApp.controller('LoginController', ['$scope', '$http', '$location', '$r
             $timeout(function() {
                 $scope.loginError = null;
             }, 5000);
+            $scope.$emit('UNLOAD')
         });
     };
 
@@ -208,6 +218,7 @@ taskMasterApp.controller('RegisterController', ['$rootScope', '$scope', '$http',
 
     // function for registering a user
     $scope.registerUser = function() {
+        $scope.$emit('LOAD');
         $http.post('https://todo-list-notes-api.onrender.com/users/register', 
         {
             username: $scope.register.username,
@@ -233,6 +244,7 @@ taskMasterApp.controller('RegisterController', ['$rootScope', '$scope', '$http',
             $timeout(function() {
                 $rootScope.successMessage = null;
             }, 5000);
+            $scope.$emit('UNLOAD');
         })
         .catch((response) => {
             if (response.data.errors.message) {
@@ -250,6 +262,7 @@ taskMasterApp.controller('RegisterController', ['$rootScope', '$scope', '$http',
             $timeout(function() {
                 $scope.errorMessage = null;
             }, 5000);
+            $scope.$emit('UNLOAD');
         });
     };
 
@@ -291,6 +304,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
     $scope.getTasks = function () {
         // if authenticated user is an admin, proceed with this GET api call
         if (localStorage.getItem('isAdmin') == 'true') {
+            $scope.$emit('LOAD');
             $http.get('https://todo-list-notes-api.onrender.com/all_tasks', {
                 headers: {
                     'Content-Type': 'application/json',
@@ -321,9 +335,11 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
 
                     return task;
                 });
+                $scope.$emit('UNLOAD');
             });
         // if user is not an admin, proceed with this GET api call
         } else {
+            $scope.$emit('LOAD');
             $http.get('https://todo-list-notes-api.onrender.com/task/', {
             headers: {
                     'Content-Type': 'application/json',
@@ -354,6 +370,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
 
                     return task;
                 });
+                $scope.$emit('UNLOAD');
             });
         };
     };
@@ -366,7 +383,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         let deadline = new Date($scope.newTask.deadline);
         // format it to 'yyyy-MM-dd'
         let formattedDeadline = deadline.getFullYear() + '-' + ('0' + (deadline.getMonth()+1)).slice(-2) + '-' + ('0' + deadline.getDate()).slice(-2);
-
+        $scope.$emit('LOAD');
         $http.post('https://todo-list-notes-api.onrender.com/task/', 
         {
             title: $scope.newTask.title,
@@ -395,6 +412,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             $timeout(function() {
                 $rootScope.successMessage = null;
             }, 5000);
+            $scope.$emit('UNLOAD');
         })
         .catch((response) => {
             // if error message is 'This field is required.'
@@ -413,6 +431,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             $timeout(function() {
                 $scope.errorMessage = null;
             }, 5000);
+            $scope.$emit('UNLOAD');
         });
     };
 
@@ -422,6 +441,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         let taskId = $routeParams.id;
         // the get API call will only run if the taskId is not null
         if (taskId) {
+            $scope.$emit('LOAD');
             $http.get(`https://todo-list-notes-api.onrender.com/task/${taskId}`, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -443,6 +463,8 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 $scope.specificTask.created =  response.data.data.attributes.created;
                 $scope.specificTask.modified =  response.data.data.attributes.modified;
                 $scope.specificTask.color =  response.data.data.attributes.color;
+
+                $scope.$emit('UNLOAD');
             })
             .catch((response) => {
                 if (response.data.errors[0].detail) {
@@ -457,6 +479,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 $timeout(function() {
                     $scope.taskDoesNotExistError = null;
                 }, 5000);
+                $scope.$emit('UNLOAD');
             });
         };
     };
@@ -467,7 +490,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
     $scope.updateTask = function(taskId) {
         // format the deadline to 'yyyy-MM-dd'
         let deadline = $filter('date')($scope.specificTask.deadline, 'yyyy-MM-dd')
-
+        $scope.$emit('LOAD');
         $http.patch(`https://todo-list-notes-api.onrender.com/task/${taskId}/`, 
         {
             title: $scope.specificTask.title,
@@ -495,6 +518,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             $timeout(function() {
                 $rootScope.successMessage = null;
             }, 5000);
+            $scope.$emit('UNLOAD');
         })
         .catch((response) => {
             if (response.data.errors[0].detail) {
@@ -507,6 +531,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             $timeout(function() {
                 $scope.errorMessage = null;
             }, 5000);
+            $scope.$emit('UNLOAD');
         });
     };
 
@@ -516,6 +541,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         let taskId = $routeParams.id;
         // if $scope.confirmDelete is true, proceed with delete
         if ($scope.confirmDelete) {
+            $scope.$emit('LOAD');
             $http.delete(`https://todo-list-notes-api.onrender.com/task/${taskId}/`, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -535,6 +561,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 $timeout(function() {
                     $rootScope.successMessage = null;
                 }, 5000);
+                $scope.$emit('UNLOAD');
             })
             .catch((response) => {
                 if (response.data.errors[0].detail) {
@@ -547,12 +574,14 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 $timeout(function() {
                     $scope.errorMessage = null;
                 }, 5000);
+                $scope.$emit('UNLOAD');
             });
         };
     };
 
     // function for archiving a task
     $scope.archiveTask = function(taskId) {
+        $scope.$emit('LOAD');
         $http.patch(`https://todo-list-notes-api.onrender.com/tasks/archive/${taskId}`, null, {
             headers: {
                 'Content-Type': 'application/json',
@@ -572,6 +601,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             $timeout(function() {
                 $rootScope.successMessage = null;
             }, 5000);
+            $scope.$emit('UNLOAD');
         })
         .catch((response) => {
             if (response.data != null) {
@@ -586,11 +616,13 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             $timeout(function() {
                 $scope.errorMessage = null;
             }, 5000);
+            $scope.$emit('UNLOAD');
         });
     };
 
     // function for activating a task
     $scope.activateTask = function(taskId) {
+        $scope.$emit('LOAD');
         $http.patch(`https://todo-list-notes-api.onrender.com/tasks/activate/${taskId}`, null, {
             headers: {
                 'Content-Type': 'application/json',
@@ -610,6 +642,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             $timeout(function() {
                 $rootScope.successMessage = null;
             }, 5000);
+            $scope.$emit('UNLOAD');
         })
         .catch((response) => {
             if (response.data != null) {
@@ -624,6 +657,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
             $timeout(function() {
                 $scope.errorMessage = null;
             }, 5000);
+            $scope.$emit('UNLOAD');
         });
     };
 
