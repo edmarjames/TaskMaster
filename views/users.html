@@ -34,11 +34,12 @@
                 <p>Email: {{ user.attributes.email }}</p>
                 <p>Admin: {{ user.attributes.is_superuser }}</p>
         
-                <button ng-show="user.attributes.is_superuser == false" ng-click="setAsAdmin(user.id)" class="btn btn-primary" title="Set user as admin"><i class='bx bx-user-plus'></i></button>
+                <div class="d-flex justify-content-center button-container">
+                    <button ng-show="user.attributes.is_superuser == false" ng-click="setAsAdmin(user.id)" class="btn btn-primary action-buttons-layout" title="Set user as admin"><i class='bx bx-user-plus'></i></button>
         
-                <button ng-show="user.attributes.is_superuser == true && user.attributes.username != 'edmar'" ng-click="setAsNormalUser(user.id)" class="btn btn-info" title="Set as normal user"><i class='bx bx-user-x'></i></button>
+                    <button ng-show="user.attributes.is_superuser == true && user.attributes.username != 'edmar'" ng-click="setAsNormalUser(user.id)" class="btn btn-info action-buttons-layout" title="Set as normal user"><i class='bx bx-user-x'></i></button>
+                </div>
             </div>
-            
         </div>
     </div>
 </div>
