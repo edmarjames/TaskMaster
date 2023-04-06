@@ -866,7 +866,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         .catch((response) => {
             if (response.data.errors[0].detail) {
                 // set the noteErrorMessage to 'Operation failed, there is an existing note with the same title'
-                $scope.noteErrorMessage = response.data.errors[0].detail.replace(/[{}']/g, '').trim().slice(0, 63);
+                $scope.noteErrorMessage = response.data.errors[0].detail.replace(/[{}']/g, '').trim().slice(7, 70);
             };
             // reset the input fields
             clearFields();
