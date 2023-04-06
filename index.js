@@ -1007,10 +1007,9 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
                 $scope.errorMessage = response.data.errors.error;
             };
             $('.toast').toast('show');
-            // set the scope errorMessage to null and close the alert after 5 seconds
+            // set the scope errorMessage to null
             $timeout(function() {
                 $scope.errorMessage = null;
-                // $('#error-alert').alert('close');
             }, 5000);
         });
     };
@@ -1032,10 +1031,9 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
             $scope.getAllUsers();
             // show the toast alert
             $('.toast').toast('show');
-            // set the rootScope successMessage to null and close the alert after 5 seconds
+            // set the rootScope successMessage to null
             $timeout(function() {
                 $rootScope.successMessage = null;
-                // $('#success-alert').alert('close');
             }, 5000);
         })
         .catch((response) => {
