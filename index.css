@@ -485,6 +485,11 @@ textarea[id="content"], textarea[id="content"]:focus {
     font-size: 2.5em;
 }
 
+.logout-modal {
+    border: 3px solid black !important;
+    box-shadow: 5px 5px 0px #000000;
+}
+
 @media(max-width: 1200px) {
     .text-container {
         left: 70px;
