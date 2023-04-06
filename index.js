@@ -171,16 +171,23 @@ taskMasterApp.controller('LogoutController', ['$rootScope', '$scope', '$location
 
     // declare initial value of confirmLogout
     $scope.confirmLogout = false;
-    // get the values of token and isAdmin from localStorage
-    let token = localStorage.getItem('token');
-    let isAdmin = localStorage.getItem('isAdmin');
+    let token, isAdmin, isAuthenticated;
 
+    // get the values of token, isAdmin and authenticated from localStorage
+    function getLocalStorageKeys() {
+        token = localStorage.getItem('token');
+        isAdmin = localStorage.getItem('isAdmin');
+        isAuthenticated = localStorage.getItem('authenticated');
+    };
+    
     // function for logout
     $scope.logout = function() {
+        // invoke the getLocalStorageKeys function
+        getLocalStorageKeys();
         // if confirmLogout is true
         if ($scope.confirmLogout === true) {
             // and if token and isAdmin is not null
-            if (token != null && isAdmin != null) {
+            if (token != null && isAdmin != null && isAuthenticated === 'true') {
                 // clear all items on localStorage
                 localStorage.clear();
                 // set the authenticated and isAdmin rootScope to false
