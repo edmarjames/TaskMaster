@@ -3,13 +3,28 @@
         <span class="align-self-end back-button" title="Back"><a href="#!/"><i class='bx bx-arrow-back'></i></a></span>
     </div>
     
-    <h2 id="register-title">Register here</h2>
-
-    <div ng-if="errorMessage" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="register-error">
-        {{ errorMessage }}
+    <div class="d-flex justify-content-center align-items-center" aria-live="polite" aria-atomic="true" style="position: relative;">
+        <div ng-if="errorMessage" ng-class="{'toast show': true, 'hide': errorMessage == null}" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 1;">
+          <div class="toast-header">
+            <strong class="mr-auto">Error</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="toast-body">
+            {{ errorMessage }}
+          </div>
+        </div>
     </div>
 
+    <h2 id="register-title">Register here</h2>
+
+    <!-- <div ng-if="errorMessage" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="register-error">
+        {{ errorMessage }}
+    </div> -->
+
     <form ng-submit="registerUser()" name="registerForm" class="w-75" novalidate>
+
         <div class="row">
             <div class="form-group col">
                 <label for="firstname">Firstname</label>

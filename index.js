@@ -227,9 +227,11 @@ taskMasterApp.controller('RegisterController', ['$rootScope', '$scope', '$http',
                 // go back to root route
                 $location.path('/');
             };
+            $('.toast').toast('show');
             // close the alert after 5 seconds
             $timeout(function() {
-                $('#register-success').alert('close');
+                $rootScope.successMessage = null;
+                // $('#register-success').alert('close');
             }, 5000);
         })
         .catch((response) => {
@@ -242,10 +244,11 @@ taskMasterApp.controller('RegisterController', ['$rootScope', '$scope', '$http',
             };
             // reset the input fields
             clearFields();
+            $('.toast').toast('show');
             // set errorMessage to null and close the alert after 5 seconds
             $timeout(function() {
                 $scope.errorMessage = null;
-                $('#register-error').alert('close');
+                // $('#register-error').alert('close');
             }, 5000);
         });
     };
