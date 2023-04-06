@@ -177,7 +177,7 @@ taskMasterApp.controller('LogoutController', ['$rootScope', '$scope', '$location
     function getLocalStorageKeys() {
         token = localStorage.getItem('token');
         isAdmin = localStorage.getItem('isAdmin');
-          isAuthenticated = localStorage.getItem('authenticated');
+        isAuthenticated = localStorage.getItem('authenticated');
     };
     
     // function for logout
