@@ -485,17 +485,10 @@ textarea[id="content"], textarea[id="content"]:focus {
     font-size: 2.5em;
 }
 
-.logout-modal {
+.logout-modal, .delete-modal {
     border: 3px solid black !important;
     box-shadow: 5px 5px 0px #000000;
 }
-
-/* .toast-alert-centered {
-    z-index: 1;
-    border: 2px solid black !important;
-    box-shadow: 3px 3px 0px #000000 !important;
-    opacity: 1 !important;
-} */
 
 .toast-alert {
     position: absolute; 
