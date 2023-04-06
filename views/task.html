@@ -1,8 +1,8 @@
 <div class="task-container">
 
-  <div aria-live="polite" aria-atomic="true" style="position: relative;">
-    <div ng-if="errorMessage" ng-class="{'toast show': true, 'hide': errorMessage == null}" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; top: 0; right: 0;">
-      <div class="toast-header">
+  <div aria-live="polite" aria-atomic="true" class="position-relative">
+    <div ng-if="errorMessage" class="toast-alert toast-alert-warning" ng-class="{'toast show': true, 'hide': errorMessage == null}" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header toast-header-warning">
         <strong class="mr-auto">Error</strong>
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -13,8 +13,8 @@
       </div>
     </div>
 
-    <div ng-if="successMessage" ng-class="{'toast show': true, 'hide': successMessage == null}" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; top: 10px; right: 10px; z-index: 1;">
-      <div class="toast-header">
+    <div ng-if="successMessage" class="toast-alert toast-alert-success" ng-class="{'toast show': true, 'hide': successMessage == null}" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header toast-header-success">
         <strong class="mr-auto">Operation success</strong>
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
           <span aria-hidden="true">&times;</span>
