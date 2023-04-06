@@ -775,11 +775,11 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                     // set the previousRoute to '/route'
                     $rootScope.previousRoute = '/note';
                 }
+                // show the toast alert
                 $('.toast').toast('show');
-                // set the scope noteDoesNotExistError to null and close the alert after 5 seconds
+                // set the scope noteDoesNotExistError to null
                 $timeout(function() {
                     $scope.noteDoesNotExistError = null;
-                    // $('#note-does-not-exists-error').alert('close');
                 }, 5000);
             });
         };
@@ -808,11 +808,11 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
             };
             // go back to note route
             $location.path('/note');
+            // show the toast alert
             $('.toast').toast('show');
-            // set the rootScope successMessage to null and close the alert after 5 seconds
+            // set the rootScope successMessage to null
             $timeout(function() {
                 $rootScope.successMessage = null;
-                // $('#success-alert').alert('close');
             }, 5000);
         })
         .catch((response) => {
@@ -826,11 +826,11 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
             };
             // reset the input fields
             clearFields();
+            // show the toast alert
             $('.toast').toast('show');
-            // set the scope noteErrorMessage to null and close the alert after 5 seconds
+            // set the scope noteErrorMessage to null
             $timeout(function() {
                 $scope.noteErrorMessage = null;
-                // $('#note-error').alert('close');
             }, 5000);
         });
     };
@@ -856,11 +856,11 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
             }
             // go back to note route
             $location.path('/note');
+            // show the toast alert
             $('.toast').toast('show');
-            // set the rootScope successMessage to null and close the alert after 5 seconds
+            // set the rootScope successMessage to null
             $timeout(function() {
                 $rootScope.successMessage = null;
-                // $('#success-alert').alert('close');
             }, 5000);
         })
         .catch((response) => {
@@ -870,11 +870,11 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
             };
             // reset the input fields
             clearFields();
+            // show the toast alert
             $('.toast').toast('show');
-            // set the scope noteErrorMessage to null and close the alert after 5 seconds
+            // set the scope noteErrorMessage to null
             $timeout(function() {
                 $scope.noteErrorMessage = null;
-                // $('#note-error').alert('close');
             }, 5000);
         });
     };
@@ -895,11 +895,11 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
             };
             // go back to note route
             $location.path('/note');
+            // show the toast alert
             $('.toast').toast('show');
-            // set the rootScope successMessage to null and close the alert after 5 seconds
+            // set the rootScope successMessage to null
             $timeout(function() {
                 $rootScope.successMessage = null;
-                // $('#success-alert').alert('close');
             }, 5000);
         })
         .catch((response) => {
@@ -907,11 +907,11 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                 // set the scope errorMessage to 'Note is not existing'
                 $scope.errorMessage = 'Note is not existing';
             }
+            // show the toast alert
             $('.toast').toast('show');
-            // set the scope errorMessage to null and close the alert after 5 seconds
+            // set the scope errorMessage to null
             $timeout(function() {
                 $scope.errorMessage = null;
-                // $('#error-alert').alert('close');
             }, 5000);
         });
     };

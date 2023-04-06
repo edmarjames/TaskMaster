@@ -1,13 +1,5 @@
 <div class="note-view-container d-flex flex-column justify-content-center align-items-center p-5">
 
-    <!-- <div ng-if="noteErrorMessage" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="note-error">
-      {{ noteErrorMessage }}
-    </div>
-
-    <div ng-if="noteDoesNotExistError" class="alert alert-danger alert-dismissible fade show w-50" role="alert" id="note-does-not-exists-error">
-      {{ noteDoesNotExistError }}
-    </div> -->
-
     <form class="note-view-form w-75 p-5">
         <div class="d-flex justify-content-center align-items-center" aria-live="polite" aria-atomic="true" style="position: relative;">
             <div ng-if="noteErrorMessage" ng-class="{'toast show': true, 'hide': noteErrorMessage == null}" role="alert" aria-live="assertive" aria-atomic="true">
