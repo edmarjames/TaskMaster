@@ -713,6 +713,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
     $scope.getNotes = function () {
         // if the authenticated user is an admin, proceed with this GET api call
         if (localStorage.getItem('isAdmin') == 'true') {
+            $scope.$emit('LOAD');
             $http.get('https://todo-list-notes-api.onrender.com/all_notes', {
                 headers: {
                     'Content-Type': 'application/json',
@@ -744,9 +745,11 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
     
                     return note;
                 });
+                $scope.$emit('UNLOAD');
             });
         // if user is not an admin, proceed with this GET api call
         } else {
+            $scope.$emit('LOAD');
             $http.get('https://todo-list-notes-api.onrender.com/note/', {
                 headers: {
                     'Content-Type': 'application/json',
@@ -777,6 +780,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
 
                     return note;
                 });
+                $scope.$emit('UNLOAD');
             });
         };
     };
@@ -788,6 +792,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         let noteId = $routeParams.id;
         // the get API call will only run if the noteId is not null
         if (noteId) {
+            $scope.$emit('LOAD');
             $http.get(`https://todo-list-notes-api.onrender.com/note/${noteId}`, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -804,6 +809,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                     created: response.data.data.attributes.created,
                     modified: response.data.data.attributes.modified
                 };
+                $scope.$emit('UNLOAD');
             })
             .catch((response) => {
                 if (response.data.errors[0].detail) {
@@ -818,6 +824,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                 $timeout(function() {
                     $scope.noteDoesNotExistError = null;
                 }, 5000);
+                $scope.$emit('UNLOAD');
             });
         };
     };
@@ -826,6 +833,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
 
     // function for creating a note
     $scope.createNote = function() {
+        $scope.$emit('LOAD');
         $http.post('https://todo-list-notes-api.onrender.com/note/', 
         {
             title: $scope.newNote.title,
@@ -851,6 +859,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
             $timeout(function() {
                 $rootScope.successMessage = null;
             }, 5000);
+            $scope.$emit('UNLOAD');
         })
         .catch((response) => {
             // if error message is 'This field is required.'
@@ -869,11 +878,13 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
             $timeout(function() {
                 $scope.noteErrorMessage = null;
             }, 5000);
+            $scope.$emit('UNLOAD');
         });
     };
 
     // function for updating a note
     $scope.updateNote = function(noteId) {
+        $scope.$emit('LOAD');
         $http.patch(`https://todo-list-notes-api.onrender.com/note/${noteId}/`, 
         {
             title: $scope.specificNote.title,
@@ -899,6 +910,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
             $timeout(function() {
                 $rootScope.successMessage = null;
             }, 5000);
+            $scope.$emit('UNLOAD');
         })
         .catch((response) => {
             if (response.data.errors[0].detail) {
@@ -913,12 +925,14 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
             $timeout(function() {
                 $scope.noteErrorMessage = null;
             }, 5000);
+            $scope.$emit('UNLOAD');
         });
     };
 
     // function for deleting a note
     $scope.deleteNote = function() {
         let noteId = $routeParams.id;
+        $scope.$emit('LOAD');
         $http.delete(`https://todo-list-notes-api.onrender.com/note/${noteId}/`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -938,6 +952,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
             $timeout(function() {
                 $rootScope.successMessage = null;
             }, 5000);
+            $scope.$emit('UNLOAD');
         })
         .catch((response) => {
             if (response.data.errors[0].detail) {
@@ -950,6 +965,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
             $timeout(function() {
                 $scope.errorMessage = null;
             }, 5000);
+            $scope.$emit('UNLOAD');
         });
     };
 
