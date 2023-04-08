@@ -632,6 +632,18 @@ textarea[id="content"], textarea[id="content"]:focus {
 } */
 /* ---------- END OF LOADING BLOCK SCREEN ------------ */
 
+.pagination .page-item a {
+    color: #000000 !important;
+    border: 2px solid black;
+    font-weight: 500;
+    box-shadow: 3px 3px 0 black;
+}
+
+.pagination .active-page a {
+    background-color: #23A094 !important;
+    color: #FFFFFF !important;
+}
+
 @media(max-width: 1200px) {
     .text-container {
         left: 70px;

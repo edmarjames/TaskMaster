@@ -66,10 +66,12 @@
         <ul class="pagination justify-content-center">
             <li class="page-item">
                 <a class="page-link" ng-click="prevPage()">
-                    <span aria-hidden="true"><i class='bx bx-chevron-left'></i></span>
+                    <span aria-hidden="true"><i class='bx bxs-chevron-left'></i></span>
                 </a>
             </li>
-            <li class="page-item" ng-repeat="page in pages" ng-class="{active: currentPage == page}" ng-click="setPage(page)"><a class="page-link">{{ page }}</a></li>
+            <li class="page-item" ng-repeat="page in pages" ng-class="{ 'active-page': currentPage == page }" ng-click="setPage(page)">
+                <a class="page-link">{{ page }}</a>
+            </li>
             <li class="page-item">
                 <a class="page-link" ng-click="nextPage()">
                     <span aria-hidden="true"><i class='bx bxs-chevron-right' ></i></span>
