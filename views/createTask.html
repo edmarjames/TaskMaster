@@ -1,51 +1,61 @@
-<div class="create-task-container d-flex flex-column justify-content-center align-items-center p-5 border position-relative">
-    
-    <div ng-if="errorMessage" class="toast-alert toast-alert-warning" ng-class="{'toast show': true, 'hide': errorMessage == null}" role="alert" aria-live="assertive" aria-atomic="true">
+<!-- 
+    Convention for html attributes ordering
+    - ng-directives, href, src, id, class, data-attribute, others, aria-attributes, boolean attributes
+
+    FOR FORMS
+    - ng-directives, id, class, type, name, value, placeholder, aria-attributes, boolean attributes
+
+    CLASSES
+    - bootstrap class, custom class, width/height class, margin class, padding class
+ -->
+
+ <!-- main container -->
+<div class="d-flex flex-column justify-content-center align-items-center position-relative create-task-container p-5" aria-live="polite" aria-atomic="true">
+    <!-- toast alert -->
+    <div ng-if="errorMessage" ng-class="{'toast show': true, 'hide': errorMessage == null}" class="toast-alert toast-alert-warning" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header toast-header-warning">
             <strong class="mr-auto">Error</strong>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <button class="ml-2 mb-1 close" type="button" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="toast-body">
             {{ errorMessage }}
         </div>
     </div>
+    <!-- end toast alert -->
 
-    <form ng-submit="createTask()" class="w-75 p-5 create-task-form">
-
-        <!-- <div class="d-flex justify-content-center align-items-center" aria-live="polite" aria-atomic="true" style="position: relative;">
-          
-        </div> -->
-
+    <!-- create task form -->
+    <form ng-submit="createTask()" class="create-task-form w-75 p-5">
         <h2 class="text-center create-task-title">Create new task</h2>
         <div class="form-group">
-          <label for="title">Title</label>
-          <input ng-model="newTask.title" type="text" class="form-control" id="title" placeholder="Enter title">
+            <label for="title">Title</label>
+            <input ng-model="newTask.title" id="title" class="form-control" type="text" placeholder="Enter title">
         </div>
         <div class="form-group">
-          <label for="description">Description</label>
-          <textarea ng-model="newTask.description" class="form-control" id="description" placeholder="Enter description"></textarea>
+            <label for="description">Description</label>
+            <textarea ng-model="newTask.description" id="description" class="form-control" placeholder="Enter description"></textarea>
         </div>
         <div class="form-group">
-          <label for="deadline">Deadline</label>
-          <input ng-model="newTask.deadline" type="date" class="form-control" id="deadline"></input>
+            <label for="deadline">Deadline</label>
+            <input ng-model="newTask.deadline" id="deadline" class="form-control" type="date"></input>
         </div>
         <div class="form-group">
-          <label for="color">Color</label>
-          <select ng-model="newTask.color" id="color" class="form-control">
-            <option value=""></option>
-            <option value="Green">Green</option>
-            <option value="Pink">Pink</option>
-            <option value="Red">Red</option>
-            <option value="White">White</option>
-            <option value="Yellow">Yellow</option>
-          </select>
+            <label for="color">Color</label>
+            <select ng-model="newTask.color" id="color" class="form-control">
+                <option value=""></option>
+                <option value="Green">Green</option>
+                <option value="Pink">Pink</option>
+                <option value="Red">Red</option>
+                <option value="White">White</option>
+                <option value="Yellow">Yellow</option>
+            </select>
         </div>
         <div class="d-flex justify-content-sm-center justify-content-md-end">
-            <button type="submit" class="btn btn-primary ml-1">Save</button>
+            <button class="btn btn-primary ml-1" type="submit">Save</button>
             <button ng-click="cancel()" class="btn btn-danger ml-1">Cancel</button>
         </div>
       </form>
-      
+      <!-- end create task form -->
 </div>
+<!-- end main container -->

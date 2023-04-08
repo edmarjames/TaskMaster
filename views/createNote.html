@@ -1,47 +1,57 @@
-<div class="create-note-container d-flex flex-column justify-content-center align-items-center p-5 position-relative">
+<!-- 
+    Convention for html attributes ordering
+    - ng-directives, href, src, id, class, data-attribute, others, aria-attributes, boolean attributes
 
-    <div ng-if="noteErrorMessage" class="toast-alert toast-alert-warning" ng-class="{'toast show': true, 'hide': noteErrorMessage == null}" role="alert" aria-live="assertive" aria-atomic="true">
+    FOR FORMS
+    - ng-directives, id, class, type, name, value, placeholder, aria-attributes, boolean attributes
+
+    CLASSES
+    - bootstrap class, custom class, width/height class, margin class, padding class
+ -->
+
+<!-- main container -->
+<div class="d-flex flex-column justify-content-center align-items-center position-relative create-note-container p-5" aria-live="polite" aria-atomic="true">
+    <!-- toast alert -->
+    <div ng-if="noteErrorMessage" ng-class="{'toast show': true, 'hide': noteErrorMessage == null}" class="toast-alert toast-alert-warning" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header toast-header-warning">
-          <strong class="mr-auto">Error</strong>
-          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+            <strong class="mr-auto">Error</strong>
+            <button class="ml-2 mb-1 close" type="button" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="toast-body">
           {{ noteErrorMessage }}
         </div>
     </div>
+    <!-- end toast alert -->
 
+    <!-- create note form -->
     <form ng-submit="createNote()" class="create-note-form w-75 p-5">
-
-        <!-- <div class="d-flex justify-content-center align-items-center" aria-live="polite" aria-atomic="true" style="position: relative;">
-            
-        </div> -->
-
         <h2 class="text-center create-note-title">Create new note</h2>
         <div class="form-group">
-          <label for="title">Title</label>
-          <input ng-model="newNote.title" type="text" class="form-control" id="title" placeholder="Enter title">
+            <label for="title">Title</label>
+            <input ng-model="newNote.title" id="title" class="form-control" type="text" placeholder="Enter title">
         </div>
         <div class="form-group">
-          <label for="content">Content</label>
-          <textarea ng-model="newNote.content" class="form-control" id="content" placeholder="Enter content"></textarea>
+            <label for="content">Content</label>
+            <textarea ng-model="newNote.content" id="content" class="form-control" placeholder="Enter content"></textarea>
         </div>
         <div class="form-group">
-          <label for="color">Color</label>
-          <select ng-model="newNote.color" id="color" class="form-control">
-            <option value=""></option>
-            <option value="Green">Green</option>
-            <option value="Pink">Pink</option>
-            <option value="Red">Red</option>
-            <option value="White">White</option>
-            <option value="Yellow">Yellow</option>
-          </select>
+            <label for="color">Color</label>
+            <select ng-model="newNote.color" id="color" class="form-control">
+                <option value=""></option>
+                <option value="Green">Green</option>
+                <option value="Pink">Pink</option>
+                <option value="Red">Red</option>
+                <option value="White">White</option>
+                <option value="Yellow">Yellow</option>
+            </select>
         </div>
         <div class="d-flex justify-content-sm-center justify-content-md-end">
-            <button type="submit" class="btn btn-primary ml-1">Save</button>
+            <button class="btn btn-primary ml-1" type="submit">Save</button>
             <button ng-click="cancel()" class="btn btn-danger ml-1">Cancel</button>
         </div>
-      </form>
-      
+    </form>
+    <!-- end create note form -->
 </div>
+<!-- end main container -->

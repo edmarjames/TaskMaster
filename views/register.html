@@ -1,70 +1,73 @@
-<div class="d-flex flex-column justify-content-center align-items-center register-page-layout position-relative">
+<!-- 
+    Convention for html attributes ordering
+    - ng-directives, href, src, id, class, data-attribute, others, aria-attributes, boolean attributes
 
-    <div ng-if="errorMessage" class="toast-alert toast-alert-warning" ng-class="{'toast show': true, 'hide': errorMessage == null}" role="alert" aria-live="assertive" aria-atomic="true">
+    FOR FORMS
+    - ng-directives, id, class, type, name, value, placeholder, aria-attributes, boolean attributes
+
+    CLASSES
+    - bootstrap class, custom class, width/height class, margin class, padding class
+ -->
+
+<!-- main container -->
+<div class="d-flex flex-column justify-content-center align-items-center position-relative register-page-layout" aria-live="polite" aria-atomic="true">
+    <!-- toast alert -->
+    <div ng-if="errorMessage" ng-class="{'toast show': true, 'hide': errorMessage == null}" class="toast-alert toast-alert-warning" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header toast-header-warning">
-          <strong class="mr-auto">Error</strong>
-          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+            <strong class="mr-auto">Error</strong>
+            <button class="ml-2 mb-1 close" type="button" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="toast-body">
           {{ errorMessage }}
         </div>
     </div>
+    <!-- end toast alert -->
 
+    <!-- back button -->
     <div class="d-flex justify-content-end w-75">
-        <span class="align-self-end back-button" title="Back"><a href="#!/"><i class='bx bx-arrow-back'></i></a></span>
+        <span class="align-self-end back-button" title="Back">
+            <a href="#!/">
+                <i class="bx bx-arrow-back"></i>
+            </a>
+        </span>
     </div>
+    <!-- end back button -->
     
-    <!-- <div class="d-flex justify-content-center align-items-center" aria-live="polite" aria-atomic="true" class="position-relative">
-        <div ng-if="errorMessage" class="toast-alert toast-alert-warning" ng-class="{'toast show': true, 'hide': errorMessage == null}" role="alert" aria-live="assertive" aria-atomic="true">
-          <div class="toast-header toast-header-warning">
-            <strong class="mr-auto">Error</strong>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="toast-body">
-            {{ errorMessage }}
-          </div>
-        </div>
-    </div> -->
-
+    <!-- register form -->
     <h2 id="register-title">Register here</h2>
-
-    <form ng-submit="registerUser()" name="registerForm" class="w-75" novalidate>
+    <form ng-submit="registerUser()" class="w-75" name="registerForm" novalidate>
         <div class="row">
             <div class="form-group col">
                 <label for="firstname">Firstname</label>
-                <input ng-model="register.firstName" type="text" class="form-control" name="firstname" id="firstname" placeholder="Enter first name">
+                <input ng-model="register.firstName" id="firstname" class="form-control" type="text" name="firstname" placeholder="Enter first name">
             </div>
             <div class="form-group col">
                 <label for="lastname">Lastname</label>
-                <input ng-model="register.lastName" type="text" class="form-control" name="lastname" id="lastname" placeholder="Enter last name">
+                <input ng-model="register.lastName" id="lastname" class="form-control" type="text" name="lastname" placeholder="Enter last name">
             </div>
         </div>
-
         <div class="row">
             <div class="form-group col">
                 <label for="email">email</label>
-                <input ng-model="register.email" type="email" class="form-control" name="email" id="email" placeholder="Enter valid email">
+                <input ng-model="register.email" id="email" class="form-control" type="email" name="email" placeholder="Enter valid email">
             </div>
             <div class="form-group col">
                 <label for="username">Username</label>
-                <input ng-model="register.username" type="text" class="form-control" name="username" id="username" placeholder="Enter username">
+                <input ng-model="register.username" id="username" class="form-control" type="text" name="username" placeholder="Enter username">
             </div>
         </div>
-
         <div class="form-group">
             <label for="password">Password</label>
-            <input ng-model="register.password" type="password" class="form-control" name="password" id="password" placeholder="Enter password">
+            <input ng-model="register.password" id="password" class="form-control" type="password" name="password" placeholder="Enter password">
         </div>
-
         <div class="form-group">
             <label for="confirm-password">Confirm password</label>
-            <input ng-model="register.confirmPassword" type="password" class="form-control" name="confirm-password" id="confirm-password" placeholder="Confirm password">
+            <input ng-model="register.confirmPassword" id="confirm-password" class="form-control" type="password" name="confirm-password" placeholder="Confirm password">
         </div>
-        
-        <input type="submit" class="btn btn-primary w-100" value="Create account">
+        <input class="btn btn-primary w-100" type="submit" value="Create account">
     </form>
+    <!-- end register form -->
 </div>
+<!-- end main container -->

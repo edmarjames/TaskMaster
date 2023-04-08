@@ -1,60 +1,88 @@
+<!-- 
+    Convention for html attributes ordering
+    - ng-directives, href, src, id, class, data-attribute, others, aria-attributes, boolean attributes
+
+    FOR FORMS
+    - ng-directives, id, class, type, name, value, placeholder, aria-attributes, boolean attributes
+
+    CLASSES
+    - bootstrap class, custom class, width/height class, margin class, padding class
+ -->
+
+<!-- main container -->
 <div class="users-container">
-
-    <div aria-live="polite" aria-atomic="true" class="position-relative">
-        <div ng-if="successMessage" class="toast-alert toast-alert-success" ng-class="{'toast show': true, 'hide': successMessage == null}" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header toast-header-success">
-            <strong class="mr-auto">Success</strong>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+    <!-- toast alert -->
+    <div class="position-relative" aria-live="polite" aria-atomic="true">
+        <div ng-if="successMessage" ng-class="{'toast show': true, 'hide': successMessage == null}" class="toast-alert toast-alert-success" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header toast-header-success">
+                <strong class="mr-auto">Success</strong>
+                <button type="button" class="close ml-2 mb-1" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                {{ successMessage }}
+            </div>
         </div>
-        <div class="toast-body">
-            {{ successMessage }}
-        </div>
-        </div>
-
-        <div ng-if="errorMessage" class="toast-alert toast-alert-warning" ng-class="{'toast show': true, 'hide': errorMessage == null}" role="alert" style="position: absolute; top: 10px; right: 10px; z-index: 1;" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header toast-header-warning">
-            <strong class="mr-auto">Error</strong>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="toast-body">
-            {{ errorMessage }}
-        </div>
+        <div ng-if="errorMessage" ng-class="{'toast show': true, 'hide': errorMessage == null}" class="toast-alert toast-alert-warning" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header toast-header-warning">
+                <strong class="mr-auto">Error</strong>
+                <button class="close ml-2 mb-1" type="button" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                {{ errorMessage }}
+            </div>
         </div>
     </div>
+    <!-- end toast alert -->
     
+    <!-- main content -->
     <div class="row px-3 mx-3">
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12" ng-repeat="user in users | startFrom: (currentPage - 1) * pageSize | limitTo: pageSize">
-            <div class="card-layout my-4 mx-2 p-4 ">
+        <!-- users card -->
+        <div ng-repeat="user in users | startFrom: (currentPage - 1) * pageSize | limitTo: pageSize" class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12">
+            <div class="card-layout my-4 mx-2 p-4">
                 <h2>{{ user.attributes.username }}</h2>
                 <p>Fullname: {{ user.attributes.first_name }} {{ user.attributes.last_name }}</p>
                 <p>Email: {{ user.attributes.email }}</p>
                 <p>Admin: {{ user.attributes.is_superuser }}</p>
-        
                 <div class="d-flex justify-content-center button-container">
-                    <button ng-show="user.attributes.is_superuser == false" ng-click="setAsAdmin(user.id)" class="btn btn-primary action-buttons-layout" title="Set user as admin"><i class='bx bx-user-plus'></i></button>
-        
-                    <button ng-show="user.attributes.is_superuser == true && user.attributes.username != 'edmar'" ng-click="setAsNormalUser(user.id)" class="btn btn-info action-buttons-layout" title="Set as normal user"><i class='bx bx-user-x'></i></button>
+                    <button ng-show="user.attributes.is_superuser == false" ng-click="setAsAdmin(user.id)" class="btn btn-primary action-buttons-layout" title="Set user as admin">
+                        <i class="bx bx-user-plus"></i>
+                    </button>
+                    <button ng-show="user.attributes.is_superuser == true && user.attributes.username != 'edmar'" ng-click="setAsNormalUser(user.id)" class="btn btn-info action-buttons-layout" title="Set as normal user">
+                        <i class="bx bx-user-x"></i>
+                    </button>
                 </div>
             </div>
         </div>
-        <nav aria-label="Note page navigation" class="fixed-bottom">
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" ng-click="prevPage()">
-                    <span aria-hidden="true"><i class='bx bxs-chevron-left'></i></span>
-                </a>
-            </li>
-            <li class="page-item" ng-repeat="page in pages" ng-class="{ 'active-page': currentPage == page}" ng-click="setPage(page)"><a class="page-link">{{ page }}</a></li>
-            <li class="page-item">
-                <a class="page-link" ng-click="nextPage()">
-                    <span aria-hidden="true"><i class='bx bxs-chevron-right' ></i></span>
-                </a>
-            </li>
-        </ul>
-      </nav>
+        <!-- end users card -->
+
+        <!-- pagination -->
+        <nav class="fixed-bottom" aria-label="Note page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a ng-click="prevPage()" class="page-link">
+                        <span aria-hidden="true">
+                            <i class="bx bxs-chevron-left"></i>
+                        </span>
+                    </a>
+                </li>
+                <li ng-repeat="page in pages" ng-class="{ 'active-page': currentPage == page}" ng-click="setPage(page)" class="page-item">
+                    <a class="page-link">{{ page }}</a>
+                </li>
+                <li class="page-item">
+                    <a ng-click="nextPage()" class="page-link">
+                        <span aria-hidden="true">
+                            <i class="bx bxs-chevron-right"></i>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- pagination -->
     </div>
+    <!-- end main content -->
 </div>
+<!-- end main container -->

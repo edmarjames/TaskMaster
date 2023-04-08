@@ -1,30 +1,61 @@
-<div ng-controller="LogoutController" class="modal" tabindex="-1" id="logoutModal" data-backdrop="static">
+<!-- 
+    Convention for html attributes ordering
+    - ng-directives, href, src, id, class, data-attributes, aria-attributes, others, boolean attributes
+
+    FOR FORMS
+    - ng-directives, id, class, type, name, value, placeholder, aria-attributes, boolean attributes
+
+    CLASSES
+    - bootstrap class, custom class, width/height class, margin class, padding class
+ -->
+
+<!-- logout modal -->
+<div ng-controller="LogoutController" id="logoutModal" class="modal" data-backdrop="static" tabindex="-1">
     <div class="modal-dialog logout-modal">
-      <div class="modal-content rounded-0">
-        <div class="modal-header">
-          <h5 class="modal-title">Confirm</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p class="text-center">Are you sure you want to logout?</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary action-buttons-layout" data-dismiss="modal" ng-click="confirmLogout=true; logout()">Yes</button>
-            <button type="button" class="btn btn-danger action-buttons-layout" data-dismiss="modal" ng-click="confirmLogout=false; cancel()">No</button>
-        </div>
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">Are you sure you want to logout?</p>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="confirmLogout=true; logout()" class="btn btn-primary action-buttons-layout" type="button" data-dismiss="modal">Yes</button>
+                <button ng-click="confirmLogout=false; cancel()" class="btn btn-danger action-buttons-layout" type="button" data-dismiss="modal">No</button>
+            </div>
       </div>
     </div>
 </div>
+<!-- end logout modal -->
 
+<!-- navbar -->
 <ul class="top-navbar">
-    <li><h2 id="title-header">TaskMaster</h2></li>
-    <li ng-show="authenticated" class="mr-auto" id="logout-button"><button type="button" class="btn" data-toggle="modal" data-target="#logoutModal" title="Logout"><i class='bx bx-log-out-circle'></i></button></li>
-    <li ng-show="authenticated"><button ng-click="toggleDisplay()" class="burger-menu"><i class='bx bx-menu'></i></button></li>
+    <li>
+        <h2 id="title-header">TaskMaster</h2>
+    </li>
+    <li ng-show="authenticated" id="logout-button" class="mr-auto">
+        <button class="btn" type="button" data-toggle="modal" data-target="#logoutModal" title="Logout">
+            <i class="bx bx-log-out-circle"></i>
+        </button>
+    </li>
+    <li ng-show="authenticated">
+        <button ng-click="toggleDisplay()" class="burger-menu">
+            <i class="bx bx-menu"></i>
+        </button>
+    </li>
     <div ng-show="display">
-        <li ng-show="(authenticated == 'true' && isAdmin == 'true') || (authenticated == true && isAdmin == true)" class="nav-links"><a href="#!/all-users">Users</a></li>
-        <li ng-show="authenticated" class="nav-links"><a href="#!/task">Tasks</a></li>
-        <li ng-show="authenticated" class="nav-links"><a href="#!/note">Notes</a></li>
+        <li ng-show="(authenticated == 'true' && isAdmin == 'true') || (authenticated == true && isAdmin == true)" class="nav-links">
+            <a href="#!/all-users">Users</a>
+        </li>
+        <li ng-show="authenticated" class="nav-links">
+            <a href="#!/task">Tasks</a>
+        </li>
+        <li ng-show="authenticated" class="nav-links">
+            <a href="#!/note">Notes</a>
+        </li>
     </div>
 </ul>
+<!-- end navbar -->

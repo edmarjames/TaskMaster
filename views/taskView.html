@@ -1,69 +1,79 @@
-<div class="task-view-container d-flex flex-column justify-content-center align-items-center p-5 position-relative">
+<!-- 
+    Convention for html attributes ordering
+    - ng-directives, href, src, id, class, data-attribute, others, aria-attributes, boolean attributes
 
-    <div ng-if="errorMessage" class="toast-alert toast-alert-warning" ng-class="{'toast show': true, 'hide': errorMessage == null}" role="alert" aria-live="assertive" aria-atomic="true">
+    FOR FORMS
+    - ng-directives, id, class, type, name, value, placeholder, aria-attributes, boolean attributes
+
+    CLASSES
+    - bootstrap class, custom class, width/height class, margin class, padding class
+ -->
+
+<!-- main container -->
+<div class="d-flex flex-column justify-content-center align-items-center position-relative task-view-container p-5" aria-live="polite" aria-atomic="true">
+    <!-- toast alert -->
+    <div ng-if="errorMessage" ng-class="{'toast show': true, 'hide': errorMessage == null}" class="toast-alert toast-alert-warning" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header toast-header-warning">
-          <strong class="mr-auto">Error</strong>
-          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+            <strong class="mr-auto">Error</strong>
+            <button class="close ml-2 mb-1" type="button" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="toast-body">
-          {{ errorMessage }}
+            {{ errorMessage }}
         </div>
     </div>
-  
-    <div ng-if="taskDoesNotExistError" class="toast-alert toast-alert-warning" ng-class="{'toast show': true, 'hide': taskDoesNotExistError == null}" role="alert" aria-live="assertive" aria-atomic="true">
+    <div ng-if="taskDoesNotExistError" ng-class="{'toast show': true, 'hide': taskDoesNotExistError == null}" class="toast-alert toast-alert-warning" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header toast-header-warning">
-          <strong class="mr-auto">Error</strong>
-          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+            <strong class="mr-auto">Error</strong>
+            <button class="close ml-2 mb-1" type="button" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="toast-body">
-          {{ taskDoesNotExistError }}
+            {{ taskDoesNotExistError }}
         </div>
     </div>
+    <!-- end toast alert -->
 
-  <form class="task-view-form w-75 p-5">
-
-    <!-- <div class="d-flex justify-content-center align-items-center" aria-live="polite" aria-atomic="true" style="position: relative;">
-      
-    </div> -->
-
-    <div class="form-group">
-        <label for="title">Title</label>
-        <input ng-model="specificTask.title" ng-readonly="readOnly" type="text" class="form-control" id="title" >
-    </div>
-    <div class="form-group">
-        <label for="description">Description</label>
-        <textarea ng-model="specificTask.description" ng-readonly="readOnly" class="form-control" id="description" placeholder="Enter description"></textarea>
-    </div>
-    <div class="form-group">
-        <label for="deadline">Deadline</label>
-        <input ng-model="specificTask.deadline" ng-readonly="readOnly" ng-value="specificTask.formattedDeadline" type="date" class="form-control" id="deadline">
-    </div>
-    <div class="form-group">
-        <label for="status">Status</label>
-        <input ng-model="specificTask.status" ng-readonly="readOnly" type="text" class="form-control" id="status">
-    </div>
-    <div class="form-group">
-        <label for="color">Color</label>
-        <select ng-model="specificTask.color" ng-init="specificTask.color = specificTask.color || ''" ng-disabled="readOnly" id="color" class="form-control">
-            <option value=""></option>
-            <option value="Green">Green</option>
-            <option value="Pink">Pink</option>
-            <option value="Red">Red</option>
-            <option value="White">White</option>
-            <option value="Yellow">Yellow</option>
-        </select>
-    </div>
-    <div class="d-flex justify-content-sm-center justify-content-md-end">
-        <button ng-click="toggleReadOnly()" class="btn btn-success">Edit</button>
-        <button ng-click="updateTask(specificTask.id)" ng-disabled="readOnly" type="submit" class="btn btn-primary">Save</button>
-        <button ng-click="goBackToPreviousRoute()" class="btn btn-danger">Cancel</button>
-    </div>
-  </form>
+    <!-- task view form -->
+    <form class="task-view-form w-75 p-5">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input ng-model="specificTask.title" ng-readonly="readOnly" id="title" class="form-control" type="text">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea ng-model="specificTask.description" ng-readonly="readOnly" id="description" class="form-control" placeholder="Enter description"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="deadline">Deadline</label>
+            <input ng-model="specificTask.deadline" ng-readonly="readOnly" ng-value="specificTask.formattedDeadline" id="deadline" class="form-control" type="date">
+        </div>
+        <div class="form-group">
+            <label for="status">Status</label>
+            <input ng-model="specificTask.status" ng-readonly="readOnly" id="status" class="form-control" type="text">
+        </div>
+        <div class="form-group">
+            <label for="color">Color</label>
+            <select ng-model="specificTask.color" ng-init="specificTask.color = specificTask.color || ''" ng-disabled="readOnly" id="color" class="form-control">
+                <option value=""></option>
+                <option value="Green">Green</option>
+                <option value="Pink">Pink</option>
+                <option value="Red">Red</option>
+                <option value="White">White</option>
+                <option value="Yellow">Yellow</option>
+            </select>
+        </div>
+        <div class="d-flex justify-content-sm-center justify-content-md-end">
+            <button ng-click="toggleReadOnly()" class="btn btn-success">Edit</button>
+            <button ng-click="updateTask(specificTask.id)" ng-disabled="readOnly" class="btn btn-primary" type="submit">Save</button>
+            <button ng-click="goBackToPreviousRoute()" class="btn btn-danger">Cancel</button>
+        </div>
+    </form>
+    <!-- end task view form -->
 </div>
+<!-- end main container -->
 
 
 
