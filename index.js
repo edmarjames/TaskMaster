@@ -49,7 +49,8 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
             controller: 'UserController'
         })
         .otherwise({
-            redirectTo: '/'
+            // redirectTo: '/'
+            templateUrl: './views/notFound.html',
         })
 
 }]);
