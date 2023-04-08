@@ -48,6 +48,9 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: './views/users.html',
             controller: 'UserController'
         })
+        .when('/empty-note', {
+            templateUrl: './views/emptyNote.html'
+        })
         .otherwise({
             redirectTo: '/'
         })
@@ -879,6 +882,8 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                 $scope.$emit('UNLOAD');
                 // calculate the number of pages to be generated
                 $scope.calculateNumberOfPages($scope.notes.length);
+
+                checkIfEmpty(response.data.data.length);
             });
         };
     };
@@ -1084,7 +1089,15 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
     // watch for changes in '$scope.notes' array and then invokes the createPages function
     $scope.$watch('notes', function(newValue, oldValue) {
         $scope.createPages();
-    })
+    });
+
+    const checkIfEmpty = (dataLength) => {
+        if (dataLength <= 0) {
+            $location.path('/empty-note');
+        };
+        $scope.$emit('UNLOAD');
+        // console.log($scope.notes);
+    };
 
     // custom filter that receives the first index and last index of the tasks array
     $scope.startFrom = function(index) {

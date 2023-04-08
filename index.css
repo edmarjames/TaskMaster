@@ -26,6 +26,10 @@
     background: #FFC900 !important;
 }
 
+.gray-bg {
+    background: #D9D9D9;
+}
+
 input[ng-disabled="true"] {
     cursor: not-allowed !important;
 }
@@ -644,6 +648,15 @@ textarea[id="content"], textarea[id="content"]:focus {
     color: #FFFFFF !important;
 }
 
+.image-container {
+    max-width: 700px;
+}
+
+.responsive-title {
+    font-size: 2.5rem;
+    text-align: center;
+}
+
 @media(max-width: 1200px) {
     .text-container {
         left: 70px;
@@ -759,6 +772,9 @@ textarea[id="content"], textarea[id="content"]:focus {
     .top-navbar li .burger-menu {
         display: block;
     }
+    .image-container {
+        max-width: 500px;
+    }
 }
 
 @media(max-width: 576px) {
@@ -793,6 +809,9 @@ textarea[id="content"], textarea[id="content"]:focus {
     }
     .top-navbar li a{
         padding: 27px 261px;
+    }
+    .image-container {
+        max-width: 400px;
     }
 }
 
