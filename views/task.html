@@ -47,6 +47,14 @@
   </div>
 
   <div class="row px-3 mx-3">
+
+    <div ng-show="emptyTask" class="d-flex flex-column justify-content-center align-items-center w-100 vh-100">
+        <div class="image-container">
+            <img src="../assets/empty-task.png" alt="empty_task" class="img-fluid">
+            <h1 class="responsive-title">You don't have task yet.</h1>
+        </div>
+    </div>
+
       <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12" ng-repeat="task in tasks | startFrom: (currentPage - 1) * pageSize | limitTo: pageSize">
         <div ng-class="task.attributes.color" class="card-layout my-4 mx-2 p-4">
           <h5>{{ task.attributes.title }}</h5>

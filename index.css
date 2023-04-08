@@ -680,6 +680,9 @@ textarea[id="content"], textarea[id="content"]:focus {
         max-height: 600px;
         height: 490px;
     }
+    .image-container {
+        max-width: 700px;
+    }
 }
 
 @media(max-width: 992px) {
@@ -714,6 +717,9 @@ textarea[id="content"], textarea[id="content"]:focus {
     .card-layout {
         max-height: 600px;
         height: 480px;
+    }
+    .image-container {
+        max-width: 600px;
     }
 }
 

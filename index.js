@@ -51,6 +51,9 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
         .when('/empty-note', {
             templateUrl: './views/emptyNote.html'
         })
+        .when('/empty-task', {
+            templateUrl: './views/emptyTask.html'
+        })
         .otherwise({
             redirectTo: '/'
         })
@@ -317,6 +320,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
     $scope.pageSize = 8;
     $scope.pages = [];
     $scope.numberOfPages;
+    $scope.emptyTask = false;
 
     /* ---------------------------- MAIN FUNCTIONS ---------------------------- */
 
@@ -360,6 +364,8 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 $scope.$emit('UNLOAD');
                 // calculate the number of pages to be generated
                 $scope.calculateNumberOfPages($scope.tasks.length);
+
+                checkIfEmpty(response.data.data.length);
             });
         // if user is not an admin, proceed with this GET api call
         } else {
@@ -399,6 +405,8 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 $scope.$emit('UNLOAD');
                 // calculate the number of pages to be generated
                 $scope.calculateNumberOfPages($scope.tasks.length);
+
+                checkIfEmpty(response.data.data.length);
             });
         };
     };
@@ -714,7 +722,14 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
     // watch for changes in '$scope.tasks' array and then invokes the createPages function
     $scope.$watch('tasks', function(newValue, oldValue) {
         $scope.createPages();
-    })
+    });
+
+    const checkIfEmpty = (dataLength) => {
+        if (dataLength <= 0) {
+            $scope.emptyTask = true;
+        };
+        // $scope.$emit('UNLOAD');
+    };
 
     // custom filter that receives the first index and last index of the tasks array
     $scope.startFrom = function(index) {
@@ -799,6 +814,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
     $scope.pageSize = 8;
     $scope.pages = [];
     $scope.numberOfPages;
+    $scope.emptyNote = false;
 
     /* ---------------------------- MAIN FUNCTIONS ---------------------------- */
 
@@ -843,6 +859,8 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                 $scope.$emit('UNLOAD');
                 // calculate the number of pages to be generated
                 $scope.calculateNumberOfPages($scope.notes.length);
+
+                checkIfEmpty(response.data.data.length);
             });
         // if user is not an admin, proceed with this GET api call
         } else {
@@ -1093,10 +1111,9 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
 
     const checkIfEmpty = (dataLength) => {
         if (dataLength <= 0) {
-            $location.path('/empty-note');
+            $scope.emptyNote = true;
         };
-        $scope.$emit('UNLOAD');
-        // console.log($scope.notes);
+        // $scope.$emit('UNLOAD');
     };
 
     // custom filter that receives the first index and last index of the tasks array
