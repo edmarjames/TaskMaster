@@ -1158,6 +1158,10 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
     // declare scope objects
     $scope.users = [];
     $scope.errorMessage;
+    $scope.currentPage = 1;
+    $scope.pageSize = 8;
+    $scope.pages = [];
+    $scope.numberOfPages;
 
     // function for getting all users
     $scope.getAllUsers = function() {
@@ -1174,6 +1178,8 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
             $scope.users = response.data.data.map(users => users);
             // emit UNLOAD event
             $scope.$emit('UNLOAD');
+            // calculate the number of pages to be generated
+            $scope.calculateNumberOfPages($scope.users.length);
         })
         .catch((response) => {
             // logs the error on the console
@@ -1265,6 +1271,49 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
             // emit UNLOAD event
             $scope.$emit('UNLOAD');
         });
+    };
+
+    /* ---------------------------- HELPER FUNCTIONS ---------------------------- */
+
+    // watch for changes in '$scope.users' array and then invokes the createPages function
+    $scope.$watch('users', function(newValue, oldValue) {
+        $scope.createPages();
+    })
+
+    // custom filter that receives the first index and last index of the tasks array
+    $scope.startFrom = function(index) {
+        return ( index >= ($scope.currentPage -1) * $scope.pageSize ) && ( index < $scope.currentPage * $scope.pageSize );
+    };
+
+    // calculate the number of pages based on '$scope.tasks' length and pageSize
+    $scope.calculateNumberOfPages = function(dataLength) {
+        $scope.numberOfPages = Math.ceil(dataLength / $scope.pageSize);
+    };
+
+    // create the page numbers and store it on '$scope.pages' array
+    $scope.createPages = function() {
+        for (let ctr = 1; ctr <= $scope.numberOfPages; ctr++) {
+            $scope.pages.push(ctr);
+        }
+    };
+    
+    // set the current page on pagination link click
+    $scope.setPage = function(page) {
+        $scope.currentPage = page;
+    };
+
+    // go to previous page
+    $scope.prevPage = function() {
+        if ($scope.currentPage > 1) {
+            $scope.currentPage--;
+        }
+    };
+
+    // go to next page
+    $scope.nextPage = function() {
+        if ($scope.currentPage < $scope.numberOfPages) {
+            $scope.currentPage++;
+        }
     };
 
 }]);

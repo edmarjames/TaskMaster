@@ -27,7 +27,7 @@
     </div>
     
     <div class="row px-3 mx-3">
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12" ng-repeat="user in users">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12" ng-repeat="user in users | startFrom: (currentPage - 1) * pageSize | limitTo: pageSize">
             <div class="card-layout my-4 mx-2 p-4 ">
                 <h2>{{ user.attributes.username }}</h2>
                 <p>Fullname: {{ user.attributes.first_name }} {{ user.attributes.last_name }}</p>
@@ -41,5 +41,20 @@
                 </div>
             </div>
         </div>
+        <nav aria-label="Note page navigation" class="fixed-bottom">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" ng-click="prevPage()">
+                    <span aria-hidden="true"><i class='bx bx-chevron-left'></i></span>
+                </a>
+            </li>
+            <li class="page-item" ng-repeat="page in pages" ng-class="{active: currentPage == page}" ng-click="setPage(page)"><a class="page-link">{{ page }}</a></li>
+            <li class="page-item">
+                <a class="page-link" ng-click="nextPage()">
+                    <span aria-hidden="true"><i class='bx bxs-chevron-right' ></i></span>
+                </a>
+            </li>
+        </ul>
+      </nav>
     </div>
 </div>
