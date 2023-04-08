@@ -310,6 +310,10 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
     $scope.taskDoesNotExistError;
     $scope.readOnly = true;
     $scope.confirmDelete = false;
+    $scope.currentPage = 1;
+    $scope.pageSize = 8;
+    $scope.pages = [];
+    $scope.numberOfPages;
 
     /* ---------------------------- MAIN FUNCTIONS ---------------------------- */
 
@@ -388,6 +392,9 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 });
                 // emit UNLOAD event
                 $scope.$emit('UNLOAD');
+                // console.log();
+                $scope.calculateNumberOfPages($scope.tasks.length);
+                // $scope.createPages();
             });
         };
     };
@@ -700,6 +707,40 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
 
     /* ---------------------------- HELPER FUNCTIONS ---------------------------- */
 
+    $scope.$watch('tasks', function(newValue, oldValue) {
+        $scope.createPages();
+    })
+
+    $scope.startFrom = function(index) {
+        return ( index >= ($scope.currentPage -1) * $scope.pageSize ) && ( index < $scope.currentPage * $scope.pageSize );
+    };
+
+    $scope.calculateNumberOfPages = function(dataLength) {
+        $scope.numberOfPages = Math.ceil(dataLength / $scope.pageSize);
+    };
+
+    $scope.createPages = function() {
+        for (let ctr = 1; ctr <= $scope.numberOfPages; ctr++) {
+            $scope.pages.push(ctr);
+        }
+    };
+    
+    $scope.setPage = function(page) {
+        $scope.currentPage = page;
+    };
+
+    $scope.prevPage = function() {
+        if ($scope.currentPage > 1) {
+            $scope.currentPage--;
+        }
+    };
+
+    $scope.nextPage = function() {
+        if ($scope.currentPage < $scope.numberOfPages) {
+            $scope.currentPage++;
+        }
+    };
+    
     // reset the value of newTask object properties
     function clearFields() {
         $scope.newTask.title = '';
@@ -1170,3 +1211,10 @@ taskMasterApp.controller('UserController', ['$rootScope', '$scope', '$http', '$l
     };
 
 }]);
+
+taskMasterApp.filter('startFrom', function() {
+    return function(input, start) {
+        start = parseInt(start);
+        return input.slice(start);
+    };
+});
