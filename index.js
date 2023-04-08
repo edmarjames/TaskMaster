@@ -48,12 +48,6 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: './views/users.html',
             controller: 'UserController'
         })
-        .when('/empty-note', {
-            templateUrl: './views/emptyNote.html'
-        })
-        .when('/empty-task', {
-            templateUrl: './views/emptyTask.html'
-        })
         .otherwise({
             redirectTo: '/'
         })
