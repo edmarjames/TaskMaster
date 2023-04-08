@@ -47,7 +47,7 @@
   </div>
 
   <div class="row px-3 mx-3">
-      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12" ng-repeat="task in tasks | startFrom: (currentPage - 1) * pageSize | limitTo: pageSize ">
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12" ng-repeat="task in tasks | startFrom: (currentPage - 1) * pageSize | limitTo: pageSize">
         <div ng-class="task.attributes.color" class="card-layout my-4 mx-2 p-4">
           <h5>{{ task.attributes.title }}</h5>
           <p>{{ task.attributes.description }}</p>
@@ -71,11 +71,15 @@
       <nav aria-label="Task page navigation" class="fixed-bottom">
         <ul class="pagination justify-content-center">
             <li class="page-item">
-                <a class="page-link" ng-click="prevPage()">Previous</a>
+                <a class="page-link" ng-click="prevPage()">
+                    <span aria-hidden="true"><i class='bx bx-chevron-left'></i></span>
+                </a>
             </li>
             <li class="page-item" ng-repeat="page in pages" ng-class="{active: currentPage == page}" ng-click="setPage(page)"><a class="page-link">{{ page }}</a></li>
             <li class="page-item">
-                <a class="page-link" ng-click="nextPage()">Next</a>
+                <a class="page-link" ng-click="nextPage()">
+                    <span aria-hidden="true"><i class='bx bxs-chevron-right' ></i></span>
+                </a>
             </li>
         </ul>
       </nav>

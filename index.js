@@ -355,6 +355,8 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 });
                 // emit UNLOAD event
                 $scope.$emit('UNLOAD');
+                // calculate the number of pages to be generated
+                $scope.calculateNumberOfPages($scope.tasks.length);
             });
         // if user is not an admin, proceed with this GET api call
         } else {
@@ -392,9 +394,8 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 });
                 // emit UNLOAD event
                 $scope.$emit('UNLOAD');
-                // console.log();
+                // calculate the number of pages to be generated
                 $scope.calculateNumberOfPages($scope.tasks.length);
-                // $scope.createPages();
             });
         };
     };
@@ -707,34 +708,41 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
 
     /* ---------------------------- HELPER FUNCTIONS ---------------------------- */
 
+    // watch for changes in '$scope.tasks' array and then invokes the createPages function
     $scope.$watch('tasks', function(newValue, oldValue) {
         $scope.createPages();
     })
 
+    // custom filter that receives the first index and last index of the tasks array
     $scope.startFrom = function(index) {
         return ( index >= ($scope.currentPage -1) * $scope.pageSize ) && ( index < $scope.currentPage * $scope.pageSize );
     };
 
+    // calculate the number of pages based on '$scope.tasks' length and pageSize
     $scope.calculateNumberOfPages = function(dataLength) {
         $scope.numberOfPages = Math.ceil(dataLength / $scope.pageSize);
     };
 
+    // create the page numbers and store it on '$scope.pages' array
     $scope.createPages = function() {
         for (let ctr = 1; ctr <= $scope.numberOfPages; ctr++) {
             $scope.pages.push(ctr);
         }
     };
     
+    // set the current page on pagination link click
     $scope.setPage = function(page) {
         $scope.currentPage = page;
     };
 
+    // go to previous page
     $scope.prevPage = function() {
         if ($scope.currentPage > 1) {
             $scope.currentPage--;
         }
     };
 
+    // go to next page
     $scope.nextPage = function() {
         if ($scope.currentPage < $scope.numberOfPages) {
             $scope.currentPage++;
@@ -784,6 +792,10 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
     $scope.noteDoesNotExistError;
     $scope.readOnly = true;
     $scope.confirmDelete = false;
+    $scope.currentPage = 1;
+    $scope.pageSize = 8;
+    $scope.pages = [];
+    $scope.numberOfPages;
 
     /* ---------------------------- MAIN FUNCTIONS ---------------------------- */
 
@@ -826,6 +838,8 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                 });
                 // emit UNLOAD event
                 $scope.$emit('UNLOAD');
+                // calculate the number of pages to be generated
+                $scope.calculateNumberOfPages($scope.notes.length);
             });
         // if user is not an admin, proceed with this GET api call
         } else {
@@ -863,6 +877,8 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                 });
                 // emit UNLOAD event
                 $scope.$emit('UNLOAD');
+                // calculate the number of pages to be generated
+                $scope.calculateNumberOfPages($scope.notes.length);
             });
         };
     };
@@ -1064,6 +1080,47 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
     };
 
     /* ---------------------------- HELPER FUNCTIONS ---------------------------- */
+
+    // watch for changes in '$scope.notes' array and then invokes the createPages function
+    $scope.$watch('notes', function(newValue, oldValue) {
+        $scope.createPages();
+    })
+
+    // custom filter that receives the first index and last index of the tasks array
+    $scope.startFrom = function(index) {
+        return ( index >= ($scope.currentPage -1) * $scope.pageSize ) && ( index < $scope.currentPage * $scope.pageSize );
+    };
+
+    // calculate the number of pages based on '$scope.tasks' length and pageSize
+    $scope.calculateNumberOfPages = function(dataLength) {
+        $scope.numberOfPages = Math.ceil(dataLength / $scope.pageSize);
+    };
+
+    // create the page numbers and store it on '$scope.pages' array
+    $scope.createPages = function() {
+        for (let ctr = 1; ctr <= $scope.numberOfPages; ctr++) {
+            $scope.pages.push(ctr);
+        }
+    };
+    
+    // set the current page on pagination link click
+    $scope.setPage = function(page) {
+        $scope.currentPage = page;
+    };
+
+    // go to previous page
+    $scope.prevPage = function() {
+        if ($scope.currentPage > 1) {
+            $scope.currentPage--;
+        }
+    };
+
+    // go to next page
+    $scope.nextPage = function() {
+        if ($scope.currentPage < $scope.numberOfPages) {
+            $scope.currentPage++;
+        }
+    };
 
     // reset the value of newNote object properties
     function clearFields() {
