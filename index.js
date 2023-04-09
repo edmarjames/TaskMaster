@@ -332,7 +332,6 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
     $scope.pages = [];
     $scope.numberOfPages;
     $scope.emptyTask = false;
-    const overdueTask = [];
 
     /* ---------------------------- MAIN FUNCTIONS ---------------------------- */
 
@@ -769,6 +768,20 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         });
     };
 
+    // checks if the tasks of the user is empty
+    function checkIfEmpty(dataLength) {
+        if (dataLength <= 0) {
+            $scope.emptyTask = true;
+        };
+    };
+
+    // reset the value of newTask object properties
+    function clearFields() {
+        $scope.newTask.title = '';
+        $scope.newTask.description = '';
+        $scope.newTask.deadline = '';
+    };
+
     // watch for changes in '$scope.tasks' array and then invokes the createPages function
     $scope.$watch('tasks', function(newValue, oldValue) {
         $scope.createPages();
@@ -810,20 +823,6 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         }
     };
     
-    // checks if the tasks of the user is empty
-    function checkIfEmpty(dataLength) {
-        if (dataLength <= 0) {
-            $scope.emptyTask = true;
-        };
-    };
-
-    // reset the value of newTask object properties
-    function clearFields() {
-        $scope.newTask.title = '';
-        $scope.newTask.description = '';
-        $scope.newTask.deadline = '';
-    };
-
     // go back to task route and invoke clearFields function
     $scope.cancel = function () {
         $rootScope.successMessage = null;
@@ -1154,6 +1153,19 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
 
     /* ---------------------------- HELPER FUNCTIONS ---------------------------- */
 
+    // checks if the notes of the user is empty
+    function checkIfEmpty(dataLength) {
+        if (dataLength <= 0) {
+            $scope.emptyNote = true;
+        };
+    };
+
+    // reset the value of newNote object properties
+    function clearFields() {
+        $scope.newNote.title = '';
+        $scope.newNote.content = '';
+    };
+    
     // watch for changes in '$scope.notes' array and then invokes the createPages function
     $scope.$watch('notes', function(newValue, oldValue) {
         $scope.createPages();
@@ -1193,19 +1205,6 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         if ($scope.currentPage < $scope.numberOfPages) {
             $scope.currentPage++;
         }
-    };
-
-    // checks if the notes of the user is empty
-    function checkIfEmpty(dataLength) {
-        if (dataLength <= 0) {
-            $scope.emptyNote = true;
-        };
-    };
-
-    // reset the value of newNote object properties
-    function clearFields() {
-        $scope.newNote.title = '';
-        $scope.newNote.content = '';
     };
 
     // go back to note route and invoke clearFields function
