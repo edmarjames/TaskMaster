@@ -55,7 +55,7 @@ taskMasterApp.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-taskMasterApp.run(['$rootScope', '$window', function($rootScope, $window) {
+taskMasterApp.run(['$rootScope', '$window', '$location', function($rootScope, $window, $location) {
 
     // get the value of authenticated and isAdmin from the localStorage if page reloads
     $rootScope.authenticated = localStorage.getItem('authenticated');
@@ -96,6 +96,18 @@ taskMasterApp.run(['$rootScope', '$window', function($rootScope, $window) {
     $rootScope.$on('UNLOAD', function() {
         $rootScope.loading = false;
     });
+
+    // go back to previous route
+    $rootScope.goBackToPreviousRoute = function() {
+        // if there is a previousRoute visited
+        if ($rootScope.previousRoute) {
+            // go to previous route
+            $location.path($rootScope.previousRoute);
+        } else {
+            // else go back to task
+            $location.path('/task');
+        }
+    };
 
 }]);
 
