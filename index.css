@@ -1,11 +1,14 @@
+/* ---------------- CSS RESET ---------------- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Mabry pro", sans-serif;
-    /* outline: 2px solid red; */
 }
+/* --------------- CSS RESET END ------------- */
 
+
+/* ---------- GLOBAL CLASS SECTION ----------- */
 .Green {
     background: #23A094 !important;
 }
@@ -38,12 +41,112 @@ button[disabled="disabled"] {
     cursor: not-allowed !important;
 }
 
+.card-layout {
+    position: relative;
+    border: 3px solid black;
+    box-shadow: 5px 5px 0px #000000;
+    background: #ffffff;
+    width: auto;
+    max-height: 350px;
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.action-buttons-layout {
+    border-radius: 0 !important;
+    border: 2px solid black !important;
+    box-shadow: 5px 5px 0px #000000;
+}
+
+.task-container, .note-container, 
+.task-view-container, .create-task-container,
+.note-view-container, .create-note-container,
+.users-container {
+    position: relative;
+    width: 100%;
+    background: #D9D9D9;
+    min-height: 100vh;
+}
+
+.add-button {
+    position: fixed;
+    bottom: 20px;
+    right: 45px;
+}
+
+.add-button i {
+    text-decoration: none;
+    font-size: 4rem;
+    font-weight: 100 !important;
+    background-color: white;
+    border-radius: 50%;
+    color: black;
+}
+
+.add-button i:hover {
+    color: black;
+}
+
+input[id="title"], input[id="title"]:focus,
+textarea[id="description"], textarea[id="description"]:focus,
+input[id="deadline"], input[id="deadline"]:focus,
+input[id="status"], input[id="status"]:focus,
+select[id="color"], select[id="color"]:focus,
+textarea[id="content"], textarea[id="content"]:focus {
+    border-radius: 10px;
+    border: 3px solid black;
+}
+
+.task-view-form, .create-task-form,
+.note-view-form, .create-note-form {
+    background: #23A094;
+    border: 3px solid black;
+    box-shadow: 5px 5px 0 black;
+}
+
+.task-view-form label, .create-task-form label,
+.note-view-form label, .create-note-form label {
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 20px;
+    letter-spacing: 0.05em;
+    margin: 15px auto;
+}
+
+.task-view-form button, .task-view-form button:hover, .task-view-form button:disabled, 
+.create-task-form button, .create-task-form button:hover,
+.note-view-form button, .note-view-form button:hover, .note-view-form button:disabled,
+.create-note-form button, .create-note-form button:hover {
+    border: 2px solid black;
+    box-shadow: 3px 3px 0 black;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    margin: 0 5px;
+}
+
+.create-task-title, .create-note-title {
+    letter-spacing: 0.05em;
+    font-size: 2.5em;
+}
+
+.logout-modal, .delete-modal {
+    border: 3px solid black !important;
+    box-shadow: 5px 5px 0px #000000;
+}
+/* ------- GLOBAL CLASS SECTION END -------- */
+
+
+/* ------------ NAVBAR SECTION ------------- */
 .top-navbar {
     display: flex;
     width: 100%;
     list-style-type: none;
     margin-bottom: 0;
-    /* padding-left: 30px; */
     border-bottom: 4px solid black;
     flex-wrap: wrap;
 }
@@ -94,6 +197,13 @@ button[disabled="disabled"] {
 .bx-log-out-circle {
     font-size: 1.5rem;
 }
+/* ---------- NAVBAR SECTION END ----------- */
+
+
+/* ---------- LOGIN FORM SECTION ----------- */
+.first-row {
+    border-bottom: 4px solid black;
+}
 
 #login-title {
     font-weight: 400;
@@ -116,10 +226,6 @@ button[disabled="disabled"] {
     width: 100%;
 }
 
-.first-row {
-    border-bottom: 4px solid black;
-}
-
 .username-password-label {
     font-weight: 400;
     font-size: 25px;
@@ -127,7 +233,10 @@ button[disabled="disabled"] {
     letter-spacing: 0.05em;
     margin: 20px 0;
 }
+/* -------- LOGIN FORM SECTION END --------- */
 
+
+/* --------- REGISTER FORM SECTION --------- */
 #username, #password, #firstname, #lastname, #email, #confirm-password {
     border-radius: 10px !important;
     border: 3px solid black;
@@ -148,6 +257,57 @@ input[type="submit"]:hover{
     color: black;
 }
 
+#register-title {
+    font-weight: 400;
+    font-size: 35px;
+    line-height: 35px;
+    letter-spacing: 0.05em;
+}
+
+.register-page-layout {
+    position: relative;
+    background: #FFC900;
+    height: 100vh;
+}
+
+.register-page-layout label {
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 25px;
+    letter-spacing: 0.05em;
+}
+
+.back-button {
+    color: black;
+    border: 3px solid black;
+    padding: 0.7em;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 2px 2px 0px #000000;
+    background-color: #FF90E8;
+}
+
+.back-button:hover {
+    background: #23A094;
+}
+
+.back-button a {
+    color: black;
+    text-decoration: none;
+}
+
+.back-button a:hover {
+    color: inherit;
+}
+
+.back-button a i {
+    font-size: 1.5rem !important;
+}
+/* ------- REGISTER FORM SECTION END ------- */
+
+
+/* --------- LANDING PAGE LEFT SIDE -------- */
 .landing-page-intro {
     position: relative;
     display: flex;
@@ -155,16 +315,6 @@ input[type="submit"]:hover{
     overflow: hidden;
     height: 100vh;
     width: 100%;
-}
-
-.landing-page-backdrop {
-    height: 100vh;
-    width: 100%;
-    background: radial-gradient(circle, transparent 25%, #ffffff  26%),linear-gradient(45deg, transparent 46%, #000000 47%, #000000 52%, transparent 53%), linear-gradient(135deg, transparent 46%, #000000 47%, #000000 52%, transparent 53%);
-    background-size: 1em 1em;
-    background-color: #ffffff;
-    opacity: 0.85;
-    z-index: -1;
 }
 
 .text-container {
@@ -241,7 +391,10 @@ input[type="submit"]:hover{
 .image-layout #content {
     text-align: center;
 }
+/* ------- LANDING PAGE LEFT SIDE END ------ */
 
+
+/* ---------- SIGN UP HERE SECTION --------- */
 .sign-up-here-layout {
     position: relative;
     width: 100%;
@@ -339,108 +492,10 @@ input[type="submit"]:hover{
     top: 751px;
     background: #FFFFFF;
 }
+/* --------- SIGN UP HERE SECTION END -------- */
 
-#register-title {
-    font-weight: 400;
-    font-size: 35px;
-    line-height: 35px;
-    letter-spacing: 0.05em;
-}
 
-.register-page-layout {
-    position: relative;
-    background: #FFC900;
-    height: 100vh;
-}
-
-.register-page-layout label {
-    font-weight: 400;
-    font-size: 25px;
-    line-height: 25px;
-    letter-spacing: 0.05em;
-}
-
-.back-button {
-    color: black;
-    border: 3px solid black;
-    padding: 0.7em;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    box-shadow: 2px 2px 0px #000000;
-    background-color: #FF90E8;
-}
-
-/* .back-button-task-view {
-    transform: translateY(-100%);
-} */
-
-.back-button:hover {
-    background: #23A094;
-}
-
-.back-button a {
-    color: black;
-    text-decoration: none;
-}
-
-.back-button a:hover {
-    color: inherit;
-}
-
-.back-button a i {
-    font-size: 1.5rem !important;
-}
-
-.card-layout {
-    position: relative;
-    border: 3px solid black;
-    box-shadow: 5px 5px 0px #000000;
-    background: #ffffff;
-    width: auto;
-    max-height: 350px;
-    min-height: 350px;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-}
-
-.action-buttons-layout {
-    border-radius: 0 !important;
-    border: 2px solid black !important;
-    box-shadow: 5px 5px 0px #000000;
-}
-
-.task-container, .note-container, 
-.task-view-container, .create-task-container,
-.note-view-container, .create-note-container,
-.users-container {
-    position: relative;
-    width: 100%;
-    background: #D9D9D9;
-    min-height: 100vh;
-}
-
-.add-button {
-    position: fixed;
-    bottom: 20px;
-    right: 45px;
-}
-
-.add-button i {
-    text-decoration: none;
-    font-size: 4rem;
-    font-weight: 100 !important;
-    background-color: white;
-    border-radius: 50%;
-    color: black;
-}
-
-.add-button i:hover {
-    color: black;
-}
-
+/* --------------- TASK SECTION -------------- */
 .button-container {
     position: absolute;
     bottom: 30px;
@@ -448,56 +503,10 @@ input[type="submit"]:hover{
     right: 0;
     margin: auto;
 }
+/* ------------- TASK SECTION END ------------ */
 
-input[id="title"], input[id="title"]:focus,
-textarea[id="description"], textarea[id="description"]:focus,
-input[id="deadline"], input[id="deadline"]:focus,
-input[id="status"], input[id="status"]:focus,
-select[id="color"], select[id="color"]:focus,
-textarea[id="content"], textarea[id="content"]:focus {
-    border-radius: 10px;
-    border: 3px solid black;
-}
 
-.task-view-form, .create-task-form,
-.note-view-form, .create-note-form {
-    background: #23A094;
-    border: 3px solid black;
-    box-shadow: 5px 5px 0 black;
-}
-
-.task-view-form label, .create-task-form label,
-.note-view-form label, .create-note-form label {
-    font-weight: 400;
-    font-size: 25px;
-    line-height: 20px;
-    letter-spacing: 0.05em;
-    margin: 15px auto;
-}
-
-.task-view-form button, .task-view-form button:hover, .task-view-form button:disabled, 
-.create-task-form button, .create-task-form button:hover,
-.note-view-form button, .note-view-form button:hover, .note-view-form button:disabled,
-.create-note-form button, .create-note-form button:hover {
-    border: 2px solid black;
-    box-shadow: 3px 3px 0 black;
-    border-radius: 5px;
-    font-weight: 500;
-    font-size: 16px;
-    letter-spacing: 0.05em;
-    margin: 0 5px;
-}
-
-.create-task-title, .create-note-title {
-    letter-spacing: 0.05em;
-    font-size: 2.5em;
-}
-
-.logout-modal, .delete-modal {
-    border: 3px solid black !important;
-    box-shadow: 5px 5px 0px #000000;
-}
-
+/* ------------ TOAST ALERT SECTION ---------- */
 .toast-alert {
     position: absolute; 
     top: 10px; 
@@ -525,8 +534,20 @@ textarea[id="content"], textarea[id="content"]:focus {
 .toast-alert-success {
     background: #23A094 !important;
 }
+/* ---------- TOAST ALERT SECTION END --------- */
+
 
 /* ---------- LOADING BLOCK SCREEN ------------ */
+.landing-page-backdrop {
+    height: 100vh;
+    width: 100%;
+    background: radial-gradient(circle, transparent 25%, #ffffff  26%),linear-gradient(45deg, transparent 46%, #000000 47%, #000000 52%, transparent 53%), linear-gradient(135deg, transparent 46%, #000000 47%, #000000 52%, transparent 53%);
+    background-size: 1em 1em;
+    background-color: #ffffff;
+    opacity: 0.85;
+    z-index: -1;
+}
+
 .loader-container {
     position: fixed;
     top: 0;
@@ -569,73 +590,10 @@ textarea[id="content"], textarea[id="content"]:focus {
         transform: rotate(180deg)
     }
 }
+/* -------- END OF LOADING BLOCK SCREEN -------- */
 
-/* .spinner {
-    --size: 70px;
-    --first-block-clr: #23A094;
-    --second-block-clr: #FFC900;
-    --clr: #111;
-    width: 100px;
-    height: 100px;
-    position: relative;
-}
-   
-.spinner::after,.spinner::before {
-    box-sizing: border-box;
-    position: absolute;
-    content: "";
-    width: var(--size);
-    height: var(--size);
-    top: 50%;
-    animation: up 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite;
-    left: 50%;
-    background: var(--first-block-clr);
-}
-   
-.spinner::after {
-    background: var(--second-block-clr);
-    top: calc(50% - var(--size));
-    left: calc(50% - var(--size));
-    animation: down 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite;
-}
-   
-@keyframes down {
-    0%, 100% {
-     transform: none;
-    }
-   
-    25% {
-     transform: translateX(100%);
-    }
-   
-    50% {
-     transform: translateX(100%) translateY(100%);
-    }
-   
-    75% {
-     transform: translateY(100%);
-    }
-}
-   
-@keyframes up {
-    0%, 100% {
-        transform: none;
-    }
 
-    25% {
-        transform: translateX(-100%);
-    }
-
-    50% {
-        transform: translateX(-100%) translateY(-100%);
-    }
-
-    75% {
-        transform: translateY(-100%);
-    }
-} */
-/* ---------- END OF LOADING BLOCK SCREEN ------------ */
-
+/* ----------- PAGINATION SECTION -------------- */
 .pagination .page-item a {
     color: #000000 !important;
     border: 2px solid black;
@@ -647,7 +605,10 @@ textarea[id="content"], textarea[id="content"]:focus {
     background-color: #23A094 !important;
     color: #FFFFFF !important;
 }
+/* --------- PAGINATION SECTION END ------------ */
 
+
+/* ----------- EMPTY PAGE SECTION -------------- */
 .image-container {
     max-width: 700px;
 }
@@ -656,7 +617,10 @@ textarea[id="content"], textarea[id="content"]:focus {
     font-size: 2.5rem;
     text-align: center;
 }
+/* --------- EMPTY PAGE SECTION END ------------ */
 
+
+/* ---------- MEDIA QUERIES SECTION ------------ */
 @media(max-width: 1200px) {
     .text-container {
         left: 70px;
@@ -876,3 +840,4 @@ textarea[id="content"], textarea[id="content"]:focus {
         padding: 27px 113px;
     }
 }
+/* -------- MEDIA QUERIES SECTION END ---------- */
