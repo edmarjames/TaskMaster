@@ -82,13 +82,17 @@ taskMasterApp.run(['$rootScope', '$window', function($rootScope, $window) {
         }
     });
 
+    // toggles the 'rootScope.display' value
     $rootScope.toggleDisplay = function() {
         $rootScope.display = !$rootScope.display;
     }
 
+    // adds a load event listener and set the loading value to true
     $rootScope.$on('LOAD', function() {
         $rootScope.loading = true;
     });
+
+    // adds a unload event listener and set the loading value to false
     $rootScope.$on('UNLOAD', function() {
         $rootScope.loading = false;
     });
@@ -359,7 +363,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 $scope.$emit('UNLOAD');
                 // calculate the number of pages to be generated
                 $scope.calculateNumberOfPages($scope.tasks.length);
-
+                // check if the API response is empty
                 checkIfEmpty(response.data.data.length);
             });
         // if user is not an admin, proceed with this GET api call
@@ -400,7 +404,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 $scope.$emit('UNLOAD');
                 // calculate the number of pages to be generated
                 $scope.calculateNumberOfPages($scope.tasks.length);
-
+                // check if the API response is empty
                 checkIfEmpty(response.data.data.length);
             });
         };
@@ -719,13 +723,6 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         $scope.createPages();
     });
 
-    const checkIfEmpty = (dataLength) => {
-        if (dataLength <= 0) {
-            $scope.emptyTask = true;
-        };
-        // $scope.$emit('UNLOAD');
-    };
-
     // custom filter that receives the first index and last index of the tasks array
     $scope.startFrom = function(index) {
         return ( index >= ($scope.currentPage -1) * $scope.pageSize ) && ( index < $scope.currentPage * $scope.pageSize );
@@ -762,6 +759,13 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
         }
     };
     
+    // checks if the tasks of the user is empty
+    function checkIfEmpty(dataLength) {
+        if (dataLength <= 0) {
+            $scope.emptyTask = true;
+        };
+    };
+
     // reset the value of newTask object properties
     function clearFields() {
         $scope.newTask.title = '';
@@ -854,7 +858,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                 $scope.$emit('UNLOAD');
                 // calculate the number of pages to be generated
                 $scope.calculateNumberOfPages($scope.notes.length);
-
+                // check if the API response is empty
                 checkIfEmpty(response.data.data.length);
             });
         // if user is not an admin, proceed with this GET api call
@@ -895,7 +899,7 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
                 $scope.$emit('UNLOAD');
                 // calculate the number of pages to be generated
                 $scope.calculateNumberOfPages($scope.notes.length);
-
+                // check if the API response is empty
                 checkIfEmpty(response.data.data.length);
             });
         };
@@ -1104,13 +1108,6 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         $scope.createPages();
     });
 
-    const checkIfEmpty = (dataLength) => {
-        if (dataLength <= 0) {
-            $scope.emptyNote = true;
-        };
-        // $scope.$emit('UNLOAD');
-    };
-
     // custom filter that receives the first index and last index of the tasks array
     $scope.startFrom = function(index) {
         return ( index >= ($scope.currentPage -1) * $scope.pageSize ) && ( index < $scope.currentPage * $scope.pageSize );
@@ -1145,6 +1142,13 @@ taskMasterApp.controller('NoteController', ['$rootScope', '$scope', '$http', '$l
         if ($scope.currentPage < $scope.numberOfPages) {
             $scope.currentPage++;
         }
+    };
+
+    // checks if the notes of the user is empty
+    function checkIfEmpty(dataLength) {
+        if (dataLength <= 0) {
+            $scope.emptyNote = true;
+        };
     };
 
     // reset the value of newNote object properties
