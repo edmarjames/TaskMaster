@@ -332,6 +332,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
     $scope.pages = [];
     $scope.numberOfPages;
     $scope.emptyTask = false;
+    const overdueTask = [];
 
     /* ---------------------------- MAIN FUNCTIONS ---------------------------- */
 
@@ -418,6 +419,8 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
                 $scope.calculateNumberOfPages($scope.tasks.length);
                 // check if the API response is empty
                 checkIfEmpty(response.data.data.length);
+                // checks if there are overdue tasks
+                checkOverdueTask($scope.tasks);
             });
         };
     };
@@ -729,6 +732,42 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
     };
 
     /* ---------------------------- HELPER FUNCTIONS ---------------------------- */
+
+    // checks every tasks deadline and updates it if it is overdue
+    function checkOverdueTask(tasks) {
+        let date = new Date();
+        let dateString = date.toISOString();
+        let slicedDateString = dateString.slice(0, 10);
+        tasks.forEach(task => {
+            if (task.attributes.deadline == slicedDateString || task.attributes.deadline < slicedDateString) {
+                updateOverdueTask(task.id);
+            };
+        });
+    };
+
+    // Updates the status of the task to 'Overdue'
+    async function updateOverdueTask(taskId) {
+        await $http.patch(`https://todo-list-notes-api.onrender.com/task/${taskId}/`, 
+        {
+            status: 'Overdue',
+        },
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        })
+        .then((response) => {
+            if (response.data != null) {
+                console.log(response.data.data.message);
+            }  
+        })
+        .catch((response) => {
+            if (response.data.errors[0].detail) {
+                console.log(response.data.errors[0].detail);
+            };
+        });
+    };
 
     // watch for changes in '$scope.tasks' array and then invokes the createPages function
     $scope.$watch('tasks', function(newValue, oldValue) {

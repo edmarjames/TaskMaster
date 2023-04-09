@@ -47,8 +47,8 @@ button[disabled="disabled"] {
     box-shadow: 5px 5px 0px #000000;
     background: #ffffff;
     width: auto;
-    max-height: 350px;
-    min-height: 350px;
+    max-height: 400px;
+    min-height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: start;
