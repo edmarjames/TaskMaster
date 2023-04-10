@@ -52,7 +52,12 @@
         </div>
         <div class="form-group">
             <label for="status">Status</label>
-            <input ng-model="specificTask.status" ng-readonly="readOnly" id="status" class="form-control" type="text">
+            <select ng-model="specificTask.status" ng-init="specificTask.status = specificTask.status || ''" ng-disabled="readOnly" id="status" class="form-control">
+                <option value=""></option>
+                <option value="pending">Pending</option>
+                <option value="completed">Completed</option>
+                <option value="overdue">Overdue</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="color">Color</label>

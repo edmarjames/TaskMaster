@@ -748,7 +748,7 @@ taskMasterApp.controller('TaskController', ['$rootScope', '$scope', '$http', '$l
     async function updateOverdueTask(taskId) {
         await $http.patch(`https://todo-list-notes-api.onrender.com/task/${taskId}/`, 
         {
-            status: 'Overdue',
+            status: 'overdue',
         },
         {
             headers: {
