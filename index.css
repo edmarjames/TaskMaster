@@ -105,6 +105,7 @@ textarea[id="content"], textarea[id="content"]:focus {
     background: #23A094;
     border: 3px solid black;
     box-shadow: 5px 5px 0 black;
+    width: 75%;
 }
 
 .task-view-form label, .create-task-form label,
@@ -783,6 +784,10 @@ input[type="submit"]:hover{
     .image-container {
         max-width: 400px;
     }
+    .task-view-form, .create-task-form,
+    .note-view-form, .create-note-form {
+        width: 100%;
+    }
 }
 
 /* surface duo */
@@ -790,12 +795,46 @@ input[type="submit"]:hover{
     .top-navbar li a{
         padding: 27px 243px;
     }
+    .sign-up-here-second-note {
+        top: 600px;
+        left: 238px;
+    }
+    .second-task {
+        left: 300px;
+        top: 540px;
+    }
 }
 
 /* iphone xr */
 @media(max-width: 414px) {
     .top-navbar li a{
         padding: 27px 180px;
+    }
+    .text-container {
+        left: 45px;
+        top: 230px;
+    }
+    .first-note {
+        left: 280px;
+    }
+    .second-note {
+        left: -100px;
+        top: 15px;
+    }
+    .second-task {
+        left: 280px;
+        top: 650px;
+    }
+    .first-task {
+        left: -60px;
+    }
+    .sign-up-here-third-note {
+        left: -185px !important;
+        top: 10px;
+    }
+    .sign-up-here-second-note {
+        left: 288px;
+        top: 550px;
     }
 }
 
@@ -824,6 +863,27 @@ input[type="submit"]:hover{
 @media(max-width: 375px) {
     .top-navbar li a{
         padding: 27px 160px;
+    }
+    .text-container {
+        top: 170px;
+    }
+    .first-note {
+        top: -50px;
+    }
+    .second-note {
+        left: -150px;
+        top: -35px;
+    }
+    .first-task {
+        left: -80px;
+        top: 550px;
+    }
+    .second-task {
+        left: 230px;
+        top: 580px;
+    }
+    .sign-up-here-third-note {
+        top: -10px;
     }
 }
 

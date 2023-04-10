@@ -37,7 +37,7 @@
     <!-- end toast alert -->
 
     <!-- note view form -->
-    <form class="note-view-form w-75 p-5">
+    <form class="note-view-form p-5">
         <div class="form-group">
             <label for="title">Title</label>
             <input ng-model="specificNote.title" ng-readonly="readOnly" id="title" class="form-control" type="text">
@@ -57,7 +57,7 @@
                 <option value="Yellow">Yellow</option>
             </select>
         </div>
-        <div class="d-flex justify-content-sm-center justify-content-md-end">
+        <div class="d-flex justify-content-center justify-content-md-end">
             <button ng-click="toggleReadOnly()" class="btn btn-success ml-1">Edit</button>
             <button ng-click="updateNote(specificNote.id)" ng-disabled="readOnly" class="btn btn-primary ml-1" type="submit">Save</button>
             <button ng-click="goBackToPreviousRoute()" class="btn btn-danger ml-1">Cancel</button>

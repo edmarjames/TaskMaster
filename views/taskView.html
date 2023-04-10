@@ -37,7 +37,7 @@
     <!-- end toast alert -->
 
     <!-- task view form -->
-    <form class="task-view-form w-75 p-5">
+    <form class="task-view-form p-5">
         <div class="form-group">
             <label for="title">Title</label>
             <input ng-model="specificTask.title" ng-readonly="readOnly" id="title" class="form-control" type="text">
@@ -65,7 +65,7 @@
                 <option value="Yellow">Yellow</option>
             </select>
         </div>
-        <div class="d-flex justify-content-sm-center justify-content-md-end">
+        <div class="d-flex justify-content-center justify-content-md-end">
             <button ng-click="toggleReadOnly()" class="btn btn-success">Edit</button>
             <button ng-click="updateTask(specificTask.id)" ng-disabled="readOnly" class="btn btn-primary" type="submit">Save</button>
             <button ng-click="goBackToPreviousRoute()" class="btn btn-danger">Cancel</button>
