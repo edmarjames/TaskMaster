@@ -123,31 +123,13 @@ You may also see any lint errors in the console.
 As of now, I'm taking a break on development since I am also going to be busy on my day job. But please feel free to check the code and let me know if you find any bugs or potential new features.
 
 ## <a name="#language-and-tools"></a>Languages and tools used
-<p align="center">
-    ![logo-mongodb-with-name](/uploads/473d6de9b4ddb41f2672e5c38c2626f1/logo-mongodb-with-name.png)
-    ![logo-expressjs-with-name](/uploads/dfcf1922987758c737a560a5f6f3bad8/logo-expressjs-with-name.png)
-    ![logo-react-with-name](/uploads/36557797de06919dd74e5ff42aceb7b3/logo-react-with-name.png)
-    ![logo-nodejs-with-name](/uploads/14da34fb3cbab4055370f5f99db60ab2/logo-nodejs-with-name.png)
-    ![logo-html5-with-name](/uploads/79f97d2ded15627023401e1165e7cf9f/logo-html5-with-name.png)
-    ![logo-css3-with-name](/uploads/0de4e39e6f099a5721e7699c6c86a14e/logo-css3-with-name.png)
-    ![logo-bootstrap-with-name](/uploads/bcb7ba7ea33a2b54d47fc7535813f2fa/logo-bootstrap-with-name.png)
-    ![logo-javascript-with-name](/uploads/6d149caa9030fd32ef7a20c7724a0dd3/logo-javascript-with-name.png)
-    ![logo-rest-with-name](/uploads/ed7d297e6498556aa8c658c060f1264b/logo-rest-with-name.png)
-    ![logo-git-with-name](/uploads/7b9d20b158bbcb8ee9eeb85351f96a3d/logo-git-with-name.png)
-    ![logo-postman-with-name](/uploads/3594a6094f0747b7c9d26b03627ecf42/logo-postman-with-name.png)
-    ![logo-sublime-text-3-with-name](/uploads/de00ce74622a8826b978d075eb513dcf/logo-sublime-text-3-with-name.png)
-    ![vercel](/uploads/afc6db5ff11c4b1c6dd89032ddf9b8ae/vercel.png)
+<p align="center" style="display: flex; justify-content: space-around;">
+    <img src="https://i.ibb.co/k3wwt4x/logo-html5-with-name.png" width="140" height="150"/>
+    <img src="https://i.ibb.co/SnF7QHP/logo-css3-with-name.png" width="140" height="150"/>
+    <img src="https://i.ibb.co/X3pP5Gd/angularjs-with-title.png" width="130" height="150"/>
 </p>
-
-## Other useful tools used
-
-+ [Image cloud repository](https://imgbb.com/)
-+ [Image background remover](https://www.remove.bg/upload)
-+ [Da vinci resolve 18](https://www.blackmagicdesign.com/products/davinciresolve/whatsnew)
-+ [Adobe illustrator](https://www.adobe.com/ph_en/products/illustrator/free-trial-download.html)
-+ [Royalty free images](https://unsplash.com/)
-+ [Gif and illustration creator](https://storyset.com/)
-+ [Google fonts](https://fonts.google.com/specimen/Poppins?query=poppins)
-+ [Boxicons](https://boxicons.com/)
-+ [Box shadow creator](https://shadows.brumm.af/)
-+ [Box shadow creator](https://neumorphism.io/#e2eee8)
+<p align="center" style="display: flex; justify-content: space-around;">
+    <img src="https://i.ibb.co/HP8FB7x/python-with-title.png" width="130" height="140"/>
+    <img src="https://i.ibb.co/ZJjfw91/django-with-title.png" width="120" height="150"/>
+    <img src="https://i.ibb.co/VWnyF7X/drf.png" width="140" height="150"/>
+</p>
