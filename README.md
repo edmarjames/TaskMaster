@@ -63,16 +63,7 @@ This project is somewhat experimental for me, which is why I decided to incorpor
 
 ## <a name="#upcoming-new-features"></a>Upcoming New Features
 
-Since my project does not have features yet that are present on popular E-commerce sites nowadays. I am continously developing new features that will transform my app into a real and publishable one.
-
-Here is an overview of the upcoming features
-
-+ Add shipping address on checkout
-+ Payment options
-+ Order status
-+ Order tracking
-+ Order cancellation
-+ Product review
+I am planning to make the Task and Note card to be in a drag and drop behavior so that arranging and sorting will be easy. Also, deleting a task/note will be easy when dragging it to a trash bin.
 
 ## <a name="#mobile-responsiveness"><a/>Mobile responsiveness
 
