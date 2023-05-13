@@ -4,7 +4,6 @@
 + [Upcoming new features](#upcoming-new-features)
 + [Mobile responsiveness](#mobile-responsiveness)
 + [Installation](#installation)
-+ [Roadmap](#roadmap)
 + [Project status](#project-status)
 + [Languages and tools](#language-and-tools)
 
@@ -75,57 +74,53 @@ Here are some snapshots.
 + **Mobile** Screen size (576px)
 
 <details><summary>Click to expand</summary>
-![mobile-landing-page-2](/uploads/cbb6d25a135e81a37a4323898506c81f/mobile-landing-page-2.png)
-![featured-products](/uploads/7a3ebd7448a1d38dbc7879d841274a74/featured-products.png)
-![exclusive-product](/uploads/ce7d4a49a6051324c35e8233708529cc/exclusive-product.png)
-![featured-brands](/uploads/06c05d9da67e0c096bd9850378b24268/featured-brands.png)
-![footer-new](/uploads/084e80a0d9282a544df5179b74cd49a2/footer-new.png)
+<p align="center" style="display: flex; justify-content: space-around;">
+    <img src="https://github.com/edmarjames/TaskMaster/assets/112933982/48c5acb5-b36d-488e-be73-7d6994acdbe5" width="575" height="896"/>
+</p>
+<p align="center" style="display: flex; justify-content: space-around;">
+    <img src="https://github.com/edmarjames/TaskMaster/assets/112933982/06532fdf-0188-4858-9bf1-e223dfeda930" width="579" height="896"/>
+</p>
 </details>
 
 + **Medium** Screen size (768px)
 
 <details><summary>Click to expand</summary>
-![products-medium](/uploads/76f408f15b8ff59ab5f6d7f530063d9c/products-medium.png)
-![product-view-medium](/uploads/b1912c4a8f40ca714c8015ff7fedb3e2/product-view-medium.png)
-![add-to-cart-medium](/uploads/64fe66305bd29a000a1eb13b0e2222ae/add-to-cart-medium.png)
+<p align="center" style="display: flex; justify-content: space-around;">
+    <img src="https://github.com/edmarjames/TaskMaster/assets/112933982/94befe79-1e32-4555-a42d-90f9487c82a8" width="770" height="892"/>
+</p>
+<p align="center" style="display: flex; justify-content: space-around;">
+    <img src="https://github.com/edmarjames/TaskMaster/assets/112933982/145d56c0-d1ac-46d0-aed8-fcc479c54919" width="767" height="890"/>
+</p>
 </details>
 
 + **Large** Screen size (992px)
 
 <details><summary>Click to expand</summary>
-![register-large](/uploads/1417e02af45319c471a4c36dbb9df6f4/register-large.png)
-![login-large](/uploads/cd8ec68d52f13b1c7f08b27fc813e311/login-large.png)
-![products-catalog-large](/uploads/af3f756dbcc8943d483df0876e879199/products-catalog-large.png)
-![order-history-large](/uploads/011787a99fb3f8df3465631257477550/order-history-large.png)
+<p align="center" style="display: flex; justify-content: space-around;">
+    <img src="https://github.com/edmarjames/TaskMaster/assets/112933982/52f6fbd1-97b9-4d41-b900-673cc922e68f" width="991" height="892"/>
+</p>
+<p align="center" style="display: flex; justify-content: space-around;">
+    <img src="https://github.com/edmarjames/TaskMaster/assets/112933982/08fd52ac-cd8d-4f82-acde-a81c5779aa7d" width="990" height="891"/>
+</p>
+<p align="center" style="display: flex; justify-content: space-around;">
+    <img src="https://github.com/edmarjames/TaskMaster/assets/112933982/70500166-5246-4915-bab2-28715ba99ff9" width="990" height="892"/>
+</p>
 </details>
 
 ## Installation
 
 If you want to checkout the code and install it on your local machine you may clone my repo by simply running this command.
 
-### `git clone git@gitlab.com:batch-211-bautista/capstone-3-bautista.git`
+### `git clone https://github.com/edmarjames/TaskMaster.git`
 
-Then install the packages by simply running.
-
-### `npm install`
-
-Then simply run this command to start it on your localhost.
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Then you may use the LiveServer VS code extension to run the index.html to your local server
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-## Roadmap
-
-For the future releases, I'm planning to follow the list of my upcoming new features listed above and I will also update this README file once I got new ideas along the way.
-
 ## <a name="#project-status"></a>Project Status
 
-As of now, I'm taking a break on development since I am also going to be busy on Job hunting. But please feel free to check the code and let me know if you find any bugs or potential new features.
+As of now, I'm taking a break on development since I am also going to be busy on my day job. But please feel free to check the code and let me know if you find any bugs or potential new features.
 
 ## <a name="#language-and-tools"></a>Languages and tools used
 <p align="center">
