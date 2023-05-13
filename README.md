@@ -76,7 +76,7 @@ Here is an overview of the upcoming features
 
 ## <a name="#mobile-responsiveness"><a/>Mobile responsiveness
 
-BikeMeds is also responsive on various screen sizes such as mobile, tablets, laptops and desktop screens.
+TaskMaster is also responsive on various screen sizes such as mobile, tablets, laptops and desktop screens.
 I followed the bootstrap breakpoints to make the frontend responsive on the said screen sizes. 
 
 Here are some snapshots.
