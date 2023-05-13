@@ -21,57 +21,45 @@ This project is somewhat experimental for me, which is why I decided to incorpor
 
 ## Features
 
-1. **Login** - for the login page, I use Primereact's formik form with built in input validations and password peek. For the backend validations it determines if the username/email or password is incorrect then it will show you an error message.
+1. **Login** - for the login page, I use bootstrap components. For the backend validations it determines if the username or password is incorrect then it will show an error message.
 
-2. **Sign up** - for the sign up page, I also use Primereact's formik form with built in input validation for email, password peek and password suggestion. For the backend validation it will show an error message if you try to sign up using an email that is already taken or already existing in the database.
+2. **Register** - for the sign up page, I also use bootstrap components. The following are the backend validations, checks if the username is already taken or already existing in the database, checks if the email provided is valid, validates if the password and confirm password match and all fields are required.
 
-3. **Featured products** - on the landing page, there is a featured products section. Non-authenticated users can view the details of the product, but they need to login to perform operations such as add to cart or buy now.
+3. **View all task** - The authenticated user can view all his/her created task and can modify them using the action buttons on the bottom, the user will also be notified of the overdue task since an overdue badge should appear on the top right corner of the task card.
 
-4. **Exclusive product** - just beneath the featured products there is an exclusive product section where it only shows one product. Non-authenticated users can view the details of the product, but they need to login to perform operations such as add to cart or buy now.
+4. **View specific task** - The authenticated user can view all the details of a single task by click the **more details** button of the action buttons.
 
-5. **View profile** - authenticated user's can view their basic details such as fullname, email and mobile number.
+5. **Create task** - Creating a task only requires a title, description, color and a deadline. The following are the validations, checks if the title is already taken or already existing in the database, checks if the deadline provided is in the past.
 
-    + **Change password** - inside the view profile page, authenticated user's have the ability to update their password. They just need to enter their old password and their new password. However, the old password must be correct to complete the operation. Otherwise it will show an error message saying that the old password did not match.
+6. **Update task** - For updating a task, an authenticated user can edit any fields that he/she wants to modify, however before doing so the edit button should be click first so that the fields and save button will be enabled. The following are the validations, checks if the taskId is existing and if the updated title is the same with other existing tasks.
 
-6. **Products catalog** - non-authenticated and authenticated users can view the active products catalog and see the details of a certain product that they want. For non-authenticated users they must login first to perform operations such as add to cart and checkout.
+7. **Delete task** - Deleting a task is just easy, the authenticated user just need to click the delete button of the task to be deleted then a confirmation modal will appear before proceeding on deletion.
 
-    + **Single product view** - upon entering the products catalog page, non-authenticated and authenticated users can view more details of a certain product by clicking the learn more button at the bottom of the product card.
+8. **Archive task** - The authenticated user can also archive a task by simply clicking the archive button of the task to be archived then a confirmation modal will appear before proceeding on archiving, once done the archive button will be replaced with activate button.
 
-7. **Add to cart** - authenticated users have the ability to add a single or multiple products to their cart and they can modify the quantity of a specific product, remove it from the cart or checkout the product.
+9. **Activate task** - The authenticated user can also activate a task by simply clicking the activate button of the task to be activated then a confirmation modal will appear before proceeding on activating, once done the activate button will be replaced with archive button.
 
-    + **Update product quantity** - authenticated users have the ability to update the quantity of a certain product upon adding it to cart.
+10. **View all note** - The authenticated user can view all his/her created notes and can modify them using the action buttons on the bottom.
 
-    + **Remove single product** - authenticated users have the choice to remove a single product from the cart.
+11. **View specific note** - The authenticated user can view all the details of a single note by click the **more details** button of the action buttons.
 
-    + **Remove group of products** - if the user add multiple products to the cart at the same time, it will be considered a group of products, hence it can also be removed by group.
+10. **Create a note** - Creating a note only requires a title, content and color. For the validation it checks if the title is already taken or already existing in the database.
 
-    + **Checkout** - authenticated users have the choice to checkout a single or multiple products from their cart.
+11. **Update note** - For updating a note, an authenticated user can edit any fields that he/she wants to modify, however before doing so the edit button should be click first so that the fields and save button will be enabled. The following are the validations, checks if the noteId is existing and if the updated title is the same with other existing note.
 
-8. **Buy now** - authenticated users can buy a single or multiple product. Upon successfull checkout the order will appear on the order history.
+12. **Delete note** - Deleting a note is just easy, the authenticated user just need to click the delete button of the note to be deleted then a confirmation modal will appear before proceeding on deletion.
 
-9. **Item Queue** - if a user is adding multiple products to the cart. He/she will have the ability to check the item queue which contains the previous products selected. As of now it can only show the last item added on queue, however there is a helper badge showing how many items are in the queue. From there the user can directly add the products to his/her cart. The same logic applies when creating multiple orders at the same time.
+13. **Admin dashboard** - besides from the normal user, an admin can login to the app and manage users and view all tasks and notes.
 
-10. **Order history** - authenticated users can view their order history which contains their orders from direct checkout, ***Buy now*** or checkout from cart.
+    1. **View all users** - admin can view all users registered to the application.
 
-11. **Admin dashboard** - besides from the normal user, an admin can login to the app and manage products, users and view all orders.
+        + **Set user as admin** - admin has the choice to pick a normal user and provide admin privileges to it.
 
-    1. **View all products** - admin can view all products either it is an archived or active product.
+        + **Set as normal user** - admin can also revoke admin privileges and revert a user back to a normal user.
 
-        + **Add new product** - admin can add a new product to the database. For the backend validation, the operation will fail if the admin input a product name that already exists on the database. To avoid duplicate products and the product name will also serve as a unique identifier.
+    2. **View all tasks** - admin has a read only access to all created tasks of all users.
 
-        + **Edit product details** - admin can edit the details of a certain product, there is also a live preview of the product image upon updating the image source text field.
-
-        + **Archive product** - admin have the ability to archive a product if it is out of stock or for phase out.
-
-        + **Activate product** - admin also have the ability to activate a product from being archived. Upon activating it, normal users will see it automatically on the products catalog page.
-
-    2. **View all users** - admin can view all normal users who are currently registered on the app.
-
-        + **Set as admin** - admin has the choice to pick a normal user and provide admin privilages to it.
-
-        + **Set as normal user** - admin can also revoke admin privilages and revert a user back to a normal user.
-
-    3. **View all user's order** - admin can also view all orders created by all users.
+    3. **View all notes** - admin has a read only access to all created notes of all users. 
 
 ## <a name="#upcoming-new-features"></a>Upcoming New Features
 
